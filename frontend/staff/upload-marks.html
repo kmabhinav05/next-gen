@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Assessment Marks | Next Gen Grading</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+  <style>
+    .drop-zone {
+      border: 2px dashed #0d9488;
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      background: #f8fafc;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      background: rgba(13, 148, 136, 0.08);
+      border-color: #0d9488;
+    }
+    [data-theme="dark"] .drop-zone {
+      background: #0f172a;
+      border-color: #0d9488;
+      color: #f8fafc;
+    }
+    [data-theme="dark"] .drop-zone:hover, [data-theme="dark"] .drop-zone.dragover {
+      background: rgba(13, 148, 136, 0.16);
+      border-color: #2dd4bf;
+    }
+    .badge-error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #f87171;
+    }
+    [data-theme="dark"] .badge-error {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="brand-text">
+        <div class="brand-title">Next Gen Grading</div>
+        <div class="brand-subtitle">Faculty Portal</div>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="/staff/index.html" class="nav-link">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/staff/upload-marks.html" class="nav-link active">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Upload Marks (Excel)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/staff/progress-cards.html" class="nav-link">
+          <i class="fa-solid fa-id-card"></i>
+          <span>Progress Cards</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/index.html" class="nav-link">
+          <i class="fa-solid fa-globe"></i>
+          <span>Public Portal</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" onclick="logout()" class="nav-link text-danger">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Wrapper -->
+  <div class="main-wrapper">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left d-flex align-items-center">
+        <button class="btn btn-sm btn-light d-lg-none me-2 p-2 rounded-3 border" onclick="toggleSidebar()" aria-label="Toggle navigation drawer" title="Menu" style="min-width: 44px; min-height: 44px;">
+          <i class="fa-solid fa-bars fs-5"></i>
+        </button>
+        <div>
+          <h5 class="page-title mb-0">Excel Marks Import & Validation</h5>
+          <span class="text-muted small">Upload, validate and commit continuous assessment scores</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle-btn me-2" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <div class="user-badge" id="userBadgeContainer"></div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="page-content">
+      <!-- Step 1: Select Course & Download Template Card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-1 text-teal me-2"></i>Select Course Allocation & Download Template</h6>
+        </div>
+        <div class="card-body">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-7">
+              <label class="form-label fw-bold">Select Assigned Course & Class *</label>
+              <select class="form-select" id="courseSelect" onchange="onCourseSelected()">
+                <option value="">-- Choose Allocation --</option>
+              </select>
+            </div>
+            <div class="col-md-5">
+              <button class="btn btn-outline-teal w-100" id="downloadTemplateBtn" onclick="downloadTemplate()" disabled>
+                <i class="fa-solid fa-download me-1"></i> Download Pre-Formatted Excel Template
+              </button>
+            </div>
+          </div>
+          <small class="text-muted d-block mt-2">
+            <i class="fa-solid fa-circle-info text-teal me-1"></i> The downloaded template contains student register numbers pre-filled in alphabetical order with required assessment columns.
+          </small>
+        </div>
+      </div>
+
+      <!-- Step 2: Upload Excel File Card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3 border-bottom">
+          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-2 text-teal me-2"></i>Upload Completed Excel File (.xlsx)</h6>
+        </div>
+        <div class="card-body">
+          <form id="uploadForm" onsubmit="handleAnalyzeExcel(event)">
+            <div class="drop-zone mb-3" id="dropZone" onclick="document.getElementById('excelFileInput').click()">
+              <i class="fa-solid fa-cloud-arrow-up fa-3x text-teal mb-2"></i>
+              <h6 class="fw-bold mb-1" id="dropZoneText">Click or Drag & Drop Excel File Here</h6>
+              <p class="small text-muted mb-0">Supported formats: .xlsx, .xls (Maximum 5MB)</p>
+              <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="d-none" onchange="onFileSelected(this)">
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small text-muted" id="selectedFileInfo">No file chosen yet</span>
+              <button type="submit" class="btn btn-teal px-4" id="analyzeBtn" disabled>
+                <i class="fa-solid fa-magnifying-glass-chart me-1"></i> Analyze & Validate Records
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Step 3: Validation Results & Preview Card (Appears after analysis) -->
+      <div class="card border-0 shadow-sm mb-4 d-none" id="validationResultsCard">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-3 text-teal me-2"></i>Validation Analysis & Data Preview</h6>
+            <small class="text-muted" id="validationSummaryText">Verification summary</small>
+          </div>
+          <button class="btn btn-success px-4" id="commitBtn" onclick="commitMarks()" disabled>
+            <i class="fa-solid fa-circle-check me-1"></i> Commit Marks to Database
+          </button>
+        </div>
+        <div class="card-body">
+          <!-- Summary Counters -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="p-3 border rounded bg-light text-center">
+                <span class="small text-muted fw-bold d-block">Total Rows Read</span>
+                <h4 class="mb-0 fw-bold" id="totalRowsCount">0</h4>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 border rounded bg-success-subtle text-center">
+                <span class="small text-success fw-bold d-block">Valid Records</span>
+                <h4 class="mb-0 fw-bold text-success" id="validRowsCount">0</h4>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 border rounded bg-danger-subtle text-center">
+                <span class="small text-danger fw-bold d-block">Validation Issues</span>
+                <h4 class="mb-0 fw-bold text-danger" id="errorRowsCount">0</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Alert List (if any) -->
+          <div id="errorSection" class="d-none mb-4">
+            <div class="alert alert-danger border-0">
+              <h6 class="fw-bold mb-2"><i class="fa-solid fa-triangle-exclamation me-2"></i>The following issues were detected:</h6>
+              <ul class="mb-0 ps-3 small" id="errorList"></ul>
+            </div>
+          </div>
+
+          <!-- Preview Table of Valid Rows -->
+          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-table me-2 text-teal"></i>Valid Records Ready for Commit</h6>
+          <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
+            <table class="table table-sm table-bordered table-hover align-middle mb-0">
+              <thead class="table-light sticky-top">
+                <tr>
+                  <th>Row #</th>
+                  <th>Register Number</th>
+                  <th>Student Name</th>
+                  <th>Assessment</th>
+                  <th>Max Marks</th>
+                  <th>Marks Obtained</th>
+                  <th>Absent?</th>
+                  <th>Remarks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="previewTableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+  let allocatedCourses = [];
+  let selectedFile = null;
+  let parsedValidRows = [];
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const user = requireAuth('staff');
+    if (!user) return;
+    renderUserBadge();
+
+    // Check query params for pre-selection
+    const urlParams = new URLSearchParams(window.location.search);
+    const preClassId = urlParams.get('classId');
+    const preSubjectId = urlParams.get('subjectId');
+
+    await loadAllocations(preClassId, preSubjectId);
+    setupDropZone();
+  });
+
+  async function loadAllocations(preClassId, preSubjectId) {
+    try {
+      const res = await api.get('/staff/dashboard');
+      if (res.success && res.data) {
+        allocatedCourses = res.data.assignedCourses || [];
+        const select = document.getElementById('courseSelect');
+        select.innerHTML = '<option value="">-- Choose Allocation --</option>' +
+          allocatedCourses.map(c => `
+            <option value="${c.class_id}_${c.subject_id}">
+              ${c.subject_code} - ${c.subject_name} (${c.batch_name} Sec ${c.section})
+            </option>
+          `).join('');
+
+        if (preClassId && preSubjectId) {
+          select.value = `${preClassId}_${preSubjectId}`;
+          onCourseSelected();
+        }
+      }
+    } catch (err) {
+      showToast('Failed to load assigned courses', 'danger');
+    }
+  }
+
+  function onCourseSelected() {
+    const val = document.getElementById('courseSelect').value;
+    const downloadBtn = document.getElementById('downloadTemplateBtn');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+
+    if (val) {
+      downloadBtn.disabled = false;
+      if (selectedFile) analyzeBtn.disabled = false;
+    } else {
+      downloadBtn.disabled = true;
+      analyzeBtn.disabled = true;
+    }
+  }
+
+  function downloadTemplate() {
+    const val = document.getElementById('courseSelect').value;
+    if (!val) return;
+    const [classId, subjectId] = val.split('_');
+    window.location.href = `/api/staff/excel/template?classId=${classId}&subjectId=${subjectId}`;
+  }
+
+  function setupDropZone() {
+    const dropZone = document.getElementById('dropZone');
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+      }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length > 0) {
+        setFile(files[0]);
+      }
+    });
+  }
+
+  function onFileSelected(input) {
+    if (input.files.length > 0) {
+      setFile(input.files[0]);
+    }
+  }
+
+  function setFile(file) {
+    selectedFile = file;
+    document.getElementById('dropZoneText').textContent = file.name;
+    document.getElementById('selectedFileInfo').innerHTML = `<i class="fa-solid fa-file-excel text-success me-1"></i> Selected: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB)`;
+    onCourseSelected();
+  }
+
+  async function handleAnalyzeExcel(e) {
+    e.preventDefault();
+    if (!selectedFile) {
+      showToast('Please choose an Excel file to analyze', 'warning');
+      return;
+    }
+
+    const val = document.getElementById('courseSelect').value;
+    if (!val) {
+      showToast('Please select a course allocation', 'warning');
+      return;
+    }
+
+    const [classId, subjectId] = val.split('_');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    analyzeBtn.disabled = true;
+    analyzeBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Validating...';
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('classId', classId);
+    formData.append('subjectId', subjectId);
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/staff/excel/preview', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      const res = await response.json();
+
+      if (!response.ok || !res.success) {
+        throw new Error(res.message || 'Validation failed');
+      }
+
+      displayValidationResults(res.data);
+    } catch (err) {
+      showToast(err.message || 'Error validating Excel file', 'danger');
+    } finally {
+      analyzeBtn.disabled = false;
+      analyzeBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass-chart me-1"></i> Analyze & Validate Records';
+    }
+  }
+
+  function displayValidationResults(data) {
+    const card = document.getElementById('validationResultsCard');
+    card.classList.remove('d-none');
+
+    const summary = data.summary;
+    parsedValidRows = data.validRows || [];
+
+    document.getElementById('totalRowsCount').textContent = summary.totalRows;
+    document.getElementById('validRowsCount').textContent = summary.validCount;
+    document.getElementById('errorRowsCount').textContent = summary.errorCount;
+
+    // Error list handling
+    const errorSection = document.getElementById('errorSection');
+    const errorList = document.getElementById('errorList');
+    if (data.errors && data.errors.length > 0) {
+      errorSection.classList.remove('d-none');
+      errorList.innerHTML = data.errors.map(err => `
+        <li class="mb-1">
+          <strong>Row ${err.rowNumber} (${err.registerNumber || 'Unknown'}):</strong>
+          ${err.issues.join('; ')}
+        </li>
+      `).join('');
+    } else {
+      errorSection.classList.add('d-none');
+    }
+
+    // Preview table handling
+    const tbody = document.getElementById('previewTableBody');
+    if (parsedValidRows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">No valid rows available to preview.</td></tr>';
+      document.getElementById('commitBtn').disabled = true;
+    } else {
+      tbody.innerHTML = parsedValidRows.map(row => `
+        <tr>
+          <td>${row.rowNumber}</td>
+          <td class="fw-semibold">${row.registerNumber}</td>
+          <td>${row.studentName}</td>
+          <td><span class="badge bg-light text-dark border">${row.assessmentName}</span></td>
+          <td>${row.maxMarks}</td>
+          <td><strong>${row.isAbsent ? 'Absent' : row.marksObtained}</strong></td>
+          <td>${row.isAbsent ? '<span class="badge bg-danger">Yes</span>' : '<span class="badge bg-secondary">No</span>'}</td>
+          <td class="text-muted small">${row.remarks || '-'}</td>
+          <td><span class="badge bg-success"><i class="fa-solid fa-check me-1"></i> Valid</span></td>
+        </tr>
+      `).join('');
+
+      document.getElementById('commitBtn').disabled = false;
+    }
+
+    // Scroll to results
+    card.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function commitMarks() {
+    if (!parsedValidRows || parsedValidRows.length === 0) {
+      showToast('No valid records to commit', 'warning');
+      return;
+    }
+
+    const val = document.getElementById('courseSelect').value;
+    const [classId, subjectId] = val.split('_');
+
+    const commitBtn = document.getElementById('commitBtn');
+    commitBtn.disabled = true;
+    commitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Saving...';
+
+    try {
+      const res = await api.post('/staff/excel/commit', {
+        classId: parseInt(classId, 10),
+        subjectId: parseInt(subjectId, 10),
+        validRows: parsedValidRows
+      });
+
+      if (res.success) {
+        showToast(res.message || 'Assessment marks committed successfully!', 'success');
+        setTimeout(() => {
+          window.location.href = `/staff/progress-cards.html?classId=${classId}`;
+        }, 1500);
+      }
+    } catch (err) {
+      showToast(err.message || 'Failed to save marks', 'danger');
+      commitBtn.disabled = false;
+      commitBtn.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> Commit Marks to Database';
+    }
+  }
+</script>
+</body>
+</html>

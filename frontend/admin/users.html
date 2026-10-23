@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Accounts Management | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<div class="student-portal-wrapper">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Admin Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Administrator" onclick="window.location.href='/admin/index.html'">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <ul class="student-nav-menu">
+        <li>
+          <a href="/admin/index.html" class="student-nav-link" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/users.html" class="student-nav-link active" data-nav="users">
+            <i class="fa-solid fa-users-gear"></i>
+            <span>User Directory</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/academics.html" class="student-nav-link" data-nav="academics">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Academics</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/index.html#activity" class="student-nav-link" data-nav="activity">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>System Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/index.html#circulars" class="student-nav-link" data-nav="circulars">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Circulars</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Actions -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="table-search" class="student-search-input" placeholder="Filter by name, register no, email..." oninput="filterTable()">
+          </div>
+        </div>
+
+        <div class="student-topbar-actions">
+          <button class="btn btn-teal rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1 shadow-sm font-weight-bold" onclick="openStudentModal()" style="font-size: 0.85rem; font-weight: 700; background: var(--brand-orange); border-color: var(--brand-orange); color: #fff;">
+            <i class="fa-solid fa-user-plus me-1"></i> Add Student
+          </button>
+          <button class="btn btn-outline-custom rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1" onclick="openStaffModal()" style="font-size: 0.85rem; font-weight: 600;">
+            <i class="fa-solid fa-user-tie me-1"></i> Add Faculty
+          </button>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="adminProfileChip">
+            <div class="student-user-avatar" id="sidebar-user-avatar">
+              AD
+              <span class="student-online-dot"></span>
+            </div>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="sidebar-user-name">Administrator</div>
+              <div class="student-user-meta" id="sidebar-user-role">SUPER ADMIN</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- User Accounts Content Section -->
+      <div class="portal-view-section active">
+        <!-- Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <h1 class="portal-section-title mb-1" style="font-size: 1.55rem; font-weight: 800; color: var(--primary-navy); letter-spacing: -0.02em;">
+              User Accounts Management
+            </h1>
+            <p class="text-muted small mb-0">
+              Add, inspect, configure, and manage active status for Students and Faculty members
+            </p>
+          </div>
+          
+          <!-- Segmented Tab Switcher -->
+          <div class="segmented-control" style="background: rgba(148, 163, 184, 0.12); padding: 4px; border-radius: 999px; border: 1px solid var(--border-subtle); display: inline-flex;">
+            <button id="tab-btn-students" class="segmented-btn active" onclick="switchTab('students')" style="padding: 0.45rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem;">
+              <i class="fa-solid fa-user-graduate me-1"></i> Students Roster
+            </button>
+            <button id="tab-btn-staff" class="segmented-btn" onclick="switchTab('staff')" style="padding: 0.45rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem;">
+              <i class="fa-solid fa-chalkboard-user me-1"></i> Faculty Directory
+            </button>
+          </div>
+        </div>
+
+        <!-- Students Section Card -->
+        <div id="section-students" class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(13, 148, 136, 0.12); color: var(--brand-teal);">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Registered Student Accounts</h5>
+            </div>
+            <span class="badge-status badge-teal" id="badge-students-count" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; border-radius: 999px;">Loading...</span>
+          </div>
+          <div class="table-responsive-custom">
+            <table class="table-custom mb-0" id="students-table">
+              <thead>
+                <tr>
+                  <th>Register Number</th>
+                  <th>Full Name</th>
+                  <th>Department</th>
+                  <th>Class / Section</th>
+                  <th>Email Address</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="students-tbody">
+                <tr><td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">Loading student records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Faculty Section Card -->
+        <div id="section-staff" class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm); display: none;">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(245, 158, 11, 0.12); color: var(--brand-orange);">
+                <i class="fa-solid fa-chalkboard-user"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Faculty & Staff Accounts</h5>
+            </div>
+            <span class="badge-status badge-teal" id="badge-staff-count" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; border-radius: 999px;">Loading...</span>
+          </div>
+          <div class="table-responsive-custom">
+            <table class="table-custom mb-0" id="staff-table">
+              <thead>
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Full Name</th>
+                  <th>Designation</th>
+                  <th>Department</th>
+                  <th>Contact Phone</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="staff-tbody">
+                <tr><td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">Loading faculty records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+  <!-- Add Student Modal -->
+  <div class="modal-overlay" id="student-modal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+    <div class="modal-dialog-custom modal-lg">
+      <div class="modal-header-custom">
+        <div class="modal-header-brand">
+          <div class="modal-header-icon-box">
+            <i class="bi bi-person-plus-fill"></i>
+          </div>
+          <div>
+            <h3 class="modal-title-custom" id="studentModalTitle">Register New Student</h3>
+            <p class="modal-subtitle-custom">Add a student to the academic registry and configure initial department placement.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeStudentModal()" aria-label="Close dialog">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <form id="student-form" novalidate>
+        <div class="modal-body-custom">
+          
+          <!-- Section 1: Student Information -->
+          <div class="modal-section-card">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-person-vcard"></i> Student Information
+              </span>
+            </div>
+            
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-regno">
+                    Register Number <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="stu-regno" 
+                    class="form-control-custom text-uppercase" 
+                    placeholder="e.g. REG2023CSE010" 
+                    required 
+                    autocomplete="off"
+                  >
+                  <span class="field-hint-text">Official university registration identifier</span>
+                  <div class="field-error-text" id="err-stu-regno"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-rollno">
+                    Roll Number
+                  </label>
+                  <input 
+                    type="text" 
+                    id="stu-rollno" 
+                    class="form-control-custom text-uppercase" 
+                    placeholder="e.g. 23CS010" 
+                    autocomplete="off"
+                  >
+                  <span class="field-hint-text">Classroom attendance roll number</span>
+                  <div class="field-error-text" id="err-stu-rollno"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-fname">
+                    First Name <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="stu-fname" 
+                    class="form-control-custom" 
+                    placeholder="First Name" 
+                    required 
+                    autocomplete="given-name"
+                  >
+                  <div class="field-error-text" id="err-stu-fname"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-lname">
+                    Last Name <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="stu-lname" 
+                    class="form-control-custom" 
+                    placeholder="Last Name" 
+                    required 
+                    autocomplete="family-name"
+                  >
+                  <div class="field-error-text" id="err-stu-lname"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-username">
+                    Username <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="stu-username" 
+                    class="form-control-custom" 
+                    placeholder="e.g. alex.cs23" 
+                    required 
+                    autocomplete="username"
+                  >
+                  <span class="field-hint-text">Used for portal credentials</span>
+                  <div class="field-error-text" id="err-stu-username"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-email">
+                    Email Address <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="email" 
+                    id="stu-email" 
+                    class="form-control-custom" 
+                    placeholder="student@nextgen.edu" 
+                    required 
+                    autocomplete="email"
+                  >
+                  <span class="field-hint-text">Academic notifications & PTM progress cards</span>
+                  <div class="field-error-text" id="err-stu-email"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Academic Placement -->
+          <div class="modal-section-card">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-diagram-3"></i> Academic Placement
+              </span>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-dept">
+                    Department <span class="required-asterisk">*</span>
+                  </label>
+                  <select id="stu-dept" class="form-select-custom" required></select>
+                  <span class="field-hint-text">Enrolled academic branch</span>
+                  <div class="field-error-text" id="err-stu-dept"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-class">
+                    Assign Initial Class
+                  </label>
+                  <select id="stu-class" class="form-select-custom"></select>
+                  <span class="field-hint-text">Optional initial batch allocation</span>
+                  <div class="field-error-text" id="err-stu-class"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Account Security -->
+          <div class="modal-section-card mb-0">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-shield-lock"></i> Account Security
+              </span>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stu-password">
+                    Initial Password <span class="required-asterisk">*</span>
+                  </label>
+                  <div class="input-action-group">
+                    <input 
+                      type="password" 
+                      id="stu-password" 
+                      class="form-control-custom" 
+                      value="Student@123" 
+                      required 
+                      autocomplete="new-password"
+                    >
+                    <button 
+                      type="button" 
+                      class="btn-input-toggle" 
+                      onclick="togglePasswordVisibility('stu-password', this)" 
+                      aria-label="Toggle password visibility"
+                      title="Toggle password visibility"
+                    >
+                      <i class="bi bi-eye-fill"></i>
+                    </button>
+                  </div>
+                  <span class="field-hint-text">Default initial password (student can change after first sign-in)</span>
+                  <div class="field-error-text" id="err-stu-password"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer-custom">
+          <div class="d-flex align-items-center gap-2 me-auto text-muted small d-none d-sm-flex">
+            <i class="bi bi-shield-check text-success fs-6"></i>
+            <span>Registry updates in real-time</span>
+          </div>
+          <button type="button" class="btn-outline-custom" onclick="closeStudentModal()">Cancel</button>
+          <button type="submit" class="btn-primary-teal" id="btn-submit-student">
+            <i class="bi bi-person-plus-fill me-1"></i> Register Student
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Staff Modal -->
+  <div class="modal-overlay" id="staff-modal" role="dialog" aria-modal="true" aria-labelledby="staffModalTitle">
+    <div class="modal-dialog-custom modal-lg">
+      <div class="modal-header-custom">
+        <div class="modal-header-brand">
+          <div class="modal-header-icon-box teal">
+            <i class="bi bi-person-workspace"></i>
+          </div>
+          <div>
+            <h3 class="modal-title-custom" id="staffModalTitle">Register Faculty Member</h3>
+            <p class="modal-subtitle-custom">Create a professor account, assign department designation, and set initial credentials.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeStaffModal()" aria-label="Close dialog">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <form id="staff-form" novalidate>
+        <div class="modal-body-custom">
+          
+          <div class="modal-section-card">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-person-badge"></i> Faculty Identification
+              </span>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-empid">Employee ID <span class="required-asterisk">*</span></label>
+                  <input type="text" id="stf-empid" class="form-control-custom text-uppercase" placeholder="e.g. EMP-CSE-105" required autocomplete="off">
+                  <span class="field-hint-text">Institutional employee badge code</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-dept">Department <span class="required-asterisk">*</span></label>
+                  <select id="stf-dept" class="form-select-custom" required></select>
+                  <span class="field-hint-text">Primary affiliated department</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-fname">First Name <span class="required-asterisk">*</span></label>
+                  <input type="text" id="stf-fname" class="form-control-custom" placeholder="First Name" required autocomplete="given-name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-lname">Last Name <span class="required-asterisk">*</span></label>
+                  <input type="text" id="stf-lname" class="form-control-custom" placeholder="Last Name" required autocomplete="family-name">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section-card">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-award"></i> Academic Profile
+              </span>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-designation">Designation</label>
+                  <input type="text" id="stf-designation" class="form-control-custom" placeholder="e.g. Assistant Professor">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-qualification">Qualification</label>
+                  <input type="text" id="stf-qualification" class="form-control-custom" placeholder="e.g. M.Tech, Ph.D">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section-card mb-0">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-shield-lock"></i> Account Credentials
+              </span>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-username">Username <span class="required-asterisk">*</span></label>
+                  <input type="text" id="stf-username" class="form-control-custom" placeholder="e.g. prof.smith" required autocomplete="username">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-email">Email Address <span class="required-asterisk">*</span></label>
+                  <input type="email" id="stf-email" class="form-control-custom" placeholder="faculty@nextgen.edu" required autocomplete="email">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="stf-password">Initial Password <span class="required-asterisk">*</span></label>
+                  <div class="input-action-group">
+                    <input type="password" id="stf-password" class="form-control-custom" value="Staff@123" required autocomplete="new-password">
+                    <button type="button" class="btn-input-toggle" onclick="togglePasswordVisibility('stf-password', this)" aria-label="Toggle password visibility">
+                      <i class="bi bi-eye-fill"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer-custom">
+          <button type="button" class="btn-outline-custom" onclick="closeStaffModal()">Cancel</button>
+          <button type="submit" class="btn-primary-teal">
+            <i class="bi bi-person-check-fill me-1"></i> Register Faculty
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script>
+    requireAuth('admin');
+
+    let allStudents = [];
+    let allStaff = [];
+    let activeTab = 'students';
+
+    function switchTab(tab) {
+      activeTab = tab;
+      const stuBtn = document.getElementById('tab-btn-students');
+      const stfBtn = document.getElementById('tab-btn-staff');
+      const stuSec = document.getElementById('section-students');
+      const stfSec = document.getElementById('section-staff');
+
+      if (tab === 'students') {
+        stuBtn.classList.add('active');
+        stfBtn.classList.remove('active');
+        stuSec.style.display = 'block';
+        stfSec.style.display = 'none';
+      } else {
+        stfBtn.classList.add('active');
+        stuBtn.classList.remove('active');
+        stfSec.style.display = 'block';
+        stuSec.style.display = 'none';
+      }
+    }
+
+    async function loadUsers() {
+      try {
+        const [stuRes, stfRes, deptRes, classRes] = await Promise.all([
+          apiRequest('/admin/students'),
+          apiRequest('/admin/staff'),
+          apiRequest('/admin/departments'),
+          apiRequest('/admin/classes'),
+        ]);
+
+        allStudents = stuRes.data || [];
+        allStaff = stfRes.data || [];
+
+        document.getElementById('badge-students-count').textContent = `${allStudents.length} Students`;
+        document.getElementById('badge-staff-count').textContent = `${allStaff.length} Faculty`;
+
+        renderStudents(allStudents);
+        renderStaff(allStaff);
+
+        // Populate department dropdowns
+        const depts = deptRes.data || [];
+        const deptOptions = depts.map(d => `<option value="${d.id}">${d.name} (${d.code})</option>`).join('');
+        document.getElementById('stu-dept').innerHTML = deptOptions;
+        document.getElementById('stf-dept').innerHTML = deptOptions;
+
+        // Populate class dropdown
+        const classes = classRes.data || [];
+        document.getElementById('stu-class').innerHTML = `<option value="">-- No Class Assignment --</option>` +
+          classes.map(c => `<option value="${c.id}">${c.batch_name} - Sec ${c.section}</option>`).join('');
+
+      } catch (err) {
+        showToast('Error loading users: ' + err.message, 'error');
+      }
+    }
+
+    function renderStudents(students) {
+      const tbody = document.getElementById('students-tbody');
+      if (students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No student records found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = students.map(s => `
+        <tr>
+          <td><strong style="color: var(--primary-navy);">${s.register_number}</strong></td>
+          <td><strong>${s.first_name} ${s.last_name}</strong></td>
+          <td><span class="badge-status badge-teal">${s.department_code}</span></td>
+          <td>${s.batch_name ? `${s.batch_name} (Sec ${s.section})` : '<span style="color: #94a3b8;">Unassigned</span>'}</td>
+          <td>${s.email}</td>
+          <td>
+            <span class="badge-status ${s.is_active ? 'badge-active' : 'badge-inactive'}">
+              ${s.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}
+            </span>
+          </td>
+          <td>
+            <button class="btn-outline-custom btn-sm-action" onclick="toggleStatus(${s.user_id}, '${s.first_name} ${s.last_name}')">
+              ${s.is_active ? '<i class="bi bi-person-x text-danger"></i> Deactivate' : '<i class="bi bi-person-check text-success"></i> Activate'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderStaff(staff) {
+      const tbody = document.getElementById('staff-tbody');
+      if (staff.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No faculty records found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = staff.map(st => `
+        <tr>
+          <td><strong style="color: var(--primary-navy);">${st.employee_id}</strong></td>
+          <td><strong>${st.first_name} ${st.last_name}</strong></td>
+          <td>${st.designation} <span style="font-size: 0.75rem; color: var(--text-muted);">(${st.qualification})</span></td>
+          <td><span class="badge-status badge-teal">${st.department_code}</span></td>
+          <td>${st.phone || 'N/A'}</td>
+          <td>
+            <span class="badge-status ${st.is_active ? 'badge-active' : 'badge-inactive'}">
+              ${st.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}
+            </span>
+          </td>
+          <td>
+            <button class="btn-outline-custom btn-sm-action" onclick="toggleStatus(${st.user_id}, '${st.first_name} ${st.last_name}')">
+              ${st.is_active ? '<i class="bi bi-person-x text-danger"></i> Deactivate' : '<i class="bi bi-person-check text-success"></i> Activate'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function toggleStatus(userId, name) {
+      if (!confirm(`Are you sure you want to toggle the account status for ${name}?`)) return;
+      try {
+        const res = await apiRequest(`/admin/users/${userId}/toggle-status`, { method: 'PATCH' });
+        showToast(res.message, 'success');
+        loadUsers();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    function filterTable() {
+      const query = document.getElementById('table-search').value.toLowerCase();
+      if (activeTab === 'students') {
+        const filtered = allStudents.filter(s => 
+          s.register_number.toLowerCase().includes(query) ||
+          s.first_name.toLowerCase().includes(query) ||
+          s.last_name.toLowerCase().includes(query) ||
+          s.email.toLowerCase().includes(query)
+        );
+        renderStudents(filtered);
+      } else {
+        const filtered = allStaff.filter(st =>
+          st.employee_id.toLowerCase().includes(query) ||
+          st.first_name.toLowerCase().includes(query) ||
+          st.last_name.toLowerCase().includes(query) ||
+          st.email.toLowerCase().includes(query)
+        );
+        renderStaff(filtered);
+      }
+    }
+
+    // Modal controls with Accessibility & Focus Management
+    function openStudentModal() {
+      clearFormErrors('student-form');
+      openModalAccessible('student-modal');
+    }
+
+    function closeStudentModal() {
+      closeModalAccessible('student-modal');
+      document.getElementById('student-form').reset();
+      clearFormErrors('student-form');
+    }
+
+    function openStaffModal() {
+      openModalAccessible('staff-modal');
+    }
+
+    function closeStaffModal() {
+      closeModalAccessible('staff-modal');
+      document.getElementById('staff-form').reset();
+    }
+
+    // Student Registration Form Submission with Inline Validation
+    document.getElementById('student-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearFormErrors('student-form');
+
+      const regno = document.getElementById('stu-regno').value.trim();
+      const rollno = document.getElementById('stu-rollno').value.trim();
+      const fname = document.getElementById('stu-fname').value.trim();
+      const lname = document.getElementById('stu-lname').value.trim();
+      const username = document.getElementById('stu-username').value.trim();
+      const email = document.getElementById('stu-email').value.trim();
+      const deptVal = document.getElementById('stu-dept').value;
+      const classVal = document.getElementById('stu-class').value;
+      const password = document.getElementById('stu-password').value;
+
+      let hasError = false;
+
+      if (!regno) {
+        setFieldError('stu-regno', 'Register number is required');
+        hasError = true;
+      }
+      if (!fname) {
+        setFieldError('stu-fname', 'First name is required');
+        hasError = true;
+      }
+      if (!lname) {
+        setFieldError('stu-lname', 'Last name is required');
+        hasError = true;
+      }
+      if (!username) {
+        setFieldError('stu-username', 'Username is required');
+        hasError = true;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        setFieldError('stu-email', 'Please enter a valid academic email address');
+        hasError = true;
+      }
+      if (!deptVal) {
+        setFieldError('stu-dept', 'Department selection is required');
+        hasError = true;
+      }
+      if (!password || password.length < 6) {
+        setFieldError('stu-password', 'Initial password must be at least 6 characters');
+        hasError = true;
+      }
+
+      if (hasError) {
+        showToast('Please correct the highlighted fields before submitting.', 'warning');
+        return;
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Registering...';
+
+      try {
+        await apiRequest('/admin/students', {
+          method: 'POST',
+          body: JSON.stringify({
+            registerNumber: regno,
+            rollNo: rollno || null,
+            firstName: fname,
+            lastName: lname,
+            username: username,
+            email: email,
+            departmentId: parseInt(deptVal, 10),
+            classId: classVal ? parseInt(classVal, 10) : null,
+            password: password,
+          })
+        });
+        showToast('Student registered successfully into academic registry!', 'success');
+        closeStudentModal();
+        await loadUsers();
+      } catch (err) {
+        showToast(err.message || 'Failed to register student', 'error');
+        if (err.message && err.message.toLowerCase().includes('username')) {
+          setFieldError('stu-username', err.message);
+        } else if (err.message && err.message.toLowerCase().includes('register')) {
+          setFieldError('stu-regno', err.message);
+        } else if (err.message && err.message.toLowerCase().includes('email')) {
+          setFieldError('stu-email', err.message);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    document.getElementById('staff-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Registering...';
+
+      try {
+        const deptVal = document.getElementById('stf-dept').value;
+
+        await apiRequest('/admin/staff', {
+          method: 'POST',
+          body: JSON.stringify({
+            employeeId: document.getElementById('stf-empid').value.trim(),
+            departmentId: parseInt(deptVal, 10),
+            firstName: document.getElementById('stf-fname').value.trim(),
+            lastName: document.getElementById('stf-lname').value.trim(),
+            designation: document.getElementById('stf-designation').value.trim() || 'Assistant Professor',
+            qualification: document.getElementById('stf-qualification').value.trim() || 'M.Tech',
+            username: document.getElementById('stf-username').value.trim(),
+            email: document.getElementById('stf-email').value.trim(),
+            password: document.getElementById('stf-password').value,
+          })
+        });
+        showToast('Faculty member registered successfully!', 'success');
+        closeStaffModal();
+        await loadUsers();
+      } catch (err) {
+        showToast(err.message || 'Failed to register faculty', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadUsers);
+  </script>
+</body>
+</html>

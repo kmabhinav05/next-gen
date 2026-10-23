@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Academic Portal | Next Gen Grading</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<div class="student-portal-wrapper">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Faculty Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Faculty Portal" onclick="switchView('overview')">
+        <i class="fa-solid fa-chalkboard-user"></i>
+      </div>
+
+      <ul class="student-nav-menu">
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('overview')" class="student-nav-link active" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('courses')" class="student-nav-link" data-nav="courses">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Allocated Courses</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('attendance')" class="student-nav-link" data-nav="attendance">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Attendance Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="openQuickAttendanceModal()" class="student-nav-link">
+            <i class="fa-solid fa-clipboard-user"></i>
+            <span>Mark Attendance</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/upload-marks.html" class="student-nav-link">
+            <i class="fa-solid fa-file-excel"></i>
+            <span>Upload Marks</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/progress-cards.html" class="student-nav-link">
+            <i class="fa-solid fa-id-card"></i>
+            <span>Progress Cards</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Profile Chip -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="staffSearchInput" class="student-search-input" placeholder="Search allocated courses, classes, or students..." onkeyup="filterStaffCoursesAndLogs()">
+          </div>
+        </div>
+
+        <div class="student-topbar-actions">
+          <button class="btn btn-sm btn-teal rounded-pill px-3 py-1 d-none d-sm-inline-flex align-items-center gap-1 shadow-sm" onclick="openQuickAttendanceModal()">
+            <i class="fa-solid fa-clipboard-check"></i> Take Attendance
+          </button>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="staffProfileChip">
+            <div class="student-user-avatar" id="staffAvatarInitials">
+              FA
+              <span class="student-online-dot"></span>
+            </div>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="staffTopbarName">Faculty Member</div>
+              <div class="student-user-meta" id="staffTopbarRole">Department Staff</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: Dashboard Overview (Default Active) -->
+      <div class="portal-view-section active" data-view="overview">
+        <!-- Welcome Hero Banner -->
+        <section class="student-welcome-banner mb-4">
+          <div class="student-banner-content">
+            <span class="student-banner-date" id="bannerLiveDate">OCTOBER 23, 2026</span>
+            <h1 class="student-banner-title"><span id="facultyGreeting">Welcome back, Professor!</span></h1>
+            <p class="student-banner-subtitle">
+              Manage your assigned course batches, mark session attendance, upload internal assessments via Excel, and review student progress reports in real-time.
+            </p>
+            <div class="student-banner-actions">
+              <button class="btn btn-teal px-3 py-2 rounded-pill shadow-sm" onclick="openQuickAttendanceModal()">
+                <i class="fa-solid fa-clipboard-user me-1"></i> Record Attendance Session
+              </button>
+              <a href="/staff/upload-marks.html" class="btn btn-outline-light px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-file-arrow-up me-1"></i> Upload Marks (Excel)
+              </a>
+            </div>
+          </div>
+          <div class="student-banner-art">
+            <img src="/assets/images/hero-3d-student.png" alt="Academic 3D Character">
+          </div>
+        </section>
+
+        <!-- 3 Academic Metric Cards -->
+        <section class="student-metrics-grid mb-4">
+          <div class="stat-clay-card" onclick="switchView('courses')" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap teal">
+              <i class="fa-solid fa-book-bookmark"></i>
+            </div>
+            <div class="stat-clay-value" id="statSubjects">0</div>
+            <div class="stat-clay-label">Assigned Subjects</div>
+          </div>
+
+          <div class="stat-clay-card highlighted" onclick="switchView('courses')" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap orange">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div class="stat-clay-value" id="statClasses">0</div>
+            <div class="stat-clay-label">Active Class Sections</div>
+            <div class="mt-2">
+              <span class="badge bg-success text-white px-2 py-1 rounded-pill small"><i class="fa-solid fa-check-double me-1"></i> All Classes Active</span>
+            </div>
+          </div>
+
+          <div class="stat-clay-card" onclick="switchView('attendance')" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap purple">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="stat-clay-value" id="statSessions">0</div>
+            <div class="stat-clay-label">Recent Attendance Sessions</div>
+          </div>
+        </section>
+
+        <!-- Overview Content Grid -->
+        <div class="student-content-grid">
+          <div class="student-left-col">
+            <div class="student-section-header">
+              <h5 class="student-section-title">My Allocated Courses</h5>
+              <a href="javascript:void(0)" onclick="switchView('courses')" class="student-section-link">View All <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+            <div class="courses-clay-grid" id="overviewStaffCoursesGrid">
+              <div class="col-12 text-center py-4 text-muted">Loading allocations...</div>
+            </div>
+          </div>
+
+          <div class="student-right-col">
+            <!-- Faculty Quick Actions Widget -->
+            <div class="instructors-clay-card mb-3">
+              <div class="student-section-header mb-3">
+                <h6 class="student-section-title mb-0">Faculty Actions</h6>
+                <span class="badge bg-light text-muted border px-2 py-1 rounded-pill small">Quick Launch</span>
+              </div>
+              <div class="d-flex flex-column gap-2 mb-2">
+                <button class="btn btn-outline-teal p-3 text-start d-flex align-items-center rounded-4 border" onclick="openQuickAttendanceModal()">
+                  <div class="rounded-circle bg-teal-subtle p-2 me-3 text-teal d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-navy small">Record Class Attendance</div>
+                    <div class="text-muted" style="font-size: 0.74rem;">Take roll call for today's lecture or lab</div>
+                  </div>
+                </button>
+
+                <a href="/staff/upload-marks.html" class="btn btn-outline-primary p-3 text-start d-flex align-items-center rounded-4 border text-decoration-none">
+                  <div class="rounded-circle bg-primary-subtle p-2 me-3 text-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fa-solid fa-file-excel"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-navy small">Upload Assessment Marks</div>
+                    <div class="text-muted" style="font-size: 0.74rem;">Import Test 1, 2 or Assignment marks via Excel</div>
+                  </div>
+                </a>
+
+                <a href="/staff/progress-cards.html" class="btn btn-outline-warning p-3 text-start d-flex align-items-center rounded-4 border text-decoration-none">
+                  <div class="rounded-circle bg-warning-subtle p-2 me-3 text-warning d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-navy small">Student Progress Cards</div>
+                    <div class="text-muted" style="font-size: 0.74rem;">Generate consolidated digital report cards</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Department Circulars -->
+            <div class="daily-notice-clay-card mb-3">
+              <div class="student-section-header mb-2">
+                <h6 class="student-section-title mb-0">Department Circulars</h6>
+                <span class="badge bg-light text-muted border px-2 py-1 rounded-pill small">Notices</span>
+              </div>
+              <div class="daily-notice-item">
+                <div class="notice-title text-navy">IA-2 Mark Submission Deadline</div>
+                <div class="notice-desc">All faculty members are requested to complete Internal Assessment 2 marks entry and verification by this Friday.</div>
+              </div>
+              <div class="daily-notice-item">
+                <div class="notice-title text-navy">Attendance Condonation Threshold</div>
+                <div class="notice-desc">System automatically flags students with aggregate attendance under 75% for counselor review.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: Allocated Courses Only -->
+      <div class="portal-view-section" data-view="courses">
+        <div class="student-section-header mb-3">
+          <div>
+            <h4 class="student-section-title mb-1"><i class="fa-solid fa-book-open text-teal me-2"></i>My Allocated Courses & Classes</h4>
+            <span class="text-muted small">Course allocations assigned to your faculty profile for this semester</span>
+          </div>
+          <button class="btn btn-sm btn-outline-teal rounded-pill px-3 py-1" onclick="loadStaffDashboard()">
+            <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh
+          </button>
+        </div>
+        <div class="courses-clay-grid" id="courseCardsContainer">
+          <div class="col-12 text-center py-4 text-muted">Loading course allocations...</div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: Attendance Logs Only -->
+      <div class="portal-view-section" data-view="attendance">
+        <div class="student-section-header mb-3">
+          <div>
+            <h4 class="student-section-title mb-1"><i class="fa-solid fa-clock-rotate-left text-teal me-2"></i>Recent Attendance Logs</h4>
+            <span class="text-muted small">History of lecture roll calls, headcounts, and lesson topics covered</span>
+          </div>
+          <button class="btn btn-sm btn-teal rounded-pill px-3 py-1 shadow-sm" onclick="openQuickAttendanceModal()">
+            <i class="fa-solid fa-plus me-1"></i> Take Attendance
+          </button>
+        </div>
+        <div class="student-subcard">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Date</th>
+                  <th>Period</th>
+                  <th>Subject</th>
+                  <th>Class</th>
+                  <th>Present / Enrolled</th>
+                  <th>Topic Covered</th>
+                </tr>
+              </thead>
+              <tbody id="recentSessionsBody">
+                <tr>
+                  <td colspan="6" class="text-center py-4 text-muted">No attendance sessions recorded yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<!-- Modal: Record Attendance -->
+<div class="modal fade" id="attendanceModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0 shadow rounded-4">
+      <div class="modal-header bg-navy text-white rounded-top-4">
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle bg-teal p-2 text-white me-2">
+            <i class="fa-solid fa-clipboard-user"></i>
+          </div>
+          <div>
+            <h6 class="modal-title mb-0">Record Class Attendance Session</h6>
+            <small class="text-light opacity-75">Daily lecture & laboratory roll call</small>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="attendanceForm">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Select Course Allocation *</label>
+              <select class="form-select rounded-3" id="attCourseSelect" required onchange="fetchStudentsForAttendance()">
+                <option value="">-- Choose Allocation --</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold small">Session Date *</label>
+              <input type="date" class="form-control rounded-3" id="attDate" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold small">Period / Hour *</label>
+              <select class="form-select rounded-3" id="attPeriod" required>
+                <option value="1">Period 1 (09:00 - 10:00)</option>
+                <option value="2">Period 2 (10:00 - 11:00)</option>
+                <option value="3">Period 3 (11:15 - 12:15)</option>
+                <option value="4">Period 4 (12:15 - 01:15)</option>
+                <option value="5">Period 5 (02:00 - 03:00)</option>
+                <option value="6">Period 6 (03:00 - 04:00)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold small">Topic / Lesson Covered</label>
+            <input type="text" class="form-control rounded-3" id="attTopic" placeholder="e.g. Unit 3: Normalization & BCNF Decomposition">
+          </div>
+
+          <!-- Students Roster for Attendance -->
+          <div class="border rounded-4 p-3 bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="fw-bold mb-0 text-navy small">Class Student Roster</h6>
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-success" onclick="markAllAttendance('present')">All Present</button>
+                <button type="button" class="btn btn-outline-danger" onclick="markAllAttendance('absent')">All Absent</button>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+              <table class="table table-sm table-bordered bg-white align-middle mb-0">
+                <thead class="table-light sticky-top">
+                  <tr>
+                    <th>Reg No</th>
+                    <th>Roll No</th>
+                    <th>Student Name</th>
+                    <th>Overall Att. %</th>
+                    <th class="text-center" style="width: 220px;">Attendance Status</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceStudentRoster">
+                  <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">Select a course allocation above to load the class roster.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4 me-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-teal rounded-pill px-4 shadow-sm" id="saveAttendanceBtn">
+              <i class="fa-solid fa-floppy-disk me-1"></i> Save Attendance Session
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+  let allocatedCourses = [];
+  let currentStudents = [];
+  let attendanceModalInstance = null;
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const user = requireAuth('staff');
+    if (!user) return;
+
+    // Live Date
+    const now = new Date();
+    const dateFormatted = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    const dateEl = document.getElementById('bannerLiveDate');
+    if (dateEl) dateEl.textContent = dateFormatted;
+
+    // Faculty Name & Avatar Initials
+    const facultyName = user.profile?.displayName || user.username || 'Professor';
+    const initials = facultyName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'FA';
+    
+    document.getElementById('facultyGreeting').textContent = `Welcome back, ${facultyName}!`;
+    document.getElementById('staffAvatarInitials').innerHTML = `${initials}<span class="student-online-dot"></span>`;
+    document.getElementById('staffTopbarName').textContent = facultyName;
+    document.getElementById('attDate').value = new Date().toISOString().split('T')[0];
+
+    attendanceModalInstance = new bootstrap.Modal(document.getElementById('attendanceModal'));
+    await loadStaffDashboard();
+
+    document.getElementById('attendanceForm').addEventListener('submit', handleAttendanceSubmit);
+
+    // Hash check
+    if (window.location.hash) {
+      const targetView = window.location.hash.replace('#', '');
+      const validViews = ['overview', 'courses', 'attendance'];
+      if (validViews.includes(targetView)) {
+        switchView(targetView);
+      }
+    }
+  });
+
+  // SPA Single-View Switcher
+  function switchView(viewName) {
+    // Update active nav link in sidebar
+    document.querySelectorAll('.student-nav-link[data-nav]').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-nav') === viewName);
+    });
+
+    // Toggle active view container
+    document.querySelectorAll('.portal-view-section').forEach(sec => {
+      sec.classList.toggle('active', sec.getAttribute('data-view') === viewName);
+    });
+
+    // Scroll to top of content
+    const main = document.querySelector('.student-main-content');
+    if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function loadStaffDashboard() {
+    try {
+      const res = await api.get('/staff/dashboard');
+      if (res.success && res.data) {
+        allocatedCourses = res.data.assignedCourses || [];
+        const recentSessions = res.data.recentSessions || [];
+
+        document.getElementById('statSubjects').textContent = res.data.stats.totalSubjects || 0;
+        document.getElementById('statClasses').textContent = res.data.stats.totalClasses || 0;
+        document.getElementById('statSessions').textContent = recentSessions.length || 0;
+
+        renderAllocatedCourses(allocatedCourses);
+        renderRecentSessions(recentSessions);
+        populateCourseSelect(allocatedCourses);
+      }
+    } catch (err) {
+      showToast(err.message || 'Failed to load faculty dashboard', 'danger');
+    }
+  }
+
+  function getSubjectIconClass(subjectName, subjectCode) {
+    const s = (subjectName + ' ' + subjectCode).toLowerCase();
+    if (s.includes('algorithm') || s.includes('data structure')) return 'fa-solid fa-diagram-project';
+    if (s.includes('database') || s.includes('sql') || s.includes('dbms')) return 'fa-solid fa-database';
+    if (s.includes('web') || s.includes('cloud') || s.includes('internet')) return 'fa-solid fa-cloud';
+    if (s.includes('network') || s.includes('security')) return 'fa-solid fa-shield-halved';
+    if (s.includes('math') || s.includes('discrete') || s.includes('statistics')) return 'fa-solid fa-square-root-variable';
+    if (s.includes('ai') || s.includes('intelligence') || s.includes('machine learning')) return 'fa-solid fa-brain';
+    if (s.includes('english') || s.includes('communication')) return 'fa-solid fa-comments';
+    return 'fa-solid fa-laptop-code';
+  }
+
+  function renderAllocatedCourses(courses) {
+    const container = document.getElementById('courseCardsContainer');
+    const overviewContainer = document.getElementById('overviewStaffCoursesGrid');
+
+    if (!courses || courses.length === 0) {
+      const emptyHtml = `
+        <div class="col-12 text-center py-4 text-muted">
+          <i class="fa-solid fa-inbox fa-2x mb-2 text-secondary"></i>
+          <p>No active courses or classes allocated to your faculty profile.</p>
+        </div>`;
+      if (container) container.innerHTML = emptyHtml;
+      if (overviewContainer) overviewContainer.innerHTML = emptyHtml;
+      return;
+    }
+
+    const cardsHtml = courses.map(c => {
+      const iconClass = getSubjectIconClass(c.subject_name, c.subject_code);
+      return `
+        <div class="course-clay-card" data-course-code="${c.subject_code}" data-course-name="${c.subject_name.toLowerCase()}">
+          <div class="course-clay-info">
+            <h6 class="course-clay-title" title="${c.subject_name}">${c.subject_name}</h6>
+            <div class="course-clay-meta">
+              <span class="badge bg-navy">${c.subject_code}</span>
+              <span class="text-muted small">${c.batch_name} - Sec ${c.section}</span>
+              <span class="badge bg-light text-dark border small">${c.total_students} Students</span>
+            </div>
+            <div class="d-flex align-items-center gap-2 mt-2">
+              <button class="btn-view-course" onclick="openAttendanceForCourse(${c.class_id}, ${c.subject_id})">
+                <i class="fa-solid fa-user-check me-1"></i> Roll Call
+              </button>
+              <a href="/staff/upload-marks.html?subjectId=${c.subject_id}&classId=${c.class_id}" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" style="font-size: 11px;" title="Upload Marks Excel">
+                <i class="fa-solid fa-file-arrow-up"></i>
+              </a>
+              <a href="/staff/progress-cards.html?classId=${c.class_id}" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" style="font-size: 11px;" title="Progress Reports">
+                <i class="fa-solid fa-id-card"></i>
+              </a>
+            </div>
+          </div>
+          <div class="course-clay-icon-art">
+            <i class="${iconClass}"></i>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (container) container.innerHTML = cardsHtml;
+    if (overviewContainer) overviewContainer.innerHTML = cardsHtml;
+  }
+
+  function renderRecentSessions(sessions) {
+    const tbody = document.getElementById('recentSessionsBody');
+    if (!sessions || sessions.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No attendance sessions recorded yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = sessions.map(s => {
+      const formattedDate = new Date(s.session_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return `
+        <tr data-log-subject="${s.subject_code}" data-log-topic="${(s.topic_covered || '').toLowerCase()}">
+          <td class="fw-semibold">${formattedDate}</td>
+          <td><span class="badge bg-light text-dark border">Period ${s.session_period}</span></td>
+          <td><span class="badge bg-navy">${s.subject_code}</span></td>
+          <td>${s.batch_name} - ${s.section}</td>
+          <td>
+            <span class="text-success fw-bold">${s.present_count}</span> / ${s.total_records}
+            <span class="small text-muted">(${s.total_records > 0 ? Math.round((s.present_count / s.total_records) * 100) : 0}%)</span>
+          </td>
+          <td class="text-truncate" style="max-width: 150px;">${s.topic_covered || 'Lecture'}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function filterStaffCoursesAndLogs() {
+    const query = document.getElementById('staffSearchInput').value.trim().toLowerCase();
+
+    // Filter course cards
+    const cards = document.querySelectorAll('.course-clay-card');
+    cards.forEach(card => {
+      const code = card.getAttribute('data-course-code')?.toLowerCase() || '';
+      const name = card.getAttribute('data-course-name')?.toLowerCase() || '';
+      if (!query || code.includes(query) || name.includes(query)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Filter log rows
+    const rows = document.querySelectorAll('#recentSessionsBody tr[data-log-subject]');
+    rows.forEach(row => {
+      const subject = row.getAttribute('data-log-subject')?.toLowerCase() || '';
+      const topic = row.getAttribute('data-log-topic')?.toLowerCase() || '';
+      if (!query || subject.includes(query) || topic.includes(query)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  function populateCourseSelect(courses) {
+    const select = document.getElementById('attCourseSelect');
+    select.innerHTML = '<option value="">-- Choose Allocation --</option>' +
+      courses.map(c => `
+        <option value="${c.class_id}_${c.subject_id}">
+          ${c.subject_code} - ${c.subject_name} (${c.batch_name} Sec ${c.section})
+        </option>
+      `).join('');
+  }
+
+  function openQuickAttendanceModal() {
+    attendanceModalInstance.show();
+  }
+
+  function openAttendanceForCourse(classId, subjectId) {
+    const select = document.getElementById('attCourseSelect');
+    select.value = `${classId}_${subjectId}`;
+    fetchStudentsForAttendance();
+    attendanceModalInstance.show();
+  }
+
+  async function fetchStudentsForAttendance() {
+    const val = document.getElementById('attCourseSelect').value;
+    const rosterTbody = document.getElementById('attendanceStudentRoster');
+
+    if (!val) {
+      rosterTbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Select an allocated course above.</td></tr>';
+      currentStudents = [];
+      return;
+    }
+
+    const [classId, subjectId] = val.split('_');
+    rosterTbody.innerHTML = '<tr><td colspan="5" class="text-center py-4"><div class="spinner-border text-teal spinner-border-sm me-2"></div>Loading enrolled students...</td></tr>';
+
+    try {
+      const res = await api.get(`/staff/classes/${classId}/subjects/${subjectId}/students`);
+      if (res.success && res.data) {
+        currentStudents = res.data;
+        renderStudentRoster(currentStudents);
+      }
+    } catch (err) {
+      rosterTbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-danger">${err.message || 'Error loading roster'}</td></tr>`;
+    }
+  }
+
+  function renderStudentRoster(students) {
+    const rosterTbody = document.getElementById('attendanceStudentRoster');
+    if (!students || students.length === 0) {
+      rosterTbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No students currently enrolled in this class.</td></tr>';
+      return;
+    }
+
+    rosterTbody.innerHTML = students.map((s, idx) => {
+      const pctBadge = s.attendance_percentage < 75 
+        ? `<span class="badge bg-danger">${s.attendance_percentage}%</span>`
+        : `<span class="badge bg-success">${s.attendance_percentage}%</span>`;
+
+      return `
+        <tr>
+          <td class="fw-semibold">${s.register_number}</td>
+          <td>${s.roll_no || '-'}</td>
+          <td>${s.first_name} ${s.last_name}</td>
+          <td>${pctBadge}</td>
+          <td>
+            <div class="d-flex justify-content-center gap-3">
+              <label class="form-check-label text-success fw-bold d-flex align-items-center cursor-pointer">
+                <input class="form-check-input me-1 att-radio" type="radio" name="att_${s.student_id}" value="present" checked> P
+              </label>
+              <label class="form-check-label text-danger fw-bold d-flex align-items-center cursor-pointer">
+                <input class="form-check-input me-1 att-radio" type="radio" name="att_${s.student_id}" value="absent"> A
+              </label>
+              <label class="form-check-label text-warning fw-bold d-flex align-items-center cursor-pointer">
+                <input class="form-check-input me-1 att-radio" type="radio" name="att_${s.student_id}" value="late"> L
+              </label>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function markAllAttendance(status) {
+    document.querySelectorAll(`.att-radio[value="${status}"]`).forEach(r => {
+      r.checked = true;
+    });
+  }
+
+  async function handleAttendanceSubmit(e) {
+    e.preventDefault();
+    const val = document.getElementById('attCourseSelect').value;
+    if (!val) {
+      showToast('Please select a course and class', 'warning');
+      return;
+    }
+
+    const [classId, subjectId] = val.split('_');
+    const sessionDate = document.getElementById('attDate').value;
+    const sessionPeriod = parseInt(document.getElementById('attPeriod').value, 10);
+    const topicCovered = document.getElementById('attTopic').value.trim();
+
+    if (currentStudents.length === 0) {
+      showToast('No students loaded to record attendance for', 'warning');
+      return;
+    }
+
+    const records = currentStudents.map(s => {
+      const selected = document.querySelector(`input[name="att_${s.student_id}"]:checked`);
+      return {
+        studentId: s.student_id,
+        status: selected ? selected.value : 'present',
+        remarks: null,
+      };
+    });
+
+    const submitBtn = document.getElementById('saveAttendanceBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Saving...';
+
+    try {
+      const res = await api.post('/staff/attendance', {
+        classId: parseInt(classId, 10),
+        subjectId: parseInt(subjectId, 10),
+        sessionDate,
+        sessionPeriod,
+        topicCovered,
+        records,
+      });
+
+      if (res.success) {
+        showToast('Attendance recorded successfully!', 'success');
+        attendanceModalInstance.hide();
+        await loadStaffDashboard();
+      }
+    } catch (err) {
+      showToast(err.message || 'Failed to record attendance', 'danger');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> Save Attendance Session';
+    }
+  }
+</script>
+</body>
+</html>

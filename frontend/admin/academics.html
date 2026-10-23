@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academics & Subject Allocations | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<div class="student-portal-wrapper">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Admin Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Administrator" onclick="window.location.href='/admin/index.html'">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <ul class="student-nav-menu">
+        <li>
+          <a href="/admin/index.html" class="student-nav-link" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/users.html" class="student-nav-link" data-nav="users">
+            <i class="fa-solid fa-users-gear"></i>
+            <span>User Directory</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/academics.html" class="student-nav-link active" data-nav="academics">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Academics</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/index.html#activity" class="student-nav-link" data-nav="activity">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>System Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/index.html#circulars" class="student-nav-link" data-nav="circulars">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Circulars</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Actions -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="academicsSearchInput" class="student-search-input" placeholder="Search subject code, title, faculty..." oninput="filterAcademics()">
+          </div>
+        </div>
+
+        <div class="student-topbar-actions">
+          <button class="btn btn-teal rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1 shadow-sm font-weight-bold" onclick="openSubjectModal()" style="font-size: 0.85rem; font-weight: 700; background: var(--brand-orange); border-color: var(--brand-orange); color: #fff;">
+            <i class="fa-solid fa-plus-circle me-1"></i> Add Subject
+          </button>
+          <button class="btn btn-outline-custom rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1" onclick="openAssignModal()" style="font-size: 0.85rem; font-weight: 600;">
+            <i class="fa-solid fa-link me-1"></i> Assign Subject
+          </button>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="adminProfileChip">
+            <div class="student-user-avatar" id="sidebar-user-avatar">
+              AD
+              <span class="student-online-dot"></span>
+            </div>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="sidebar-user-name">Administrator</div>
+              <div class="student-user-meta" id="sidebar-user-role">SUPER ADMIN</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Academics Content Section -->
+      <div class="portal-view-section active">
+        <!-- Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <h1 class="portal-section-title mb-1" style="font-size: 1.55rem; font-weight: 800; color: var(--primary-navy); letter-spacing: -0.02em;">
+              Academic Structure & Allocations
+            </h1>
+            <p class="text-muted small mb-0">
+              Manage curriculum course catalogs, department requirements, and faculty teaching allocations
+            </p>
+          </div>
+        </div>
+
+        <!-- Faculty Subject Assignments Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(13, 148, 136, 0.12); color: var(--brand-teal);">
+                <i class="fa-solid fa-chalkboard-user"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Active Faculty Subject Allocations</h5>
+            </div>
+            <span class="badge-status badge-teal" id="badge-alloc-count" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; border-radius: 999px;">Loading...</span>
+          </div>
+          <div class="table-responsive-custom">
+            <table class="table-custom mb-0" id="alloc-table">
+              <thead>
+                <tr>
+                  <th>Faculty Member</th>
+                  <th>Subject Code & Title</th>
+                  <th>Class / Section</th>
+                  <th>Academic Year & Sem</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="alloc-tbody">
+                <tr><td colspan="5" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">Loading faculty subject allocations...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Subjects Catalog Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(245, 158, 11, 0.12); color: var(--brand-orange);">
+                <i class="fa-solid fa-book-bookmark"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Department Subject Catalog</h5>
+            </div>
+            <span class="badge-status badge-teal" id="badge-subjects-count" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; border-radius: 999px;">Loading...</span>
+          </div>
+          <div class="table-responsive-custom">
+            <table class="table-custom mb-0" id="subjects-table">
+              <thead>
+                <tr>
+                  <th>Subject Code</th>
+                  <th>Subject Name</th>
+                  <th>Department</th>
+                  <th>Credits</th>
+                  <th>Max Internal Marks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="subjects-tbody">
+                <tr><td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">Loading subject catalog...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+  <!-- Add Subject Modal -->
+  <div class="modal-overlay" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subModalTitle">
+    <div class="modal-dialog-custom modal-md">
+      <div class="modal-header-custom">
+        <div class="modal-header-brand">
+          <div class="modal-header-icon-box">
+            <i class="bi bi-journal-plus"></i>
+          </div>
+          <div>
+            <h3 class="modal-title-custom" id="subModalTitle">Add Academic Subject</h3>
+            <p class="modal-subtitle-custom">Define curriculum course details, credit allocation, and evaluation metrics.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeSubjectModal()" aria-label="Close dialog">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <form id="subject-form" novalidate>
+        <div class="modal-body-custom">
+          
+          <!-- Section 1: Subject Details -->
+          <div class="modal-section-card">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-card-heading"></i> Subject Details
+              </span>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-5">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="sub-code">
+                    Subject Code <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="sub-code" 
+                    class="form-control-custom text-uppercase" 
+                    placeholder="e.g. CS506" 
+                    required 
+                    autocomplete="off"
+                  >
+                  <span class="field-hint-text">Official university curriculum code</span>
+                  <div class="field-error-text" id="err-sub-code"></div>
+                </div>
+              </div>
+
+              <div class="col-md-7">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="sub-dept">
+                    Department <span class="required-asterisk">*</span>
+                  </label>
+                  <select id="sub-dept" class="form-select-custom" required></select>
+                  <span class="field-hint-text">Host department for course curriculum</span>
+                  <div class="field-error-text" id="err-sub-dept"></div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="sub-name">
+                    Subject Name <span class="required-asterisk">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="sub-name" 
+                    class="form-control-custom" 
+                    placeholder="e.g. Cloud Computing & DevOps Architecture" 
+                    required 
+                    autocomplete="off"
+                  >
+                  <span class="field-hint-text">Full title printed on official progress cards</span>
+                  <div class="field-error-text" id="err-sub-name"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Academic Weightage & Evaluation -->
+          <div class="modal-section-card mb-0">
+            <div class="modal-section-header">
+              <span class="modal-section-tag">
+                <i class="bi bi-calculator"></i> Academic Weightage
+              </span>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="sub-credit">
+                    Course Credits <span class="required-asterisk">*</span>
+                  </label>
+                  <div class="input-with-trailing">
+                    <input 
+                      type="number" 
+                      step="0.5" 
+                      min="0.5" 
+                      max="10.0" 
+                      id="sub-credit" 
+                      class="form-control-custom" 
+                      value="3.0" 
+                      required
+                    >
+                    <span class="input-trailing-badge">Credits</span>
+                  </div>
+                  <span class="field-hint-text">Standard semester credit weightage (1.0 – 5.0)</span>
+                  <div class="field-error-text" id="err-sub-credit"></div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group-custom mb-0">
+                  <label class="form-label-custom" for="sub-maxmarks">
+                    Max Internal Marks <span class="required-asterisk">*</span>
+                  </label>
+                  <div class="input-with-trailing">
+                    <input 
+                      type="number" 
+                      step="1" 
+                      min="10" 
+                      max="100" 
+                      id="sub-maxmarks" 
+                      class="form-control-custom" 
+                      value="50.0" 
+                      required
+                    >
+                    <span class="input-trailing-badge">Marks</span>
+                  </div>
+                  <span class="field-hint-text">Institutional IA total limit (default 50.0)</span>
+                  <div class="field-error-text" id="err-sub-maxmarks"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer-custom">
+          <div class="d-flex align-items-center gap-2 me-auto text-muted small d-none d-sm-flex">
+            <i class="bi bi-info-circle text-primary fs-6"></i>
+            <span>Course will immediately be available for faculty allocation</span>
+          </div>
+          <button type="button" class="btn-outline-custom" onclick="closeSubjectModal()">Cancel</button>
+          <button type="submit" class="btn-primary-teal" id="btn-submit-subject">
+            <i class="bi bi-check-lg me-1"></i> Save Subject
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assign Subject Modal -->
+  <div class="modal-overlay" id="assign-modal" role="dialog" aria-modal="true" aria-labelledby="assignModalTitle">
+    <div class="modal-dialog-custom modal-md">
+      <div class="modal-header-custom">
+        <div class="modal-header-brand">
+          <div class="modal-header-icon-box blue">
+            <i class="bi bi-person-video3"></i>
+          </div>
+          <div>
+            <h3 class="modal-title-custom" id="assignModalTitle">Allocate Subject to Faculty</h3>
+            <p class="modal-subtitle-custom">Assign course instructional responsibility to a faculty member for a class section.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeAssignModal()" aria-label="Close dialog">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <form id="assign-form" novalidate>
+        <div class="modal-body-custom">
+          <div class="modal-section-card mb-0">
+            <div class="form-group-custom mb-3">
+              <label class="form-label-custom" for="assign-staff">Faculty Member <span class="required-asterisk">*</span></label>
+              <select id="assign-staff" class="form-select-custom" required></select>
+              <span class="field-hint-text">Select instructor to take course attendance & upload marks</span>
+            </div>
+            <div class="form-group-custom mb-3">
+              <label class="form-label-custom" for="assign-subject">Subject <span class="required-asterisk">*</span></label>
+              <select id="assign-subject" class="form-select-custom" required></select>
+            </div>
+            <div class="form-group-custom mb-0">
+              <label class="form-label-custom" for="assign-class">Target Class Section <span class="required-asterisk">*</span></label>
+              <select id="assign-class" class="form-select-custom" required></select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer-custom">
+          <button type="button" class="btn-outline-custom" onclick="closeAssignModal()">Cancel</button>
+          <button type="submit" class="btn-primary-teal">
+            <i class="bi bi-link-45deg me-1"></i> Allocate Subject
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script>
+    requireAuth('admin');
+
+    let allAssignments = [];
+    let allSubjects = [];
+
+    async function loadData() {
+      try {
+        const [allocRes, subRes, stfRes, deptRes, clsRes] = await Promise.all([
+          apiRequest('/admin/assignments'),
+          apiRequest('/admin/subjects'),
+          apiRequest('/admin/staff'),
+          apiRequest('/admin/departments'),
+          apiRequest('/admin/classes'),
+        ]);
+
+        allAssignments = allocRes.data || [];
+        allSubjects = subRes.data || [];
+        const staffList = stfRes.data || [];
+        const departments = deptRes.data || [];
+        const classes = clsRes.data || [];
+
+        renderAllocations(allAssignments);
+        renderSubjects(allSubjects);
+
+        // Populate Form Dropdowns
+        document.getElementById('sub-dept').innerHTML = departments.map(d => `<option value="${d.id}">${d.name} (${d.code})</option>`).join('');
+        document.getElementById('assign-staff').innerHTML = staffList.map(st => `<option value="${st.id}">${st.first_name} ${st.last_name} (${st.employee_id}) - ${st.department_code}</option>`).join('');
+        document.getElementById('assign-subject').innerHTML = subjects.map(s => `<option value="${s.id}">${s.subject_code} - ${s.subject_name}</option>`).join('');
+        document.getElementById('assign-class').innerHTML = classes.map(c => `<option value="${c.id}">${c.batch_name} (Sec ${c.section}) - Sem ${c.semester_number}</option>`).join('');
+
+      } catch (err) {
+        showToast('Failed to load academics data: ' + err.message, 'error');
+      }
+    }
+
+    function renderAllocations(assignments) {
+      document.getElementById('badge-alloc-count').textContent = `${assignments.length} Allocations`;
+      const allocTbody = document.getElementById('alloc-tbody');
+      if (assignments.length > 0) {
+        allocTbody.innerHTML = assignments.map(a => `
+          <tr>
+            <td>
+              <strong>${a.first_name} ${a.last_name}</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">${a.employee_id}</div>
+            </td>
+            <td>
+              <span class="badge-status badge-teal">${a.subject_code}</span>
+              <span style="font-weight: 600; margin-left: 0.35rem;">${a.subject_name}</span>
+            </td>
+            <td>${a.batch_name} (Section ${a.section})</td>
+            <td>${a.year_name} &bull; Semester ${a.semester_number}</td>
+            <td><span class="badge-status badge-active">Active Teaching</span></td>
+          </tr>
+        `).join('');
+      } else {
+        allocTbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No allocations found.</td></tr>';
+      }
+    }
+
+    function renderSubjects(subjects) {
+      document.getElementById('badge-subjects-count').textContent = `${subjects.length} Subjects`;
+      const subTbody = document.getElementById('subjects-tbody');
+      if (subjects.length > 0) {
+        subTbody.innerHTML = subjects.map(s => `
+          <tr>
+            <td><strong style="color: var(--primary-navy);">${s.subject_code}</strong></td>
+            <td><strong>${s.subject_name}</strong></td>
+            <td><span class="badge-status badge-teal">${s.department_code}</span></td>
+            <td>${s.credit} Credits</td>
+            <td>${s.max_internal_marks} Marks</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+          </tr>
+        `).join('');
+      } else {
+        subTbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No subjects found.</td></tr>';
+      }
+    }
+
+    function filterAcademics() {
+      const q = (document.getElementById('academicsSearchInput')?.value || '').toLowerCase().trim();
+      if (!q) {
+        renderAllocations(allAssignments);
+        renderSubjects(allSubjects);
+        return;
+      }
+      const filteredAlloc = allAssignments.filter(a =>
+        a.first_name?.toLowerCase().includes(q) ||
+        a.last_name?.toLowerCase().includes(q) ||
+        a.employee_id?.toLowerCase().includes(q) ||
+        a.subject_code?.toLowerCase().includes(q) ||
+        a.subject_name?.toLowerCase().includes(q) ||
+        a.batch_name?.toLowerCase().includes(q)
+      );
+      const filteredSub = allSubjects.filter(s =>
+        s.subject_code?.toLowerCase().includes(q) ||
+        s.subject_name?.toLowerCase().includes(q) ||
+        s.department_code?.toLowerCase().includes(q)
+      );
+      renderAllocations(filteredAlloc);
+      renderSubjects(filteredSub);
+    }
+
+    function openSubjectModal() {
+      clearFormErrors('subject-form');
+      openModalAccessible('subject-modal');
+    }
+
+    function closeSubjectModal() {
+      closeModalAccessible('subject-modal');
+      document.getElementById('subject-form').reset();
+      clearFormErrors('subject-form');
+    }
+
+    function openAssignModal() {
+      openModalAccessible('assign-modal');
+    }
+
+    function closeAssignModal() {
+      closeModalAccessible('assign-modal');
+      document.getElementById('assign-form').reset();
+    }
+
+    // Subject Form Submission with Inline Validation
+    document.getElementById('subject-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearFormErrors('subject-form');
+
+      const code = document.getElementById('sub-code').value.trim();
+      const deptVal = document.getElementById('sub-dept').value;
+      const name = document.getElementById('sub-name').value.trim();
+      const creditVal = parseFloat(document.getElementById('sub-credit').value);
+      const maxMarksVal = parseFloat(document.getElementById('sub-maxmarks').value);
+
+      let hasError = false;
+
+      if (!code) {
+        setFieldError('sub-code', 'Subject code is required (e.g. CS506)');
+        hasError = true;
+      } else if (code.length < 2 || code.length > 20) {
+        setFieldError('sub-code', 'Subject code must be between 2 and 20 characters');
+        hasError = true;
+      }
+
+      if (!deptVal) {
+        setFieldError('sub-dept', 'Please select a host department');
+        hasError = true;
+      }
+
+      if (!name) {
+        setFieldError('sub-name', 'Subject name is required');
+        hasError = true;
+      } else if (name.length < 3) {
+        setFieldError('sub-name', 'Subject name must be at least 3 characters');
+        hasError = true;
+      }
+
+      if (isNaN(creditVal) || creditVal <= 0 || creditVal > 12) {
+        setFieldError('sub-credit', 'Credits must be a positive number between 0.5 and 12.0');
+        hasError = true;
+      }
+
+      if (isNaN(maxMarksVal) || maxMarksVal <= 0 || maxMarksVal > 100) {
+        setFieldError('sub-maxmarks', 'Max internal marks must be between 10 and 100');
+        hasError = true;
+      }
+
+      if (hasError) {
+        showToast('Please check the highlighted subject details.', 'warning');
+        return;
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Saving Subject...';
+
+      try {
+        await apiRequest('/admin/subjects', {
+          method: 'POST',
+          body: JSON.stringify({
+            subjectCode: code.toUpperCase(),
+            departmentId: parseInt(deptVal, 10),
+            subjectName: name,
+            credit: creditVal,
+            maxInternalMarks: maxMarksVal,
+          })
+        });
+        showToast('Subject created successfully!', 'success');
+        closeSubjectModal();
+        await loadData();
+      } catch (err) {
+        showToast(err.message || 'Failed to create subject', 'error');
+        if (err.message && err.message.toLowerCase().includes('code')) {
+          setFieldError('sub-code', err.message);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    document.getElementById('assign-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Allocating...';
+
+      try {
+        const staffVal = document.getElementById('assign-staff').value;
+        const subVal = document.getElementById('assign-subject').value;
+        const classVal = document.getElementById('assign-class').value;
+
+        await apiRequest('/admin/assignments', {
+          method: 'POST',
+          body: JSON.stringify({
+            staffId: parseInt(staffVal, 10),
+            subjectId: parseInt(subVal, 10),
+            classId: parseInt(classVal, 10),
+          })
+        });
+        showToast('Subject allocated to faculty successfully!', 'success');
+        closeAssignModal();
+        await loadData();
+      } catch (err) {
+        showToast(err.message || 'Failed to allocate subject', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>

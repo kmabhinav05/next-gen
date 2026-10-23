@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+  <style>
+    :root {
+      --auth-bg-gradient: linear-gradient(135deg, #bfa099 0%, #8f686d 45%, #664952 100%);
+      --auth-btn-rose: #95636e;
+      --auth-btn-rose-hover: #83525d;
+      --auth-input-bg: #ffffff;
+      --auth-input-text: #1e293b;
+      --auth-card-bg: #f5f6fa;
+      --auth-card-border: rgba(255, 255, 255, 0.35);
+      --auth-title-color: #1e293b;
+      --auth-subtitle-color: #64748b;
+      --auth-teal: #3aa68c;
+    }
+
+    [data-theme="dark"], body.dark-theme {
+      --auth-bg-gradient: radial-gradient(circle at 10% 20%, #17153a 0%, #090d16 60%, #020617 100%);
+      --auth-card-bg: #1e293b;
+      --auth-card-border: #334155;
+      --auth-input-bg: #0f172a;
+      --auth-input-text: #f8fafc;
+      --auth-title-color: #f8fafc;
+      --auth-subtitle-color: #94a3b8;
+    }
+
+    body {
+      background: var(--auth-bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Ambient soft lighting spheres in background */
+    .auth-bg-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    .auth-bg-glow-1 {
+      top: -100px;
+      left: -100px;
+      background: radial-gradient(circle, #fbcfe8 0%, #f43f5e 50%, transparent 70%);
+    }
+
+    .auth-bg-glow-2 {
+      bottom: -100px;
+      right: -100px;
+      background: radial-gradient(circle, #fed7aa 0%, #f97316 50%, transparent 70%);
+    }
+
+    /* Outer Wrapper with entrance animation */
+    .auth-page-wrapper {
+      width: 100%;
+      max-width: 960px;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      perspective: 1200px;
+      animation: cardAppear 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Main Rounded Card matching reference */
+    .auth-card-master {
+      background: var(--auth-card-bg);
+      border-radius: 36px;
+      box-shadow: 0 30px 70px -12px rgba(45, 20, 28, 0.5), 0 0 0 1px var(--auth-card-border);
+      width: 100%;
+      padding: 2.75rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0.75rem 0.5rem;
+      }
+      .auth-card-master {
+        padding: 1.65rem 1.15rem;
+        border-radius: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.5rem 0.25rem;
+      }
+      .auth-card-master {
+        padding: 1.35rem 0.95rem;
+        border-radius: 20px;
+      }
+      .auth-title {
+        font-size: 1.6rem !important;
+      }
+      .auth-subtitle {
+        font-size: 0.8rem !important;
+        margin-bottom: 1.25rem !important;
+      }
+      .auth-input-field {
+        min-height: 44px;
+        font-size: 16px !important;
+        padding: 0.75rem 1rem;
+      }
+      .auth-btn-login {
+        min-height: 44px;
+      }
+    }
+
+    /* Left Form Column */
+    .auth-left-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 2.5rem;
+      position: relative;
+    }
+
+    @media (max-width: 991px) {
+      .auth-left-col {
+        padding-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Dynamic View Slider (Login View vs Forgot Password View) */
+    .auth-view-slider {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .auth-view-pane {
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-view-pane.hidden-pane {
+      display: none;
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    .auth-view-pane.active-pane {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+      animation: paneSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes paneSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .auth-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--auth-title-color);
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.025em;
+      text-align: center;
+    }
+
+    .auth-subtitle {
+      font-size: 0.85rem;
+      color: var(--auth-subtitle-color);
+      margin-bottom: 1.85rem;
+      text-align: center;
+    }
+
+    .auth-input-group {
+      margin-bottom: 1.15rem;
+      position: relative;
+    }
+
+    .auth-input-field {
+      width: 100%;
+      background: var(--auth-input-bg);
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 0.88rem 1.25rem;
+      font-size: 0.94rem;
+      color: var(--auth-input-text);
+      outline: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+    }
+
+    .auth-input-field:focus {
+      border-color: var(--auth-btn-rose);
+      box-shadow: 0 0 0 4px rgba(149, 99, 110, 0.18);
+      background: var(--auth-input-bg);
+      transform: translateY(-1px);
+    }
+
+    .auth-input-field::placeholder {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .auth-pwd-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 6px;
+      font-size: 1rem;
+      transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .auth-pwd-toggle:hover {
+      color: #475569;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .recovery-link {
+      color: #64748b;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      text-align: right;
+      width: 100%;
+      margin-top: -0.35rem;
+      margin-bottom: 1.4rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .recovery-link:hover {
+      color: var(--auth-btn-rose);
+      text-decoration: underline;
+    }
+
+    /* Request Access Link */
+    .request-access-link {
+      color: #64748b;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      background: rgba(149, 99, 110, 0.08);
+      border: 1px dashed rgba(149, 99, 110, 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      margin-top: 1.15rem;
+    }
+
+    .request-access-link:hover {
+      color: var(--auth-btn-rose);
+      background: rgba(149, 99, 110, 0.16);
+      border-color: var(--auth-btn-rose);
+      transform: translateY(-1px);
+    }
+
+    textarea.auth-input-field {
+      resize: vertical;
+      min-height: 85px;
+      line-height: 1.45;
+    }
+
+    .auth-alert-dynamic {
+      font-size: 0.85rem;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.15rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      animation: paneSlideIn 0.3s ease forwards;
+    }
+
+    /* Main Submit Button (Mauve / Dusty Rose) */
+    .btn-auth-rose {
+      background: var(--auth-btn-rose);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 0.88rem 1.5rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      width: 100%;
+      box-shadow: 0 10px 24px -3px rgba(149, 99, 110, 0.45);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-auth-rose::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .btn-auth-rose:hover::after {
+      transform: translateX(100%);
+    }
+
+    .btn-auth-rose:hover {
+      background: var(--auth-btn-rose-hover);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -3px rgba(149, 99, 110, 0.55);
+    }
+
+    .btn-auth-rose:active {
+      transform: translateY(0);
+    }
+
+    .btn-auth-rose:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Error Shake Animation (like Dribbble interaction animation) */
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .shake-error {
+      animation: shakeError 0.45s ease-in-out;
+    }
+
+    /* Success Checkmark Pop */
+    @keyframes checkPop {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .check-pop {
+      animation: checkPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Social Divider */
+    .auth-divider-text {
+      position: relative;
+      text-align: center;
+      margin: 1.6rem 0 1.25rem;
+    }
+
+    .auth-divider-text span {
+      background: #f5f6fa;
+      padding: 0 14px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      position: relative;
+      z-index: 2;
+    }
+
+    .auth-divider-text::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: #e2e8f0;
+      z-index: 1;
+    }
+
+    /* Social Pills */
+    .social-pills-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .social-pill-btn {
+      width: 54px;
+      height: 42px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .social-pill-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.09);
+      border-color: #cbd5e1;
+    }
+
+    /* Right Artwork Column with 3D Depth & Floating Transition */
+    .auth-art-container {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px -6px rgba(30, 20, 25, 0.28);
+      height: 100%;
+      min-height: 480px;
+      background: #0f172a;
+      transition: transform 0.4s ease;
+    }
+
+    .auth-art-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+
+    .auth-art-container:hover .auth-art-img {
+      transform: scale(1.04);
+    }
+
+    .auth-art-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(30, 15, 25, 0.72) 0%, rgba(30, 15, 25, 0.15) 45%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.25rem;
+      color: #ffffff;
+    }
+
+    .auth-art-quote {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .auth-art-carousel-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .carousel-nav-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.45);
+      transform: scale(1.1);
+    }
+
+    /* Back to Homepage */
+    .auth-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: #64748b;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: 1.35rem;
+      justify-content: center;
+      width: 100%;
+      transition: color 0.15s ease;
+    }
+
+    .auth-back-link:hover {
+      color: var(--auth-btn-rose);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Theme Toggle Button -->
+  <button type="button" class="theme-toggle-btn position-fixed top-0 end-0 m-4 shadow-sm" style="z-index: 1000;" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <!-- Ambient Light Spheres -->
+  <div class="auth-bg-glow auth-bg-glow-1"></div>
+  <div class="auth-bg-glow auth-bg-glow-2"></div>
+
+  <div class="auth-page-wrapper">
+    <div class="auth-card-master" id="authCardMaster">
+      <div class="row align-items-stretch g-0">
+        
+        <!-- Left Side: Interactive View Slider (Sign In vs Forgot Password) -->
+        <div class="col-lg-6 auth-left-col">
+          
+          <div class="auth-view-slider">
+            
+            <!-- PANE 1: Sign In View -->
+            <div class="auth-view-pane active-pane" id="loginPane">
+              <h1 class="auth-title">Hello Again!</h1>
+              <p class="auth-subtitle">Welcome back to Next Gen Grading</p>
+
+              <form id="login-form">
+                <!-- Username / Email Field -->
+                <div class="auth-input-group">
+                  <input 
+                    type="text" 
+                    id="username" 
+                    class="auth-input-field" 
+                    placeholder="Email or Username" 
+                    required 
+                    autocomplete="username"
+                    autofocus
+                  >
+                </div>
+
+                <!-- Password Field with Toggle Button -->
+                <div class="auth-input-group">
+                  <input 
+                    type="password" 
+                    id="password" 
+                    class="auth-input-field pe-5" 
+                    placeholder="Password" 
+                    required 
+                    autocomplete="current-password"
+                  >
+                  <button type="button" id="toggle-pwd-btn" class="auth-pwd-toggle" title="Toggle password visibility">
+                    <i class="fa-regular fa-eye-slash"></i>
+                  </button>
+                </div>
+
+                <!-- Forgot Password / Recovery Trigger -->
+                <div class="text-end">
+                  <a href="javascript:void(0)" class="recovery-link" onclick="switchToForgot()">Recovery Password</a>
+                </div>
+
+                <!-- Sign In Button with Dribbble-style state animation -->
+                <button type="submit" id="submit-btn" class="btn-auth-rose">
+                  <span id="btn-text">Sign In</span>
+                  <span id="btn-spinner" class="d-none">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Authenticating...
+                  </span>
+                </button>
+              </form>
+
+              <!-- New User? Request Access Action Link -->
+              <a href="javascript:void(0)" class="request-access-link" onclick="switchToRequestAccess()">
+                <i class="fa-solid fa-user-plus"></i> New user? Request access from the administrator.
+              </a>
+
+              <!-- Divider -->
+              <div class="auth-divider-text">
+                <span>Or continue with</span>
+              </div>
+
+              <!-- Social Pills -->
+              <div class="social-pills-row">
+                <button type="button" class="social-pill-btn" title="Sign in with Google" onclick="socialNotice('Google')">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                  </svg>
+                </button>
+                <button type="button" class="social-pill-btn" title="Sign in with Apple" onclick="socialNotice('Apple')">
+                  <i class="fa-brands fa-apple text-dark fs-5"></i>
+                </button>
+                <button type="button" class="social-pill-btn" title="Sign in with Facebook" onclick="socialNotice('Facebook')">
+                  <i class="fa-brands fa-facebook-f text-primary fs-6"></i>
+                </button>
+              </div>
+
+              <!-- Return link -->
+              <a href="/" class="auth-back-link">
+                <i class="fa-solid fa-arrow-left"></i> Return to portal home
+              </a>
+            </div>
+
+            <!-- PANE 2: Forgot / Recovery Password View -->
+            <div class="auth-view-pane hidden-pane" id="forgotPane">
+              <h1 class="auth-title">Reset Password</h1>
+              <p class="auth-subtitle">Enter your registered email or username</p>
+
+              <!-- Step 1: Verify Identifier -->
+              <form id="forgot-form">
+                <div class="auth-input-group">
+                  <input 
+                    type="text" 
+                    id="forgotEmail" 
+                    class="auth-input-field" 
+                    placeholder="Email or Username" 
+                    required 
+                    autocomplete="username"
+                  >
+                </div>
+
+                <!-- Step 2: New Password Fields (Appears once email is verified) -->
+                <div id="newPasswordSection" class="d-none">
+                  <div class="auth-input-group">
+                    <input 
+                      type="password" 
+                      id="newPassword" 
+                      class="auth-input-field" 
+                      placeholder="New Password (min. 8 chars, 1 uppercase, 1 digit)" 
+                    >
+                  </div>
+                  <div class="auth-input-group">
+                    <input 
+                      type="password" 
+                      id="confirmPassword" 
+                      class="auth-input-field" 
+                      placeholder="Confirm New Password" 
+                    >
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="forgot-submit-btn" class="btn-auth-rose">
+                  <span id="forgot-btn-text">Verify Account</span>
+                  <span id="forgot-btn-spinner" class="d-none">
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Processing...
+                  </span>
+                </button>
+              </form>
+
+              <!-- Back to Sign In Link -->
+              <div class="text-center mt-4">
+                <a href="javascript:void(0)" class="recovery-link text-center" onclick="switchToLogin()">
+                  <i class="fa-solid fa-arrow-left me-1"></i> Back to Sign In
+                </a>
+              </div>
+            </div>
+
+            <!-- PANE 3: Request Access View -->
+            <div class="auth-view-pane hidden-pane" id="requestAccessPane">
+              <h1 class="auth-title">Request Access</h1>
+              <p class="auth-subtitle">Submit your details to request an account from the administrator</p>
+
+              <!-- Dynamic Alert Box for Success/Error feedback -->
+              <div id="reqAlertBox" class="d-none" role="alert"></div>
+
+              <form id="request-access-form" novalidate>
+                <!-- Full Name Field -->
+                <div class="auth-input-group">
+                  <input 
+                    type="text" 
+                    id="reqFullName" 
+                    class="auth-input-field" 
+                    placeholder="Full Name (e.g., Prof. Alex Smith)" 
+                    required 
+                    autocomplete="name"
+                  >
+                </div>
+
+                <!-- Email Address Field -->
+                <div class="auth-input-group">
+                  <input 
+                    type="email" 
+                    id="reqEmail" 
+                    class="auth-input-field" 
+                    placeholder="Email Address (e.g., alex.smith@college.edu)" 
+                    required 
+                    autocomplete="email"
+                  >
+                </div>
+
+                <!-- Reason for Access / Project Name Textarea -->
+                <div class="auth-input-group">
+                  <textarea 
+                    id="reqReason" 
+                    class="auth-input-field" 
+                    rows="3" 
+                    placeholder="Reason for Access / Project Name (e.g., Faculty for CS Dept / Semester 5 Grading)" 
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button with loading spinner -->
+                <button type="submit" id="reqSubmitBtn" class="btn-auth-rose">
+                  <span id="reqBtnText"><i class="fa-solid fa-paper-plane me-1"></i> Request Access</span>
+                  <span id="reqBtnSpinner" class="d-none">
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Submitting Request...
+                  </span>
+                </button>
+              </form>
+
+              <!-- Back to Sign In Link -->
+              <div class="text-center mt-4">
+                <a href="javascript:void(0)" class="recovery-link text-center" onclick="switchToLogin()">
+                  <i class="fa-solid fa-arrow-left me-1"></i> Back to Sign In
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Side: Artwork with Carousel -->
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="auth-art-container">
+            <img src="/assets/images/auth-illustration-art.png" alt="Next Gen Grading Platform View" class="auth-art-img">
+            <div class="auth-art-overlay">
+              <div class="auth-art-quote" id="art-quote-text">
+                Track attendance, internal marks, and exam readiness.
+              </div>
+              <div class="auth-art-carousel-nav">
+                <button type="button" class="carousel-nav-btn" onclick="prevQuote()" title="Previous slide">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button type="button" class="carousel-nav-btn" onclick="nextQuote()" title="Next slide">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/assets/js/api.js"></script>
+  <script>
+    // Quotes Carousel on the artwork
+    const quotes = [
+      "Track attendance, internal marks, and exam readiness.",
+      "Finally, all your academic work in one place.",
+      "Instant digital progress cards for parents & faculty."
+    ];
+    let quoteIndex = 0;
+    const quoteEl = document.getElementById('art-quote-text');
+
+    function updateQuote() {
+      if (quoteEl) {
+        quoteEl.style.opacity = '0';
+        quoteEl.style.transform = 'translateY(6px)';
+        setTimeout(() => {
+          quoteEl.textContent = quotes[quoteIndex];
+          quoteEl.style.opacity = '1';
+          quoteEl.style.transform = 'translateY(0)';
+        }, 200);
+      }
+    }
+
+    function nextQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      updateQuote();
+    }
+
+    function prevQuote() {
+      quoteIndex = (quoteIndex - 1 + quotes.length) % quotes.length;
+      updateQuote();
+    }
+
+    // Toggle Password Visibility
+    const toggleBtn = document.getElementById('toggle-pwd-btn');
+    const pwdInput = document.getElementById('password');
+    toggleBtn.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
+      toggleBtn.innerHTML = isPwd ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+    });
+
+    // View Switching Animations (Sign In <-> Forgot Password <-> Request Access)
+    function switchToForgot() {
+      const loginPane = document.getElementById('loginPane');
+      const forgotPane = document.getElementById('forgotPane');
+      const reqPane = document.getElementById('requestAccessPane');
+      
+      loginPane.classList.remove('active-pane');
+      loginPane.classList.add('hidden-pane');
+      reqPane.classList.remove('active-pane');
+      reqPane.classList.add('hidden-pane');
+      
+      forgotPane.classList.remove('hidden-pane');
+      forgotPane.classList.add('active-pane');
+      
+      document.getElementById('forgotEmail').focus();
+    }
+
+    function switchToRequestAccess() {
+      const loginPane = document.getElementById('loginPane');
+      const forgotPane = document.getElementById('forgotPane');
+      const reqPane = document.getElementById('requestAccessPane');
+
+      loginPane.classList.remove('active-pane');
+      loginPane.classList.add('hidden-pane');
+      forgotPane.classList.remove('active-pane');
+      forgotPane.classList.add('hidden-pane');
+
+      reqPane.classList.remove('hidden-pane');
+      reqPane.classList.add('active-pane');
+
+      hideReqAlert();
+      document.getElementById('reqFullName').focus();
+    }
+
+    function switchToLogin() {
+      const loginPane = document.getElementById('loginPane');
+      const forgotPane = document.getElementById('forgotPane');
+      const reqPane = document.getElementById('requestAccessPane');
+      
+      forgotPane.classList.remove('active-pane');
+      forgotPane.classList.add('hidden-pane');
+      reqPane.classList.remove('active-pane');
+      reqPane.classList.add('hidden-pane');
+      
+      loginPane.classList.remove('hidden-pane');
+      loginPane.classList.add('active-pane');
+      
+      // Reset forgot form state
+      document.getElementById('newPasswordSection').classList.add('d-none');
+      document.getElementById('forgot-btn-text').textContent = 'Verify Account';
+      isResetStep = false;
+      hideReqAlert();
+      
+      document.getElementById('username').focus();
+    }
+
+    // Dynamic Alert Box Helper for Request Access
+    function showReqAlert(message, type = 'danger') {
+      const alertBox = document.getElementById('reqAlertBox');
+      alertBox.className = `auth-alert-dynamic alert alert-${type}`;
+      const icon = type === 'success' 
+        ? '<i class="fa-solid fa-circle-check fs-5 text-success"></i>' 
+        : '<i class="fa-solid fa-triangle-exclamation fs-5 text-danger"></i>';
+      alertBox.innerHTML = `${icon}<div>${message}</div>`;
+      alertBox.classList.remove('d-none');
+    }
+
+    function hideReqAlert() {
+      const alertBox = document.getElementById('reqAlertBox');
+      if (alertBox) {
+        alertBox.className = 'd-none';
+        alertBox.innerHTML = '';
+      }
+    }
+
+    // Shake error interaction effect
+    function triggerShake() {
+      const card = document.getElementById('authCardMaster');
+      card.classList.remove('shake-error');
+      void card.offsetWidth; // Force reflow
+      card.classList.add('shake-error');
+      setTimeout(() => card.classList.remove('shake-error'), 500);
+    }
+
+    // Social SSO Notice
+    function socialNotice(provider) {
+      showToast(`Institutional SSO for ${provider} is managed through department directory credentials.`, 'info');
+    }
+
+    // Sign In Submission with Dribbble-style interaction feedback
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+      const submitBtn = document.getElementById('submit-btn');
+
+      btnText.classList.add('d-none');
+      btnSpinner.classList.remove('d-none');
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const resData = await response.json();
+
+        if (!response.ok || !resData.success) {
+          throw new Error(resData.message || 'Invalid username or password');
+        }
+
+        // Store token & user profile
+        localStorage.setItem('token', resData.data.token);
+        localStorage.setItem('user', JSON.stringify(resData.data.user));
+
+        // Success animation state
+        btnSpinner.classList.add('d-none');
+        btnText.innerHTML = '<i class="fa-solid fa-check check-pop me-1"></i> Success!';
+        btnText.classList.remove('d-none');
+        submitBtn.style.background = '#10b981';
+
+        showToast('Login successful! Redirecting...', 'success');
+
+        // 3D Loading Transition to Dashboard
+        if (typeof window.show3DLoader === 'function') {
+          window.show3DLoader({
+            title: `Welcome, ${resData.data.user.username}!`,
+            subtitle: `Preparing ${resData.data.user.role.toUpperCase()} dashboard & initializing academic workspace...`,
+            badge: 'Session Established',
+            duration: 1300,
+            onComplete: () => {
+              window.location.href = resData.data.user.redirectUrl || '/';
+            }
+          });
+        } else {
+          setTimeout(() => {
+            window.location.href = resData.data.user.redirectUrl || '/';
+          }, 500);
+        }
+
+      } catch (err) {
+        triggerShake();
+        showToast(err.message, 'danger');
+        btnText.classList.remove('d-none');
+        btnSpinner.classList.add('d-none');
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Forgot Password & Reset Two-Step Interactive Flow
+    let isResetStep = false;
+    let verifiedAccount = '';
+
+    document.getElementById('forgot-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('forgotEmail').value.trim();
+      const newPwdInput = document.getElementById('newPassword').value;
+      const confirmPwdInput = document.getElementById('confirmPassword').value;
+
+      const btnText = document.getElementById('forgot-btn-text');
+      const btnSpinner = document.getElementById('forgot-btn-spinner');
+      const submitBtn = document.getElementById('forgot-submit-btn');
+
+      btnText.classList.add('d-none');
+      btnSpinner.classList.remove('d-none');
+      submitBtn.disabled = true;
+
+      try {
+        if (!isResetStep) {
+          // STEP 1: Verify Account
+          const res = await fetch('/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: emailInput })
+          });
+
+          const data = await res.json();
+          if (!res.ok || !data.success) {
+            throw new Error(data.message || 'Account verification failed');
+          }
+
+          verifiedAccount = emailInput;
+          isResetStep = true;
+
+          // Reveal new password fields with smooth animation
+          const pwdSection = document.getElementById('newPasswordSection');
+          pwdSection.classList.remove('d-none');
+          pwdSection.style.animation = 'paneSlideIn 0.35s ease forwards';
+          
+          btnText.textContent = 'Set New Password';
+          btnText.classList.remove('d-none');
+          btnSpinner.classList.add('d-none');
+          submitBtn.disabled = false;
+
+          document.getElementById('newPassword').focus();
+          showToast(data.message, 'info');
+
+        } else {
+          // STEP 2: Submit New Password
+          if (newPwdInput.length < 8) {
+            throw new Error('Password must be at least 8 characters long');
+          }
+          if (newPwdInput !== confirmPwdInput) {
+            throw new Error('Passwords do not match');
+          }
+
+          const res = await fetch('/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: verifiedAccount,
+              newPassword: newPwdInput
+            })
+          });
+
+          const data = await res.json();
+          if (!res.ok || !data.success) {
+            throw new Error(data.message || 'Password reset failed');
+          }
+
+          btnSpinner.classList.add('d-none');
+          btnText.innerHTML = '<i class="fa-solid fa-check check-pop me-1"></i> Password Updated!';
+          btnText.classList.remove('d-none');
+          submitBtn.style.background = '#10b981';
+
+          showToast(data.message, 'success');
+
+          setTimeout(() => {
+            switchToLogin();
+          }, 1200);
+        }
+
+      } catch (err) {
+        triggerShake();
+        showToast(err.message, 'danger');
+        btnText.classList.remove('d-none');
+        btnSpinner.classList.add('d-none');
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Request Access Form Submission with Dynamic Alert States
+    document.getElementById('request-access-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideReqAlert();
+
+      const fullName = document.getElementById('reqFullName').value.trim();
+      const email = document.getElementById('reqEmail').value.trim();
+      const reason = document.getElementById('reqReason').value.trim();
+
+      const btnText = document.getElementById('reqBtnText');
+      const btnSpinner = document.getElementById('reqBtnSpinner');
+      const submitBtn = document.getElementById('reqSubmitBtn');
+
+      // Client-side validation
+      if (!fullName) {
+        triggerShake();
+        showReqAlert('Please enter your full name.', 'danger');
+        document.getElementById('reqFullName').focus();
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        triggerShake();
+        showReqAlert('Please enter a valid institutional or personal email address.', 'danger');
+        document.getElementById('reqEmail').focus();
+        return;
+      }
+
+      if (!reason || reason.length < 5) {
+        triggerShake();
+        showReqAlert('Please state your reason for access or project name (at least 5 characters).', 'danger');
+        document.getElementById('reqReason').focus();
+        return;
+      }
+
+      btnText.classList.add('d-none');
+      btnSpinner.classList.remove('d-none');
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/request-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, reason })
+        });
+
+        const resData = await response.json();
+
+        if (!response.ok || !resData.success) {
+          const errMsg = resData.errors && resData.errors.length > 0 
+            ? resData.errors.map(err => err.msg).join(', ') 
+            : (resData.message || 'Failed to submit access request. Please check your entries.');
+          throw new Error(errMsg);
+        }
+
+        // Success state: dynamic UI alert & feedback without reloading
+        btnSpinner.classList.add('d-none');
+        btnText.innerHTML = '<i class="fa-solid fa-check check-pop me-1"></i> Request Sent!';
+        btnText.classList.remove('d-none');
+        submitBtn.style.background = '#10b981';
+
+        showReqAlert(resData.message || 'Your access request has been submitted to the site administrator.', 'success');
+        showToast('Access request submitted successfully!', 'success');
+
+        // Clear input fields
+        document.getElementById('reqFullName').value = '';
+        document.getElementById('reqEmail').value = '';
+        document.getElementById('reqReason').value = '';
+
+        // Reset submit button after delay
+        setTimeout(() => {
+          submitBtn.style.background = '';
+          btnText.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Request Access';
+          submitBtn.disabled = false;
+        }, 5000);
+
+      } catch (err) {
+        triggerShake();
+        showReqAlert(err.message, 'danger');
+        showToast(err.message, 'danger');
+        btnText.classList.remove('d-none');
+        btnSpinner.classList.add('d-none');
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

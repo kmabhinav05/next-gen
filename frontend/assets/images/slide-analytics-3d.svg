@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3aa68c" />
+      <stop offset="100%" stop-color="#2e8b75" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="15" stdDeviation="14" flood-color="#d97706" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="250" cy="250" r="180" fill="#fef3c7" opacity="0.6" />
+
+  <!-- Pedestal -->
+  <ellipse cx="250" cy="420" rx="190" ry="32" fill="#fef3c7" opacity="0.7" />
+
+  <!-- 3D Floating Dashboard Tablet Card -->
+  <g filter="url(#shadow2)" transform="translate(65, 60)">
+    <rect x="0" y="0" width="370" height="290" rx="24" fill="url(#cardGrad)" stroke="#ffffff" stroke-width="4" />
+    
+    <!-- Top Bar Mock -->
+    <rect x="24" y="24" width="120" height="14" rx="7" fill="#111827" />
+    <circle cx="330" cy="30" r="6" fill="#10b981" />
+    <circle cx="310" cy="30" r="6" fill="#f59e0b" />
+
+    <!-- 3D Bar Chart Columns -->
+    <rect x="45" y="170" width="38" height="80" rx="10" fill="url(#tealGrad)" />
+    <rect x="105" y="130" width="38" height="120" rx="10" fill="url(#chartGrad)" />
+    <rect x="165" y="90" width="38" height="160" rx="10" fill="url(#tealGrad)" />
+    <rect x="225" y="60" width="38" height="190" rx="10" fill="url(#chartGrad)" />
+    <rect x="285" y="110" width="38" height="140" rx="10" fill="url(#tealGrad)" />
+
+    <!-- Baseline -->
+    <line x1="30" y1="255" x2="340" y2="255" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Floating 3D Excel Badge -->
+  <g filter="url(#shadow2)" transform="translate(35, 270)">
+    <rect x="0" y="0" width="130" height="100" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
+    <rect x="20" y="16" width="90" height="40" rx="10" fill="#10b981" />
+    <text x="65" y="43" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20" fill="#ffffff" text-anchor="middle">XLSX</text>
+    <text x="65" y="82" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#0f172a" text-anchor="middle">1-Click Import</text>
+  </g>
+
+  <!-- Floating 3D Grade A+ Orb -->
+  <g filter="url(#shadow2)" transform="translate(355, 175)">
+    <circle cx="45" cy="45" r="44" fill="#ffffff" stroke="#f59e0b" stroke-width="3" />
+    <circle cx="45" cy="45" r="37" fill="url(#chartGrad)" />
+    <text x="45" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="24" fill="#ffffff" text-anchor="middle">A+</text>
+  </g>
+</svg>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Progress Cards | Next Gen Grading</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printableCard, #printableCard * {
+        visibility: visible;
+      }
+      #printableCard {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        background: white;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container no-print">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="brand-text">
+        <div class="brand-title">Next Gen Grading</div>
+        <div class="brand-subtitle">Faculty Portal</div>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="/staff/index.html" class="nav-link">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/staff/upload-marks.html" class="nav-link">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Upload Marks (Excel)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/staff/progress-cards.html" class="nav-link active">
+          <i class="fa-solid fa-id-card"></i>
+          <span>Progress Cards</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/index.html" class="nav-link">
+          <i class="fa-solid fa-globe"></i>
+          <span>Public Portal</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" onclick="logout()" class="nav-link text-danger">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Wrapper -->
+  <div class="main-wrapper">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left d-flex align-items-center">
+        <button class="btn btn-sm btn-light d-lg-none me-2 p-2 rounded-3 border" onclick="toggleSidebar()" aria-label="Toggle navigation drawer" title="Menu" style="min-width: 44px; min-height: 44px;">
+          <i class="fa-solid fa-bars fs-5"></i>
+        </button>
+        <div>
+          <h5 class="page-title mb-0">Student Progress Cards</h5>
+          <span class="text-muted small">Continuous assessment evaluation, attendance tracking, and parent meeting reports</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle-btn me-2" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <div class="user-badge" id="userBadgeContainer"></div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="page-content">
+      <!-- Class Filter Card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row g-3 align-items-center">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Select Class Section *</label>
+              <select class="form-select" id="classSelect" onchange="loadClassStudents()">
+                <option value="">-- Choose Class --</option>
+              </select>
+            </div>
+            <div class="col-md-6 text-md-end mt-md-4">
+              <span class="text-muted small me-2" id="classStudentCountInfo"></span>
+              <button class="btn btn-teal" onclick="loadClassStudents()">
+                <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh Class
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Students Table Card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-users text-teal me-2"></i>Class Enrolled Students</h6>
+          <span class="badge bg-light text-dark border">Semester 5</span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Reg No</th>
+                  <th>Roll No</th>
+                  <th>Student Name</th>
+                  <th>Class / Batch</th>
+                  <th>Semester</th>
+                  <th class="text-end" style="width: 250px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody">
+                <tr>
+                  <td colspan="6" class="text-center py-4 text-muted">Select a class above to view enrolled students.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Progress Card Preview Modal -->
+<div class="modal fade" id="progressCardModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-navy text-white no-print">
+        <h5 class="modal-title"><i class="fa-solid fa-id-card me-2"></i>Student Academic Progress Report</h5>
+        <div>
+          <button type="button" class="btn btn-sm btn-outline-light me-2" onclick="printProgressCard()">
+            <i class="fa-solid fa-print me-1"></i> Print
+          </button>
+          <button type="button" class="btn btn-sm btn-teal me-2" id="modalPdfBtn" onclick="downloadCurrentPDF()">
+            <i class="fa-solid fa-file-pdf me-1"></i> Download PDF
+          </button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body p-4" id="printableCard">
+        <!-- Digital Card Document Container -->
+        <div class="card-document-sheet border rounded p-4 shadow-sm" style="max-width: 950px; margin: 0 auto;">
+          <!-- Header Banner -->
+          <div class="text-center border-bottom pb-3 mb-3">
+            <h4 class="fw-bold mb-0 text-navy" id="cardInstName">METROPOLITAN INSTITUTE OF SCIENCE & TECHNOLOGY</h4>
+            <div class="small text-muted" id="cardInstAccreditation">Autonomous Institution • Approved by AICTE • Affiliated to State Technological University</div>
+            <h6 class="fw-bold text-teal mt-1 mb-0" id="cardInstDept">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</h6>
+            <div class="badge bg-navy text-white px-3 py-2 mt-2">OFFICIAL CONTINUOUS ASSESSMENT & ATTENDANCE PROGRESS CARD</div>
+          </div>
+
+          <!-- Student Meta Grid -->
+          <div class="row g-2 border rounded p-3 mb-3 bg-light small">
+            <div class="col-sm-6"><strong>Student Name:</strong> <span id="cardStudentName">--</span></div>
+            <div class="col-sm-6"><strong>Register Number:</strong> <span id="cardStudentReg">--</span></div>
+            <div class="col-sm-6"><strong>Class & Section:</strong> <span id="cardStudentClass">--</span></div>
+            <div class="col-sm-6"><strong>Roll Number:</strong> <span id="cardStudentRoll">--</span></div>
+            <div class="col-sm-6"><strong>Academic Year:</strong> <span id="cardStudentYear">--</span></div>
+            <div class="col-sm-6"><strong>Report Date:</strong> <span id="cardReportDate">--</span></div>
+          </div>
+
+          <!-- Section 1: Assessment Marks Table -->
+          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-clipboard-list text-teal me-1"></i> 1. Internal Assessment Marks</h6>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm table-bordered align-middle mb-0">
+              <thead class="table-dark text-center" style="font-size: 12px;">
+                <tr>
+                  <th>Code</th>
+                  <th>Subject Title</th>
+                  <th>Credits</th>
+                  <th>Assessments</th>
+                  <th>Total Scored</th>
+                  <th>Max</th>
+                  <th>%</th>
+                </tr>
+              </thead>
+              <tbody id="cardMarksTable" style="font-size: 13px;">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 2: Attendance Table -->
+          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-calendar-check text-teal me-1"></i> 2. Subject Attendance Record (Min. 75% Required)</h6>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm table-bordered align-middle mb-0">
+              <thead class="table-dark text-center" style="font-size: 12px;">
+                <tr>
+                  <th>Code</th>
+                  <th>Subject Title</th>
+                  <th>Conducted Sessions</th>
+                  <th>Attended</th>
+                  <th>Attendance %</th>
+                  <th>Eligibility</th>
+                </tr>
+              </thead>
+              <tbody id="cardAttendanceTable" style="font-size: 13px;">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Overall Academic Standing Alert -->
+          <div class="alert p-3 mb-4 text-center fw-bold" id="cardStandingAlert">
+          </div>
+
+          <!-- Signatures Section -->
+          <div class="row text-center pt-4 border-top mt-4" style="font-size: 12px;">
+            <div class="col-4">
+              <div class="border-top border-dark pt-1 mx-3 fw-bold">Class Advisor / Mentor</div>
+            </div>
+            <div class="col-4">
+              <div class="border-top border-dark pt-1 mx-3 fw-bold">Head of Department (HOD)</div>
+            </div>
+            <div class="col-4">
+              <div class="border-top border-dark pt-1 mx-3 fw-bold">Parent / Guardian Signature</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+  let cardModalInstance = null;
+  let activeStudentId = null;
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const user = requireAuth('staff');
+    if (!user) return;
+    renderUserBadge();
+
+    cardModalInstance = new bootstrap.Modal(document.getElementById('progressCardModal'));
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const preClassId = urlParams.get('classId');
+
+    await loadClassOptions(preClassId);
+  });
+
+  async function loadClassOptions(preSelectClassId) {
+    try {
+      const res = await api.get('/staff/dashboard');
+      if (res.success && res.data) {
+        const courses = res.data.assignedCourses || [];
+        // Unique classes
+        const classesMap = new Map();
+        courses.forEach(c => {
+          if (!classesMap.has(c.class_id)) {
+            classesMap.set(c.class_id, `${c.batch_name} - Section ${c.section} (Sem ${c.semester_number})`);
+          }
+        });
+
+        const select = document.getElementById('classSelect');
+        select.innerHTML = '<option value="">-- Choose Class --</option>';
+        classesMap.forEach((name, id) => {
+          select.innerHTML += `<option value="${id}">${name}</option>`;
+        });
+
+        if (preSelectClassId && classesMap.has(parseInt(preSelectClassId, 10))) {
+          select.value = preSelectClassId;
+          await loadClassStudents();
+        } else if (classesMap.size > 0) {
+          select.value = Array.from(classesMap.keys())[0];
+          await loadClassStudents();
+        }
+      }
+    } catch (err) {
+      showToast('Error loading classes', 'danger');
+    }
+  }
+
+  async function loadClassStudents() {
+    const classId = document.getElementById('classSelect').value;
+    const tbody = document.getElementById('studentsTableBody');
+
+    if (!classId) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Select a class above.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4"><div class="spinner-border text-teal spinner-border-sm me-2"></div>Loading students...</td></tr>';
+
+    try {
+      const res = await api.get(`/staff/progress-cards/students?classId=${classId}`);
+      if (res.success && res.data) {
+        const students = res.data;
+        document.getElementById('classStudentCountInfo').textContent = `Total: ${students.length} Students`;
+
+        if (students.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No students enrolled in this class.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = students.map(s => `
+          <tr>
+            <td class="fw-bold">${s.register_number}</td>
+            <td>${s.roll_no || '-'}</td>
+            <td class="fw-semibold text-navy">${s.first_name} ${s.last_name}</td>
+            <td>${s.batch_name} - Sec ${s.section}</td>
+            <td>Sem ${s.semester_number}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-teal me-2" onclick="viewProgressCard(${s.student_id})">
+                <i class="fa-solid fa-eye me-1"></i> View Card
+              </button>
+              <a href="/api/staff/progress-cards/${s.student_id}/pdf?token=${encodeURIComponent(localStorage.getItem('token'))}" target="_blank" class="btn btn-sm btn-outline-primary">
+                <i class="fa-solid fa-file-pdf me-1"></i> PDF
+              </a>
+            </td>
+          </tr>
+        `).join('');
+      }
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-danger">${err.message || 'Failed to load students'}</td></tr>`;
+    }
+  }
+
+  async function viewProgressCard(studentId) {
+    activeStudentId = studentId;
+    try {
+      showToast('Fetching student progress card...', 'info');
+      const res = await api.get(`/staff/progress-cards/${studentId}`);
+
+      if (res.success && res.data) {
+        populateCardModal(res.data);
+        cardModalInstance.show();
+      }
+    } catch (err) {
+      showToast(err.message || 'Error loading progress card', 'danger');
+    }
+  }
+
+  function populateCardModal(data) {
+    // Header & Meta
+    document.getElementById('cardInstName').textContent = data.institution.name;
+    document.getElementById('cardInstAccreditation').textContent = data.institution.accreditation;
+    document.getElementById('cardInstDept').textContent = `DEPARTMENT OF ${data.institution.department.toUpperCase()}`;
+
+    document.getElementById('cardStudentName').textContent = data.student.name;
+    document.getElementById('cardStudentReg').textContent = data.student.registerNumber;
+    document.getElementById('cardStudentClass').textContent = data.student.className;
+    document.getElementById('cardStudentRoll').textContent = data.student.rollNo;
+    document.getElementById('cardStudentYear').textContent = data.student.academicYear;
+    document.getElementById('cardReportDate').textContent = data.generatedAt;
+
+    // Marks Table
+    const marksTbody = document.getElementById('cardMarksTable');
+    marksTbody.innerHTML = data.subjects.map(sub => {
+      const assessmentsList = sub.assessments.map(a => 
+        `<span class="badge bg-light text-dark border me-1">${a.assessmentName}: ${a.marksObtained !== null ? a.marksObtained : 'Abs'}</span>`
+      ).join(' ') || '<span class="text-muted small">Pending</span>';
+
+      const pctBadge = sub.percentage !== null
+        ? (sub.percentage >= 50 ? `<strong class="text-success">${sub.percentage}%</strong>` : `<strong class="text-danger">${sub.percentage}%</strong>`)
+        : '-';
+
+      return `
+        <tr>
+          <td><span class="badge bg-navy">${sub.subjectCode}</span></td>
+          <td class="fw-semibold">${sub.subjectName}</td>
+          <td class="text-center">${sub.credit}</td>
+          <td>${assessmentsList}</td>
+          <td class="text-center fw-bold">${sub.totalScored}</td>
+          <td class="text-center">${sub.totalMax}</td>
+          <td class="text-center">${pctBadge}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // Marks Total Row
+    marksTbody.innerHTML += `
+      <tr class="table-light fw-bold">
+        <td colspan="2">TOTAL CONTINUOUS ASSESSMENT</td>
+        <td class="text-center">${data.summary.totalCredits}</td>
+        <td></td>
+        <td class="text-center">${data.summary.totalScoredMarks}</td>
+        <td class="text-center">${data.summary.totalMaxInternalMarks}</td>
+        <td class="text-center text-navy">${data.summary.overallMarksPct}%</td>
+      </tr>
+    `;
+
+    // Attendance Table
+    const attTbody = document.getElementById('cardAttendanceTable');
+    attTbody.innerHTML = data.subjects.map(sub => {
+      const att = sub.attendance;
+      const isShort = att.percentage < 75;
+      const eligBadge = isShort ? `<span class="badge bg-danger">${att.eligibility}</span>` : `<span class="badge bg-success">${att.eligibility}</span>`;
+
+      return `
+        <tr>
+          <td><span class="badge bg-navy">${sub.subjectCode}</span></td>
+          <td class="fw-semibold">${sub.subjectName}</td>
+          <td class="text-center">${att.totalSessions}</td>
+          <td class="text-center">${att.attendedSessions}</td>
+          <td class="text-center fw-bold ${isShort ? 'text-danger' : 'text-navy'}">${att.percentage}%</td>
+          <td class="text-center">${eligBadge}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // Attendance Total Row
+    attTbody.innerHTML += `
+      <tr class="table-light fw-bold">
+        <td colspan="2">OVERALL ATTENDANCE SUMMARY</td>
+        <td class="text-center">${data.summary.totalConductedSessions}</td>
+        <td class="text-center">${data.summary.totalAttendedSessions}</td>
+        <td class="text-center ${data.summary.isAttendanceShortage ? 'text-danger' : 'text-navy'}">${data.summary.overallAttPct}%</td>
+        <td class="text-center">${data.summary.isAttendanceShortage ? '<span class="badge bg-danger">Shortage</span>' : '<span class="badge bg-success">Eligible</span>'}</td>
+      </tr>
+    `;
+
+    // Standing Alert
+    const standingAlert = document.getElementById('cardStandingAlert');
+    if (data.summary.isAttendanceShortage) {
+      standingAlert.className = 'alert alert-danger p-3 mb-4 text-center fw-bold';
+      standingAlert.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i> Academic Standing: ${data.summary.overallStatus}`;
+    } else {
+      standingAlert.className = 'alert alert-success p-3 mb-4 text-center fw-bold';
+      standingAlert.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i> Academic Standing: ${data.summary.overallStatus}`;
+    }
+  }
+
+  function downloadCurrentPDF() {
+    if (activeStudentId) {
+      const token = localStorage.getItem('token');
+      window.open(`/api/staff/progress-cards/${activeStudentId}/pdf?token=${encodeURIComponent(token)}`, '_blank');
+    }
+  }
+
+  function printProgressCard() {
+    window.print();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Next Gen Grading | The Best Way For Your Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+  <style>
+    /* LMS Mart Pristine Theme Styles */
+    :root {
+      --lms-orange: #f59e0b;
+      --lms-orange-dark: #d97706;
+      --lms-teal: #3aa68c;
+      --lms-teal-dark: #2e8b75;
+      --lms-dark: #111827;
+      --lms-slate: #4b5563;
+      --lms-bg: #ffffff;
+      --lms-warm-bg: #fafaf9;
+      --lms-card-bg: #ffffff;
+      --lms-card-border: #e2e8f0;
+      --lms-bubble-orange: #fef3c7;
+      --lms-bubble-teal: #d1fae5;
+    }
+
+    [data-theme="dark"], body.dark-theme {
+      --lms-dark: #f8fafc;
+      --lms-slate: #94a3b8;
+      --lms-bg: #090d16;
+      --lms-warm-bg: #0f172a;
+      --lms-card-bg: #1e293b;
+      --lms-card-border: #334155;
+      --lms-bubble-orange: rgba(245, 158, 11, 0.18);
+      --lms-bubble-teal: rgba(58, 166, 140, 0.18);
+    }
+
+    body {
+      background-color: var(--lms-bg);
+      color: var(--lms-dark);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Navbar */
+    .lms-navbar {
+      background: var(--lms-bg);
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .brand-logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--lms-dark);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo-text span {
+      color: var(--lms-orange);
+    }
+
+    .nav-link-item {
+      color: var(--lms-slate);
+      font-weight: 500;
+      font-size: 0.96rem;
+      padding: 0.5rem 1.25rem;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link-item:hover {
+      color: var(--lms-orange);
+    }
+
+    .nav-link-item.active {
+      color: var(--lms-dark);
+      font-weight: 700;
+    }
+
+    .btn-login-teal {
+      background: var(--lms-teal);
+      color: #ffffff !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.55rem 1.85rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 20px -3px rgba(58, 166, 140, 0.4);
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-login-teal:hover {
+      background: var(--lms-teal-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -3px rgba(58, 166, 140, 0.5);
+    }
+
+    /* Hero Section */
+    .hero-section-lms {
+      position: relative;
+      padding: 4rem 0 5.5rem;
+      overflow: hidden;
+      background: radial-gradient(circle at 85% 60%, rgba(251, 146, 60, 0.14) 0%, rgba(254, 243, 199, 0.12) 35%, #ffffff 75%);
+    }
+
+    .tagline-badge {
+      color: var(--lms-orange);
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-main-title {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-main-title .keyword-highlight {
+      color: var(--lms-orange);
+    }
+
+    .hero-subtext {
+      color: #4b5563;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-explore-orange {
+      background: var(--lms-orange);
+      color: #ffffff !important;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2.25rem;
+      border-radius: 16px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.4);
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-explore-orange:hover {
+      background: var(--lms-orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -4px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Hero Stats Box (LMS Mart Floating Card) */
+    .hero-stats-card-box {
+      background: var(--lms-card-bg);
+      border: 1px solid var(--lms-card-border);
+      border-radius: 20px;
+      padding: 1.25rem 2rem;
+      box-shadow: 0 15px 35px -8px rgba(15, 23, 42, 0.08), 0 3px 10px rgba(15, 23, 42, 0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .hero-stats-card-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -8px rgba(245, 158, 11, 0.18);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-main-number {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--lms-orange);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-main-label {
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-weight: 600;
+      margin-top: 0.35rem;
+      white-space: nowrap;
+    }
+
+    .stat-vertical-line {
+      width: 1px;
+      height: 40px;
+      background-color: #e5e7eb;
+    }
+
+    /* 3D Character Illustration */
+    .hero-art-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-character-art {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 25px 40px rgba(245, 158, 11, 0.15));
+      animation: floatGentle 5s ease-in-out infinite;
+    }
+
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Cards in LMS Mart Theme */
+    .lms-feature-card {
+      background: var(--lms-card-bg);
+      border: 1px solid var(--lms-card-border);
+      border-radius: 24px;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 10px 30px -6px rgba(15, 23, 42, 0.05);
+      transition: all 0.25s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lms-feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px -8px rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .lms-icon-bubble {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .bubble-orange {
+      background: var(--lms-bubble-orange);
+      color: var(--lms-orange);
+    }
+
+    .bubble-teal {
+      background: var(--lms-bubble-teal);
+      color: var(--lms-teal);
+    }
+
+    /* Step Card */
+    .lms-step-card {
+      background: var(--lms-card-bg);
+      border: 1px solid var(--lms-card-border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 30px -6px rgba(15, 23, 42, 0.04);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .lms-step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -8px rgba(15, 23, 42, 0.08);
+    }
+
+    .step-number-pill {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--lms-orange);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.35rem;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
+    }
+
+    .step-number-pill.teal {
+      background: var(--lms-teal);
+      box-shadow: 0 6px 16px rgba(58, 166, 140, 0.35);
+    }
+
+    /* Mobile & Tablet Responsiveness for Public Landing */
+    @media (max-width: 991px) {
+      .hero-main-title {
+        font-size: 2.8rem;
+      }
+      .hero-section-lms {
+        padding: 3rem 0 4rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-main-title {
+        font-size: 2.1rem;
+      }
+      .hero-subtext {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+      .hero-stats-card-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+        width: 100%;
+        padding: 1.1rem 1.25rem;
+      }
+      .stat-vertical-line {
+        display: none;
+      }
+      .rolling-3d-stage {
+        max-width: 100%;
+      }
+      .rolling-3d-carousel {
+        height: 270px;
+      }
+      .rolling-3d-slide img {
+        max-height: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo-text {
+        font-size: 1.25rem;
+      }
+      .btn-login-teal {
+        padding: 0.45rem 1rem;
+        font-size: 0.85rem;
+        gap: 0.35rem;
+      }
+      .hero-main-title {
+        font-size: 1.75rem;
+      }
+      .rolling-3d-carousel {
+        height: 220px;
+      }
+      .rolling-3d-slide img {
+        max-height: 200px;
+      }
+      .lms-feature-card, .lms-step-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation (Matching LMS Mart Reference) -->
+  <header class="lms-navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="brand-logo-text">
+        Next Gen <span>Grading</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="d-none d-lg-flex align-items-center gap-2">
+        <a href="#home" class="nav-link-item active">Home</a>
+        <a href="#about" class="nav-link-item">About</a>
+        <a href="#features" class="nav-link-item">Features</a>
+        <a href="#how-it-works" class="nav-link-item">How It Works</a>
+        <a href="#contact" class="nav-link-item">Contact</a>
+      </nav>
+
+      <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button -->
+      <div class="d-flex align-items-center gap-3">
+        <a href="#features" class="text-secondary text-decoration-none d-none d-sm-inline-block px-2" title="Search platform features">
+          <i class="fa-solid fa-magnifying-glass fs-5"></i>
+        </a>
+        <button type="button" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle light and dark mode" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="/login.html" class="btn-login-teal">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>Login</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section (Faithful LMS Mart Layout) -->
+  <section class="hero-section-lms" id="home">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        
+        <!-- Left Content -->
+        <div class="col-lg-6">
+          
+          <!-- Tagline: Learn From Today 🎓 -->
+          <div class="tagline-badge">
+            <span>Learn From Today</span>
+            <span style="font-size: 1.35rem;">🎓</span>
+          </div>
+
+          <!-- Headline: The Best way For Your Learning -->
+          <h1 class="hero-main-title">
+            The Best way For<br>
+            Your <span class="keyword-highlight">Learning</span>
+          </h1>
+
+          <!-- Description text -->
+          <p class="hero-subtext">
+            Our academic department assistance system has been developed to be a vehicle of delivering automated grading, internal marks upload, and digital progress cards for students, teachers, and parents.
+          </p>
+
+          <!-- Primary CTA Button -->
+          <div class="d-flex flex-wrap gap-3 mb-5">
+            <a href="/login.html" class="btn-explore-orange">
+              <span>Explore Portals</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Floating Stats Box (Clean White Box with Dividers) -->
+          <div class="hero-stats-card-box">
+            <div class="stat-block">
+              <div class="stat-main-number">10+</div>
+              <div class="stat-main-label">Institutions</div>
+            </div>
+
+            <div class="stat-vertical-line"></div>
+
+            <div class="stat-block">
+              <div class="stat-main-number">500+</div>
+              <div class="stat-main-label">Students Managed</div>
+            </div>
+
+            <div class="stat-vertical-line"></div>
+
+            <div class="stat-block">
+              <div class="stat-main-number">100%</div>
+              <div class="stat-main-label">Automated PTM</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: 3D Rolling Carousel & Feature Box Under Image -->
+        <div class="col-lg-6">
+          <div class="rolling-3d-stage" id="rollingStage">
+            
+            <!-- 3D Carousel Swiping Area -->
+            <div class="rolling-3d-carousel" id="carousel3D">
+              
+              <!-- Slide 1: Student Results & Academic Standing -->
+              <div class="rolling-3d-slide active" data-index="0" onclick="goToSlide(0)">
+                <img src="/images/slide1-student-results.svg" alt="Student results" />
+              </div>
+
+              <!-- Slide 2: Excel Marks Upload & Processing Engine -->
+              <div class="rolling-3d-slide next" data-index="1" onclick="goToSlide(1)">
+                <img src="/images/slide2-excel-upload.svg" alt="Excel marks upload" />
+              </div>
+
+              <!-- Slide 3: Official Digital Progress Card for PTM -->
+              <div class="rolling-3d-slide prev" data-index="2" onclick="goToSlide(2)">
+                <img src="/images/slide3-digital-progress-card.svg" alt="Digital progress card" />
+              </div>
+
+            </div>
+
+            <!-- Controls: Previous / Indicators / Next -->
+            <div class="carousel-nav-arrows">
+              <button type="button" class="carousel-arrow-btn" onclick="prevSlide()" title="Previous slide" aria-label="Previous">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <div class="carousel-pill-indicators">
+                <span class="carousel-pill-dot active" onclick="goToSlide(0)"></span>
+                <span class="carousel-pill-dot" onclick="goToSlide(1)"></span>
+                <span class="carousel-pill-dot" onclick="goToSlide(2)"></span>
+              </div>
+
+              <button type="button" class="carousel-arrow-btn" onclick="nextSlide()" title="Next slide" aria-label="Next">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <!-- Dynamic Features Under the Image -->
+            <div class="feature-under-image-box" id="featureDisplayBox">
+              <div class="feature-tag-chip" id="featureChip">
+                <i class="fa-solid fa-graduation-cap"></i> Student Portal & Continuous Learning
+              </div>
+              <h5 class="feature-title-active" id="featureTitle">Smart Academic Progress Monitoring</h5>
+              <p class="feature-desc-active" id="featureDesc">Real-time attendance tracking and instant subject-wise mark visibility for every student.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features & Capabilities Section -->
+  <section class="py-5" id="features" style="background: var(--lms-warm-bg);">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <div class="tagline-badge justify-content-center">Platform Capabilities ⚡</div>
+        <h2 class="display-6 fw-bold mb-2">Built for Effortless Academic Excellence</h2>
+        <p class="text-muted mx-auto" style="max-width: 580px;">
+          Empowering administrators, faculty, students, and parents with seamless tools, real-time analytics, and automated progress cards.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-orange">
+              <i class="fa-solid fa-id-card"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Automated Progress Cards</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              One-click compilation of internal assessment scores, session attendance records, and faculty remarks into official PDF reports for parent–teacher meetings.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-teal">
+              <i class="fa-solid fa-file-excel"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Excel Marks Import</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Download pre-formatted class spreadsheets, upload scores via drag-and-drop, and preview row validations with database transaction safety.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-orange">
+              <i class="fa-solid fa-clipboard-user"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Attendance Tracking</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Subject-wise period tracking calculates attendance percentages in real time, automatically triggering shortage alerts when below 75%.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-teal">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Academic Analytics</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Interactive visual analytics highlight student progress trends, class averages, subject distributions, and exam eligibility criteria.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-orange">
+              <i class="fa-solid fa-children"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Parent–Teacher Collaboration</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Dedicated parent portal to track student attendance and performance, eliminating communication gaps before PTM conferences.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="lms-feature-card">
+            <div class="lms-icon-bubble bubble-teal">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <h5 class="fw-bold mb-2">AI Academic Assistant</h5>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Pre-seeded academic FAQ chatbot that answers questions regarding attendance condonation, IA mark calculations, and study tips.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (3 Steps) -->
+  <section class="py-5" id="how-it-works">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <div class="tagline-badge justify-content-center">Simplified Workflow 🚀</div>
+        <h2 class="display-6 fw-bold mb-2">How It Works</h2>
+        <p class="text-muted mx-auto" style="max-width: 520px;">
+          From raw internal exam spreadsheets to official parent progress reports in three simple steps.
+        </p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Step 1 -->
+        <div class="col-md-4">
+          <div class="lms-step-card">
+            <div class="step-number-pill">01</div>
+            <h5 class="fw-bold mb-2">Upload Assessment Marks</h5>
+            <p class="text-muted small mb-0">
+              Faculty download pre-populated Excel templates for their allocated courses and upload internal marks with automated row validation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="col-md-4">
+          <div class="lms-step-card">
+            <div class="step-number-pill teal">02</div>
+            <h5 class="fw-bold mb-2">Compute Attendance &amp; Stats</h5>
+            <p class="text-muted small mb-0">
+              The engine automatically calculates attendance percentages from stored session registers and identifies shortage cases.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="col-md-4">
+          <div class="lms-step-card">
+            <div class="step-number-pill">03</div>
+            <h5 class="fw-bold mb-2">Generate Progress Cards</h5>
+            <p class="text-muted small mb-0">
+              Official digital progress cards with institutional signatures are generated as downloadable PDFs for students and parents.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Department Inquiries Section -->
+  <section class="py-5" id="contact" style="background: var(--lms-warm-bg);">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="lms-feature-card text-center p-5">
+            <div class="tagline-badge justify-content-center">Academic Department Assistance 🏛️</div>
+            <h3 class="fw-bold mb-2">Have Inquiries or Need Technical Support?</h3>
+            <p class="text-muted small mb-4 mx-auto" style="max-width: 500px;">
+              For departmental inquiries regarding academic schedules, internal marks discrepancy resolution, or parent–teacher meetings:
+            </p>
+            <div class="row g-3 text-start mb-4 justify-content-center">
+              <div class="col-md-5">
+                <div class="p-3 bg-white rounded-3 border">
+                  <div class="small fw-bold mb-1"><i class="fa-solid fa-phone text-warning me-2"></i>Telephone Support</div>
+                  <div class="small text-muted">+91 9207302577</div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="p-3 bg-white rounded-3 border">
+                  <div class="small fw-bold mb-1"><i class="fa-solid fa-envelope text-warning me-2"></i>Email Assistance</div>
+                  <div class="small text-muted">kmabhinav752@gmail.com</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <a href="/login.html" class="btn-explore-orange px-4 py-3">
+                <i class="fa-solid fa-lock me-2"></i> Access Secured Portal
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean LMS Mart Footer -->
+  <footer class="py-4 border-top bg-white">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-md-6 text-center text-md-start">
+          <div class="d-flex align-items-center gap-2 justify-content-center justify-content-md-start mb-1">
+            <span class="fw-bold text-dark">Next Gen <span style="color: var(--lms-orange);">Grading</span></span>
+            <span class="text-muted small">• Academic Department Assistance</span>
+          </div>
+          <p class="small text-muted mb-0">
+            &copy; 2026 Next Gen Grading. All rights reserved.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-end">
+            <span class="badge bg-light text-dark border">PostgreSQL 18</span>
+            <span class="badge bg-light text-dark border">Node.js</span>
+            <span class="badge bg-light text-dark border">Express.js</span>
+            <span class="badge bg-light text-dark border">ExcelJS</span>
+            <span class="badge bg-light text-dark border">PDFKit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 3D Rolling Carousel & Feature Under Image logic
+    const slidesData = [
+      {
+        tag: '<i class="fa-solid fa-graduation-cap"></i> Student Portal & Continuous Learning',
+        tagClass: '',
+        title: 'Smart Academic Progress Monitoring',
+        desc: 'Real-time attendance tracking and instant subject-wise mark visibility for every student.'
+      },
+      {
+        tag: '<i class="fa-solid fa-file-excel"></i> Faculty Spreadsheet Automation',
+        tagClass: 'teal',
+        title: 'Excel Marks Upload & Validation',
+        desc: 'Drag & drop internal marksheets with automated schema verification and atomic database commits.'
+      },
+      {
+        tag: '<i class="fa-solid fa-file-pdf"></i> Parent-Teacher Meeting Hub',
+        tagClass: '',
+        title: 'Digital Progress Cards & PDF Reports',
+        desc: 'Generate official, print-ready digital progress reports with HOD institutional stamps.'
+      }
+    ];
+
+    let currentSlide = 0;
+    const totalSlides = 3;
+    let autoPlayTimer = null;
+
+    function renderSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      const slides = document.querySelectorAll('.rolling-3d-slide');
+      const dots = document.querySelectorAll('.carousel-pill-dot');
+      
+      slides.forEach((slide) => {
+        const slideIdx = parseInt(slide.getAttribute('data-index'), 10);
+        slide.classList.remove('active', 'prev', 'next');
+        
+        if (slideIdx === currentSlide) {
+          slide.classList.add('active');
+        } else if (slideIdx === (currentSlide - 1 + totalSlides) % totalSlides) {
+          slide.classList.add('prev');
+        } else {
+          slide.classList.add('next');
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update Feature details under the image with smooth transition
+      const box = document.getElementById('featureDisplayBox');
+      const chip = document.getElementById('featureChip');
+      const title = document.getElementById('featureTitle');
+      const desc = document.getElementById('featureDesc');
+
+      if (box && chip && title && desc) {
+        box.style.opacity = '0.4';
+        box.style.transform = 'translateY(4px)';
+        
+        setTimeout(() => {
+          const data = slidesData[currentSlide];
+          chip.innerHTML = data.tag;
+          chip.className = 'feature-tag-chip ' + (data.tagClass || '');
+          title.textContent = data.title;
+          desc.textContent = data.desc;
+
+          box.style.opacity = '1';
+          box.style.transform = 'translateY(0)';
+        }, 150);
+      }
+    }
+
+    function nextSlide() {
+      renderSlide(currentSlide + 1);
+      resetAutoplay();
+    }
+
+    function prevSlide() {
+      renderSlide(currentSlide - 1);
+      resetAutoplay();
+    }
+
+    function goToSlide(index) {
+      renderSlide(index);
+      resetAutoplay();
+    }
+
+    function startAutoplay() {
+      autoPlayTimer = setInterval(() => {
+        renderSlide(currentSlide + 1);
+      }, 4000);
+    }
+
+    function resetAutoplay() {
+      if (autoPlayTimer) clearInterval(autoPlayTimer);
+      startAutoplay();
+    }
+
+    // Touch & Swipe gesture support on mobile/desktop
+    const stage = document.getElementById('rollingStage');
+    if (stage) {
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 45) {
+          nextSlide();
+        } else if (touchEndX - touchStartX > 45) {
+          prevSlide();
+        }
+      }, { passive: true });
+
+      // Pause on hover
+      stage.addEventListener('mouseenter', () => {
+        if (autoPlayTimer) clearInterval(autoPlayTimer);
+      });
+      stage.addEventListener('mouseleave', () => {
+        startAutoplay();
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSlide(0);
+      startAutoplay();
+    });
+  </script>
+</body>
+</html>

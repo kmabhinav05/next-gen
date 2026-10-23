@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<div class="student-portal-wrapper">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Admin Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Administrator" onclick="switchView('overview')">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <ul class="student-nav-menu">
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('overview')" class="student-nav-link active" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/users.html" class="student-nav-link">
+            <i class="fa-solid fa-users-gear"></i>
+            <span>User Directory</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/academics.html" class="student-nav-link">
+            <i class="fa-solid fa-diagram-project"></i>
+            <span>Academics</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('logs')" class="student-nav-link" data-nav="logs">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>System Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="switchView('circulars')" class="student-nav-link" data-nav="circulars">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Circulars</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Actions -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="adminSearchInput" class="student-search-input" placeholder="Search departments, courses, audit logs..." onkeyup="filterAdminData()">
+          </div>
+        </div>
+
+        <div class="student-topbar-actions">
+          <button class="btn btn-sm btn-teal rounded-pill px-3 py-1 d-none d-sm-inline-flex align-items-center gap-1 shadow-sm" onclick="openNoticeModal()">
+            <i class="bi bi-plus-circle"></i> New Circular
+          </button>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="adminProfileChip">
+            <div class="student-user-avatar" id="sidebar-user-avatar">
+              AD
+              <span class="student-online-dot"></span>
+            </div>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="sidebar-user-name">Administrator</div>
+              <div class="student-user-meta" id="sidebar-user-role">SUPER ADMIN</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: Dashboard Overview (Default Active) -->
+      <div class="portal-view-section active" data-view="overview">
+        <!-- Welcome Hero Banner -->
+        <section class="student-welcome-banner mb-4">
+          <div class="student-banner-content">
+            <span class="student-banner-date" id="bannerLiveDate">OCTOBER 23, 2026</span>
+            <h1 class="student-banner-title">Welcome, Institutional Administrator!</h1>
+            <p class="student-banner-subtitle">
+              Real-time status of academic departments, faculty course allocations, student enrollments, and university circular broadcasts.
+            </p>
+            <div class="student-banner-actions">
+              <button class="btn btn-teal px-3 py-2 rounded-pill shadow-sm" onclick="openNoticeModal()">
+                <i class="bi bi-megaphone me-1"></i> Compose Circular
+              </button>
+              <a href="/admin/users.html" class="btn btn-outline-light px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-users me-1"></i> Manage Users
+              </a>
+              <a href="/admin/academics.html" class="btn btn-outline-light px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-building-columns me-1"></i> Course Allocation
+              </a>
+            </div>
+          </div>
+          <div class="student-banner-art">
+            <img src="/assets/images/hero-3d-student.png" alt="Admin 3D Illustration">
+          </div>
+        </section>
+
+        <!-- 4 Metric KPI Cards -->
+        <section class="student-metrics-grid mb-4" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="stat-clay-card" onclick="window.location.href='/admin/users.html'" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap teal">
+              <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-clay-value" id="kpi-students">--</div>
+            <div class="stat-clay-label">Enrolled Students</div>
+          </div>
+
+          <div class="stat-clay-card highlighted" onclick="window.location.href='/admin/users.html'" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap orange">
+              <i class="bi bi-person-badge"></i>
+            </div>
+            <div class="stat-clay-value" id="kpi-staff">--</div>
+            <div class="stat-clay-label">Faculty & Staff</div>
+            <div class="mt-2">
+              <span class="badge bg-success text-white px-2 py-1 rounded-pill small"><i class="fa-solid fa-check me-1"></i> Active Faculty</span>
+            </div>
+          </div>
+
+          <div class="stat-clay-card" onclick="window.location.href='/admin/academics.html'" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap purple">
+              <i class="bi bi-book"></i>
+            </div>
+            <div class="stat-clay-value" id="kpi-subjects">--</div>
+            <div class="stat-clay-label">Curated Subjects</div>
+          </div>
+
+          <div class="stat-clay-card" onclick="window.location.href='/admin/academics.html'" style="cursor: pointer;">
+            <div class="stat-clay-icon-wrap teal" style="background: rgba(14, 165, 233, 0.15); color: #0284c7;">
+              <i class="bi bi-building"></i>
+            </div>
+            <div class="stat-clay-value" id="kpi-classes">--</div>
+            <div class="stat-clay-label">Active Classes</div>
+          </div>
+        </section>
+
+        <!-- Overview Content Grid -->
+        <div class="student-content-grid">
+          <div class="student-left-col">
+            <div class="student-subcard mb-0">
+              <div class="student-subcard-header">
+                <div>
+                  <h6 class="fw-bold mb-0 text-navy"><i class="bi bi-activity text-teal me-2"></i>System Audit Stream</h6>
+                  <small class="text-muted">Live stream of academic modifications</small>
+                </div>
+                <a href="javascript:void(0)" onclick="switchView('logs')" class="student-section-link">View Full Logs <i class="fa-solid fa-arrow-right ms-1"></i></a>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Action Type</th>
+                      <th>Initiator</th>
+                      <th>Target Entity</th>
+                      <th>Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overviewActivityTableBody">
+                    <tr><td colspan="4" class="text-center py-4 text-muted">Loading logs...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-right-col">
+            <!-- Active Circulars Preview -->
+            <div class="daily-notice-clay-card mb-3">
+              <div class="student-section-header mb-2">
+                <h6 class="student-section-title mb-0">Active Circulars</h6>
+                <a href="javascript:void(0)" onclick="switchView('circulars')" class="student-section-link">All Circulars <i class="fa-solid fa-arrow-right ms-1"></i></a>
+              </div>
+              <div id="overviewNoticesList">
+                <div class="text-muted small py-2">Loading circulars...</div>
+              </div>
+            </div>
+
+            <!-- Quick Navigation Hub -->
+            <div class="instructors-clay-card">
+              <div class="student-section-header mb-3">
+                <h6 class="student-section-title mb-0">Institutional Links</h6>
+                <span class="badge bg-light text-muted border px-2 py-1 rounded-pill small">Hub</span>
+              </div>
+              <div class="d-flex flex-column gap-2">
+                <a href="/admin/users.html" class="btn btn-outline-teal p-3 text-start d-flex align-items-center rounded-4 border text-decoration-none">
+                  <div class="rounded-circle bg-teal-subtle p-2 me-3 text-teal d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-users-gear"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-navy small">User Directory</div>
+                    <div class="text-muted" style="font-size: 0.74rem;">Register students, faculty, and parents</div>
+                  </div>
+                </a>
+
+                <a href="/admin/academics.html" class="btn btn-outline-primary p-3 text-start d-flex align-items-center rounded-4 border text-decoration-none">
+                  <div class="rounded-circle bg-primary-subtle p-2 me-3 text-primary d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-navy small">Academic Department Allocation</div>
+                    <div class="text-muted" style="font-size: 0.74rem;">Configure subjects, semesters, and staff</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: System Logs Only -->
+      <div class="portal-view-section" data-view="logs">
+        <div class="student-section-header mb-3">
+          <div>
+            <h4 class="student-section-title mb-1"><i class="bi bi-activity text-teal me-2"></i>System Audit & Activity Logs</h4>
+            <span class="text-muted small">Live database stream of administrative actions, course updates, and system events</span>
+          </div>
+          <span class="badge bg-light text-success border"><i class="fa-solid fa-circle text-success me-1" style="font-size: 8px;"></i> Live Stream</span>
+        </div>
+        <div class="student-subcard">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Action Type</th>
+                  <th>Initiator</th>
+                  <th>Target Entity</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="activity-table-body">
+                <tr>
+                  <td colspan="4" class="text-center py-4 text-muted">
+                    <div class="spinner-border text-teal spinner-border-sm me-2"></div> Loading activity logs...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: Circulars Only -->
+      <div class="portal-view-section" data-view="circulars">
+        <div class="student-section-header mb-3">
+          <div>
+            <h4 class="student-section-title mb-1"><i class="bi bi-megaphone-fill text-teal me-2"></i>Notices & Circulars</h4>
+            <span class="text-muted small">University announcements broadcast to students, faculty, or parents</span>
+          </div>
+          <button class="btn btn-sm btn-teal rounded-pill px-3 py-1 shadow-sm" onclick="openNoticeModal()">
+            <i class="bi bi-plus-circle me-1"></i> Compose Circular
+          </button>
+        </div>
+        <div class="daily-notice-clay-card" id="announcements-section">
+          <div id="notices-list">
+            <div class="text-muted small py-2">Loading announcements...</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<!-- Create Announcement Modal -->
+<div class="modal-overlay" id="notice-modal" role="dialog" aria-modal="true" aria-labelledby="noticeModalTitle">
+  <div class="modal-dialog-custom modal-md">
+    <div class="modal-header-custom">
+      <div class="modal-header-brand">
+        <div class="modal-header-icon-box">
+          <i class="bi bi-megaphone-fill"></i>
+        </div>
+        <div>
+          <h3 class="modal-title-custom" id="noticeModalTitle">Compose Announcement</h3>
+          <p class="modal-subtitle-custom">Publish official circulars, exam alerts, and department notices.</p>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <div class="composer-tabs-nav">
+          <button type="button" class="composer-tab-btn active" id="tab-compose" onclick="switchNoticeTab('compose')">
+            <i class="bi bi-pencil-square"></i> Compose
+          </button>
+          <button type="button" class="composer-tab-btn" id="tab-preview" onclick="switchNoticeTab('preview')">
+            <i class="bi bi-eye"></i> Preview
+          </button>
+        </div>
+
+        <button type="button" class="modal-close-btn" onclick="closeNoticeModal()" aria-label="Close dialog">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <form id="notice-form" novalidate>
+      <div class="modal-body-custom">
+        <div id="notice-compose-pane">
+          <div class="form-group-custom mb-3">
+            <label class="form-label-custom" for="notice-title">
+              Announcement Title <span class="required-asterisk">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="notice-title" 
+              class="form-control-custom" 
+              placeholder="e.g. Mid-Semester Progress Review & Parent-Teacher Meeting" 
+              required 
+              autocomplete="off"
+            >
+            <span class="field-hint-text">A clear, descriptive heading shown on user feeds</span>
+            <div class="field-error-text" id="err-notice-title"></div>
+          </div>
+
+          <div class="form-group-custom mb-3">
+            <label class="form-label-custom">
+              Target Audience <span class="required-asterisk">*</span>
+            </label>
+            <select id="notice-target" class="d-none">
+              <option value="all" selected>Everyone (All Roles)</option>
+              <option value="staff">Staff / Faculty Only</option>
+              <option value="student">Students Only</option>
+              <option value="parent">Parents Only</option>
+            </select>
+
+            <div class="audience-selector-grid">
+              <div class="audience-option-card active" data-role="all" onclick="selectAudience('all')">
+                <div class="audience-icon">
+                  <i class="bi bi-globe2"></i>
+                </div>
+                <div class="audience-label">Everyone</div>
+                <div class="audience-desc">All roles</div>
+              </div>
+
+              <div class="audience-option-card" data-role="staff" onclick="selectAudience('staff')">
+                <div class="audience-icon">
+                  <i class="bi bi-person-workspace"></i>
+                </div>
+                <div class="audience-label">Faculty</div>
+                <div class="audience-desc">Staff only</div>
+              </div>
+
+              <div class="audience-option-card" data-role="student" onclick="selectAudience('student')">
+                <div class="audience-icon">
+                  <i class="bi bi-mortarboard"></i>
+                </div>
+                <div class="audience-label">Students</div>
+                <div class="audience-desc">Learners only</div>
+              </div>
+
+              <div class="audience-option-card" data-role="parent" onclick="selectAudience('parent')">
+                <div class="audience-icon">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="audience-label">Parents</div>
+                <div class="audience-desc">Guardians</div>
+              </div>
+            </div>
+            <div class="field-error-text" id="err-notice-target"></div>
+          </div>
+
+          <div class="form-group-custom mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <label class="form-label-custom mb-0" for="notice-content">
+                Notice Content <span class="required-asterisk">*</span>
+              </label>
+              <span class="small text-muted" id="notice-char-count">0 characters</span>
+            </div>
+            <textarea 
+              id="notice-content" 
+              class="form-control-custom" 
+              rows="5" 
+              placeholder="Write the full circular announcement details here..." 
+              required
+            ></textarea>
+            <div class="field-error-text" id="err-notice-content"></div>
+          </div>
+
+          <div class="pin-switch-card" onclick="togglePinCard(event)">
+            <div class="d-flex align-items-center gap-3">
+              <div class="pin-icon-box">
+                <i class="bi bi-pin-angle-fill"></i>
+              </div>
+              <div>
+                <div class="fw-bold text-dark small" style="line-height: 1.2;">Pin to Top of Dashboard</div>
+                <div class="text-muted" style="font-size: 0.74rem;">Highlight prominently at the top of notices for the target audience</div>
+              </div>
+            </div>
+            <div class="form-check form-switch m-0 fs-5">
+              <input class="form-check-input" type="checkbox" id="notice-pinned" style="cursor: pointer;">
+            </div>
+          </div>
+        </div>
+
+        <div id="notice-preview-pane" class="d-none">
+          <div class="live-preview-box">
+            <div class="live-preview-banner">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-warning text-dark fw-bold" id="preview-badge-role">
+                  <i class="bi bi-globe2 me-1"></i> Everyone (All Roles)
+                </span>
+                <span class="badge bg-danger d-none" id="preview-badge-pinned">
+                  <i class="bi bi-pin-fill me-1"></i> Pinned
+                </span>
+              </div>
+              <span class="small text-muted">
+                <i class="bi bi-clock me-1"></i> Just Now • By Administrator
+              </span>
+            </div>
+
+            <h4 class="live-preview-title" id="preview-title">Mid-Semester Progress Review & Parent-Teacher Meeting</h4>
+            <div class="live-preview-content" id="preview-content">
+              Announcement message content will render here in real-time...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer-custom">
+        <div class="d-flex align-items-center gap-2 me-auto text-muted small d-none d-sm-flex">
+          <i class="bi bi-broadcast text-warning fs-6"></i>
+          <span>Broadcasts immediately to recipient feeds</span>
+        </div>
+        <button type="button" class="btn-outline-custom" onclick="closeNoticeModal()">Cancel</button>
+        <button type="button" class="btn-outline-custom" id="btn-toggle-preview" onclick="toggleNoticePreview()">
+          <i class="bi bi-eye me-1"></i> <span id="btn-preview-text">Preview</span>
+        </button>
+        <button type="submit" class="btn-primary-teal" id="btn-submit-notice">
+          <i class="bi bi-send-fill me-1"></i> Publish Circular
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+  const currentUser = requireAuth('admin');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    const dateFormatted = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    const dateEl = document.getElementById('bannerLiveDate');
+    if (dateEl) dateEl.textContent = dateFormatted;
+
+    loadDashboardData();
+
+    // Check hash
+    if (window.location.hash) {
+      const targetView = window.location.hash.replace('#', '');
+      const validViews = ['overview', 'logs', 'circulars'];
+      if (validViews.includes(targetView)) {
+        switchView(targetView);
+      }
+    }
+  });
+
+  // SPA Single-View Switcher
+  function switchView(viewName) {
+    document.querySelectorAll('.student-nav-link[data-nav]').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-nav') === viewName);
+    });
+
+    document.querySelectorAll('.portal-view-section').forEach(sec => {
+      sec.classList.toggle('active', sec.getAttribute('data-view') === viewName);
+    });
+
+    const main = document.querySelector('.student-main-content');
+    if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function loadDashboardData() {
+    try {
+      const [statsRes, noticesRes] = await Promise.all([
+        apiRequest('/admin/stats'),
+        apiRequest('/announcements'),
+      ]);
+
+      const stats = statsRes.data;
+      document.getElementById('kpi-students').textContent = stats.totalStudents;
+      document.getElementById('kpi-staff').textContent = stats.totalStaff;
+      document.getElementById('kpi-subjects').textContent = stats.totalSubjects;
+      document.getElementById('kpi-classes').textContent = stats.totalClasses;
+
+      // Render Activity Table
+      const tbody = document.getElementById('activity-table-body');
+      const overviewTbody = document.getElementById('overviewActivityTableBody');
+
+      if (stats.recentActivity && stats.recentActivity.length > 0) {
+        const rowsHtml = stats.recentActivity.map(act => `
+          <tr data-audit-action="${act.action_type?.toLowerCase()}" data-audit-user="${(act.username || '').toLowerCase()}" data-audit-entity="${(act.entity_name || '').toLowerCase()}">
+            <td><span class="badge bg-teal text-white">${act.action_type}</span></td>
+            <td><strong>${act.username || 'System'}</strong> <span style="font-size: 0.75rem; color: var(--text-muted);">(${act.role || 'sys'})</span></td>
+            <td>${act.entity_name || 'N/A'}</td>
+            <td>${formatDate(act.created_at)}</td>
+          </tr>
+        `).join('');
+
+        if (tbody) tbody.innerHTML = rowsHtml;
+        if (overviewTbody) overviewTbody.innerHTML = stats.recentActivity.slice(0, 5).map(act => `
+          <tr>
+            <td><span class="badge bg-teal text-white">${act.action_type}</span></td>
+            <td><strong>${act.username || 'System'}</strong></td>
+            <td>${act.entity_name || 'N/A'}</td>
+            <td>${formatDate(act.created_at)}</td>
+          </tr>
+        `).join('');
+      } else {
+        const emptyHtml = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">No activity recorded yet</td></tr>';
+        if (tbody) tbody.innerHTML = emptyHtml;
+        if (overviewTbody) overviewTbody.innerHTML = emptyHtml;
+      }
+
+      // Render Notices
+      const noticesContainer = document.getElementById('notices-list');
+      const overviewNoticesContainer = document.getElementById('overviewNoticesList');
+      const notices = noticesRes.data || [];
+
+      if (notices.length > 0) {
+        const noticesHtml = notices.map((n, idx) => `
+          <div class="daily-notice-item" id="adminNoticeItem-${idx}" data-notice-title="${n.title.toLowerCase()}">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="notice-title text-navy">${n.title}</div>
+              <span class="badge bg-light text-muted border ms-1" style="font-size: 10px;">${formatDate(n.created_at)}</span>
+            </div>
+            <div class="notice-desc">${n.content}</div>
+            <div class="d-flex justify-content-between align-items-center mt-1">
+              <span class="badge bg-navy" style="font-size: 9px;">${n.target_role.toUpperCase()}</span>
+              <a class="notice-see-more" onclick="toggleAdminNoticeExpand(${idx})">See more <i class="fa-solid fa-chevron-down ms-1" style="font-size: 8px;"></i></a>
+            </div>
+          </div>
+        `).join('');
+
+        if (noticesContainer) noticesContainer.innerHTML = noticesHtml;
+        if (overviewNoticesContainer) overviewNoticesContainer.innerHTML = notices.slice(0, 2).map(n => `
+          <div class="daily-notice-item">
+            <div class="notice-title text-navy">${n.title}</div>
+            <div class="notice-desc">${n.content}</div>
+          </div>
+        `).join('');
+      } else {
+        const emptyNotice = '<p style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem 0;">No circulars active.</p>';
+        if (noticesContainer) noticesContainer.innerHTML = emptyNotice;
+        if (overviewNoticesContainer) overviewNoticesContainer.innerHTML = emptyNotice;
+      }
+
+    } catch (err) {
+      showToast('Failed to load dashboard data: ' + err.message, 'error');
+    }
+  }
+
+  function filterAdminData() {
+    const query = document.getElementById('adminSearchInput').value.trim().toLowerCase();
+
+    // Filter audit logs
+    const rows = document.querySelectorAll('#activity-table-body tr[data-audit-action]');
+    rows.forEach(r => {
+      const action = r.getAttribute('data-audit-action') || '';
+      const user = r.getAttribute('data-audit-user') || '';
+      const entity = r.getAttribute('data-audit-entity') || '';
+      if (!query || action.includes(query) || user.includes(query) || entity.includes(query)) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+
+    // Filter notices
+    const notices = document.querySelectorAll('#notices-list .daily-notice-item');
+    notices.forEach(n => {
+      const title = n.getAttribute('data-notice-title') || '';
+      if (!query || title.includes(query)) {
+        n.style.display = '';
+      } else {
+        n.style.display = 'none';
+      }
+    });
+  }
+
+  function toggleAdminNoticeExpand(idx) {
+    const item = document.getElementById(`adminNoticeItem-${idx}`);
+    if (item) {
+      item.classList.toggle('expanded');
+      const link = item.querySelector('.notice-see-more');
+      if (item.classList.contains('expanded')) {
+        link.innerHTML = 'Show less <i class="fa-solid fa-chevron-up ms-1" style="font-size: 8px;"></i>';
+      } else {
+        link.innerHTML = 'See more <i class="fa-solid fa-chevron-down ms-1" style="font-size: 8px;"></i>';
+      }
+    }
+  }
+
+  // Modal Controls
+  let currentNoticeTab = 'compose';
+
+  function openNoticeModal() {
+    clearFormErrors('notice-form');
+    switchNoticeTab('compose');
+    selectAudience('all');
+    document.getElementById('notice-pinned').checked = false;
+    document.querySelector('.pin-switch-card').classList.remove('active');
+    document.getElementById('notice-char-count').textContent = '0 characters';
+    openModalAccessible('notice-modal');
+  }
+
+  function closeNoticeModal() {
+    closeModalAccessible('notice-modal');
+    document.getElementById('notice-form').reset();
+    clearFormErrors('notice-form');
+  }
+
+  function selectAudience(role) {
+    document.getElementById('notice-target').value = role;
+    document.querySelectorAll('.audience-option-card').forEach((card) => {
+      card.classList.toggle('active', card.getAttribute('data-role') === role);
+    });
+    updateNoticePreview();
+  }
+
+  function togglePinCard(e) {
+    const checkbox = document.getElementById('notice-pinned');
+    if (e.target !== checkbox) {
+      checkbox.checked = !checkbox.checked;
+    }
+    document.querySelector('.pin-switch-card').classList.toggle('active', checkbox.checked);
+    updateNoticePreview();
+  }
+
+  function switchNoticeTab(tab) {
+    currentNoticeTab = tab;
+    const isPreview = tab === 'preview';
+    
+    document.getElementById('notice-compose-pane').classList.toggle('d-none', isPreview);
+    document.getElementById('notice-preview-pane').classList.toggle('d-none', !isPreview);
+    
+    document.getElementById('tab-compose').classList.toggle('active', !isPreview);
+    document.getElementById('tab-preview').classList.toggle('active', isPreview);
+
+    const btnPreviewText = document.getElementById('btn-preview-text');
+    if (btnPreviewText) {
+      btnPreviewText.textContent = isPreview ? 'Edit' : 'Preview';
+    }
+
+    if (isPreview) {
+      updateNoticePreview();
+    }
+  }
+
+  function toggleNoticePreview() {
+    switchNoticeTab(currentNoticeTab === 'compose' ? 'preview' : 'compose');
+  }
+
+  function updateNoticePreview() {
+    const title = document.getElementById('notice-title').value.trim() || 'Untitled Announcement';
+    const content = document.getElementById('notice-content').value.trim() || 'No announcement content provided yet.';
+    const role = document.getElementById('notice-target').value;
+    const isPinned = document.getElementById('notice-pinned').checked;
+
+    const roleLabels = {
+      all: '<i class="bi bi-globe2 me-1"></i> Everyone (All Roles)',
+      staff: '<i class="bi bi-person-workspace me-1"></i> Faculty & Staff Only',
+      student: '<i class="bi bi-mortarboard me-1"></i> Students Only',
+      parent: '<i class="bi bi-people me-1"></i> Parents Only'
+    };
+
+    document.getElementById('preview-title').textContent = title;
+    document.getElementById('preview-content').textContent = content;
+    document.getElementById('preview-badge-role').innerHTML = roleLabels[role] || role;
+    
+    const pinnedBadge = document.getElementById('preview-badge-pinned');
+    if (pinnedBadge) {
+      pinnedBadge.classList.toggle('d-none', !isPinned);
+    }
+  }
+
+  document.getElementById('notice-content').addEventListener('input', (e) => {
+    const count = e.target.value.length;
+    document.getElementById('notice-char-count').textContent = `${count} character${count === 1 ? '' : 's'}`;
+    if (currentNoticeTab === 'preview') {
+      updateNoticePreview();
+    }
+  });
+
+  document.getElementById('notice-title').addEventListener('input', () => {
+    if (currentNoticeTab === 'preview') {
+      updateNoticePreview();
+    }
+  });
+
+  document.getElementById('notice-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearFormErrors('notice-form');
+
+    const title = document.getElementById('notice-title').value.trim();
+    const content = document.getElementById('notice-content').value.trim();
+    const targetRole = document.getElementById('notice-target').value;
+    const isPinned = document.getElementById('notice-pinned').checked;
+
+    let hasError = false;
+
+    if (!title) {
+      setFieldError('notice-title', 'Announcement title is required');
+      hasError = true;
+    } else if (title.length < 5) {
+      setFieldError('notice-title', 'Title must be at least 5 characters long');
+      hasError = true;
+    }
+
+    if (!content) {
+      setFieldError('notice-content', 'Announcement content details are required');
+      hasError = true;
+    } else if (content.length < 10) {
+      setFieldError('notice-content', 'Notice content must be at least 10 characters long');
+      hasError = true;
+    }
+
+    if (hasError) {
+      if (currentNoticeTab === 'preview') {
+        switchNoticeTab('compose');
+      }
+      showToast('Please fill in the required announcement details.', 'warning');
+      return;
+    }
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Publishing...';
+
+    try {
+      await apiRequest('/announcements', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: title,
+          targetRole: targetRole,
+          content: content,
+          isPinned: isPinned,
+        })
+      });
+      showToast('Announcement circular published successfully!', 'success');
+      closeNoticeModal();
+      await loadDashboardData();
+    } catch (err) {
+      showToast(err.message || 'Failed to publish announcement', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+</script>
+</body>
+</html>

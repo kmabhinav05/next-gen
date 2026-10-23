@@ -1,0 +1,37 @@
+{
+  "name": "academic-assistance-backend",
+  "version": "1.0.0",
+  "description": "Academic Department Assistance System (Next Gen Grading) Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "init-db": "node src/utils/initDb.js",
+    "test": "node --test tests/auth.test.js tests/api_auth.test.js tests/dashboards.test.js tests/excel.test.js tests/progress_cards.test.js tests/chatbot.test.js"
+  },
+  "keywords": [
+    "academic",
+    "grading",
+    "attendance",
+    "progress-cards",
+    "express",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^10.2.1",
+    "pdfkit": "^0.16.0",
+    "pg": "^8.13.1"
+  }
+}

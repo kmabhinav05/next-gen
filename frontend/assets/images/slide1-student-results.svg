@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="warmOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="softTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3aa68c" />
+      <stop offset="100%" stop-color="#207e69" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <!-- Elevation Shadows -->
+    <filter id="floatShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.1" />
+    </filter>
+    <filter id="orbGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="24" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow & Pedestal -->
+  <circle cx="270" cy="240" r="190" fill="#fef3c7" filter="url(#orbGlow)" opacity="0.65" />
+  <ellipse cx="270" cy="440" rx="210" ry="28" fill="#e2e8f0" opacity="0.6" />
+
+  <!-- Main 3D Card: Student Academic Results & Report -->
+  <g filter="url(#floatShadow)" transform="translate(60, 45)">
+    <rect x="0" y="0" width="420" height="380" rx="26" fill="url(#cardBg)" stroke="#ffffff" stroke-width="4" />
+
+    <!-- Card Header Banner -->
+    <rect x="22" y="22" width="376" height="64" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+    
+    <!-- Student Avatar Bubble -->
+    <circle cx="58" cy="54" r="22" fill="url(#warmOrange)" />
+    <text x="58" y="61" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" fill="#ffffff" text-anchor="middle">AT</text>
+
+    <!-- Student Name & Roll -->
+    <text x="92" y="47" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="15" fill="#111827">Alex Turner (CSE-A)</text>
+    <text x="92" y="67" font-family="'Plus Jakarta Sans', sans-serif" font-weight="500" font-size="12" fill="#64748b">Semester 5 • CGPA: 9.24</text>
+
+    <!-- Status Badge -->
+    <rect x="306" y="38" width="76" height="28" rx="14" fill="#ecfdf5" />
+    <text x="344" y="56" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="11" fill="#10b981" text-anchor="middle">Rank 1</text>
+
+    <!-- Results Table Header -->
+    <rect x="22" y="102" width="376" height="30" rx="8" fill="#f1f5f9" />
+    <text x="36" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="11" fill="#64748b">SUBJECT</text>
+    <text x="210" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="11" fill="#64748b">IA MARKS</text>
+    <text x="310" y="122" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="11" fill="#64748b">ATTENDANCE</text>
+
+    <!-- Row 1: Database Systems -->
+    <rect x="22" y="140" width="376" height="44" rx="10" fill="#ffffff" stroke="#f1f5f9" />
+    <circle cx="42" cy="162" r="8" fill="#3aa68c" opacity="0.2" />
+    <text x="42" y="166" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="9" fill="#3aa68c" text-anchor="middle">DB</text>
+    <text x="60" y="166" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="12" fill="#1e293b">CS501 Database Eng.</text>
+    <rect x="206" y="150" width="56" height="24" rx="6" fill="#fef3c7" />
+    <text x="234" y="166" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#d97706" text-anchor="middle">48/50</text>
+    <text x="340" y="166" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#10b981" text-anchor="middle">96.5%</text>
+
+    <!-- Row 2: Operating Systems -->
+    <rect x="22" y="192" width="376" height="44" rx="10" fill="#f8fafc" stroke="#f1f5f9" />
+    <circle cx="42" cy="214" r="8" fill="#f59e0b" opacity="0.2" />
+    <text x="42" y="218" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="9" fill="#f59e0b" text-anchor="middle">OS</text>
+    <text x="60" y="218" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="12" fill="#1e293b">CS502 Operating Systems</text>
+    <rect x="206" y="202" width="56" height="24" rx="6" fill="#fef3c7" />
+    <text x="234" y="218" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#d97706" text-anchor="middle">46/50</text>
+    <text x="340" y="218" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#10b981" text-anchor="middle">94.0%</text>
+
+    <!-- Row 3: Theory of Computation -->
+    <rect x="22" y="244" width="376" height="44" rx="10" fill="#ffffff" stroke="#f1f5f9" />
+    <circle cx="42" cy="266" r="8" fill="#6366f1" opacity="0.2" />
+    <text x="42" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="9" fill="#6366f1" text-anchor="middle">TC</text>
+    <text x="60" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="12" fill="#1e293b">CS503 Theory of Comput.</text>
+    <rect x="206" y="254" width="56" height="24" rx="6" fill="#fef3c7" />
+    <text x="234" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#d97706" text-anchor="middle">44/50</text>
+    <text x="340" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#10b981" text-anchor="middle">91.8%</text>
+
+    <!-- Bottom Summary Bar -->
+    <rect x="22" y="302" width="376" height="56" rx="14" fill="#111827" />
+    <text x="44" y="327" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="11" fill="#9ca3af">OVERALL ACADEMIC STANDING</text>
+    <text x="44" y="345" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="14" fill="#ffffff">92.8% Cumulative IA Score</text>
+    
+    <rect x="286" y="314" width="100" height="32" rx="10" fill="url(#softTeal)" />
+    <text x="336" y="334" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" fill="#ffffff" text-anchor="middle">ELIGIBLE</text>
+  </g>
+
+  <!-- 3D Floating Grade A+ Badge -->
+  <g filter="url(#floatShadow)" transform="translate(420, 20)">
+    <circle cx="34" cy="34" r="34" fill="#ffffff" stroke="#f59e0b" stroke-width="3" />
+    <circle cx="34" cy="34" r="28" fill="url(#warmOrange)" />
+    <text x="34" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20" fill="#ffffff" text-anchor="middle">A+</text>
+  </g>
+</svg>

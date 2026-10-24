@@ -3,7 +3,12 @@
  * Compatible with both apiRequest() and api.get() / api.post() syntax
  */
 
-const API_BASE = '/api';
+// Production tunnel URL for Cloudflare-hosted frontend
+const CLOUDFLARE_BACKEND_ORIGIN = 'https://actively-qld-allow-deborah.trycloudflare.com';
+
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? '/api'
+  : (window.__CUSTOM_API_BASE__ || `${CLOUDFLARE_BACKEND_ORIGIN}/api`);
 
 /**
  * Toast Notification Dispatcher

@@ -362,7 +362,7 @@
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/staff/excel/preview', {
+      const response = await fetch(`${API_BASE}/staff/excel/preview`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

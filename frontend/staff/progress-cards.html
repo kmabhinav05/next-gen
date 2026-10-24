@@ -336,7 +336,7 @@
               <button class="btn btn-sm btn-outline-teal me-2" onclick="viewProgressCard(${s.student_id})">
                 <i class="fa-solid fa-eye me-1"></i> View Card
               </button>
-              <a href="/api/staff/progress-cards/${s.student_id}/pdf?token=${encodeURIComponent(localStorage.getItem('token'))}" target="_blank" class="btn btn-sm btn-outline-primary">
+              <a href="${API_BASE}/staff/progress-cards/${s.student_id}/pdf?token=${encodeURIComponent(localStorage.getItem('token'))}" target="_blank" class="btn btn-sm btn-outline-primary">
                 <i class="fa-solid fa-file-pdf me-1"></i> PDF
               </a>
             </td>

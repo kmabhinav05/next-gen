@@ -5,16 +5,30 @@ const path = require('path');
 // Ensure environment variables are loaded
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432', 10),
-  database: process.env.DB_NAME || 'next_gen_grading',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-  max: parseInt(process.env.DB_MAX_CONNECTIONS || '20', 10),
-  idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT_MS || '30000', 10),
-  connectionTimeoutMillis: 5000,
-});
+const isSslRequired = process.env.DB_SSL === 'true' || 
+  (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost') && !process.env.DATABASE_URL.includes('127.0.0.1'));
+
+const poolConfig = process.env.DATABASE_URL 
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: isSslRequired ? { rejectUnauthorized: false } : false,
+      max: parseInt(process.env.DB_MAX_CONNECTIONS || '20', 10),
+      idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT_MS || '30000', 10),
+      connectionTimeoutMillis: 10000,
+    }
+  : {
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      database: process.env.DB_NAME || 'next_gen_grading',
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || 'postgres',
+      ssl: isSslRequired ? { rejectUnauthorized: false } : false,
+      max: parseInt(process.env.DB_MAX_CONNECTIONS || '20', 10),
+      idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT_MS || '30000', 10),
+      connectionTimeoutMillis: 10000,
+    };
+
+const pool = new Pool(poolConfig);
 
 pool.on('error', (err) => {
   console.error('[PostgreSQL Pool Error]: Unexpected error on idle client', err.message);

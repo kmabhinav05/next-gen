@@ -39,17 +39,38 @@
       --lms-bubble-teal: rgba(58, 166, 140, 0.18);
     }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
     body {
       background-color: var(--lms-bg);
       color: var(--lms-dark);
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Navbar */
+    /* Sticky Navbar with Glass Blur & Smooth Scroll Shadow */
     .lms-navbar {
-      background: var(--lms-bg);
-      padding: 1.25rem 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1.15rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+      transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+    }
+
+    [data-theme="dark"] .lms-navbar, body.dark-theme .lms-navbar {
+      background: rgba(9, 13, 22, 0.92);
+      border-bottom-color: rgba(51, 65, 85, 0.5);
+    }
+
+    .lms-navbar.scrolled {
+      padding: 0.75rem 0;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
     }
 
     .brand-logo-text {
@@ -58,19 +79,59 @@
       color: var(--lms-dark);
       text-decoration: none;
       letter-spacing: -0.02em;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-logo-text:hover {
+      transform: scale(1.02);
     }
 
     .brand-logo-text span {
       color: var(--lms-orange);
     }
 
+    /* Nav Options Pill Container with Smooth Sliding Active Bubble */
+    .nav-options-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(241, 245, 249, 0.75);
+      padding: 4px;
+      border-radius: 9999px;
+      border: 1px solid rgba(226, 232, 240, 0.85);
+    }
+
+    [data-theme="dark"] .nav-options-wrapper, body.dark-theme .nav-options-wrapper {
+      background: rgba(30, 41, 59, 0.65);
+      border-color: rgba(51, 65, 85, 0.8);
+    }
+
+    .nav-sliding-pill {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: calc(100% - 8px);
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      border-radius: 9999px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      z-index: 1;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      opacity: 0;
+    }
+
     .nav-link-item {
+      position: relative;
+      z-index: 2;
       color: var(--lms-slate);
-      font-weight: 500;
-      font-size: 0.96rem;
-      padding: 0.5rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.45rem 1.15rem;
       text-decoration: none;
-      transition: color 0.15s ease;
+      border-radius: 9999px;
+      transition: color 0.25s ease;
+      user-select: none;
+      cursor: pointer;
     }
 
     .nav-link-item:hover {
@@ -78,8 +139,114 @@
     }
 
     .nav-link-item.active {
-      color: var(--lms-dark);
-      font-weight: 700;
+      color: #ffffff !important;
+    }
+
+    /* Mobile Quick Nav with Smooth Scrolling Chips */
+    .mobile-quick-nav {
+      position: sticky;
+      top: 66px;
+      z-index: 1040;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.5rem 1rem;
+      overflow-x: auto;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .mobile-quick-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-theme="dark"] .mobile-quick-nav, body.dark-theme .mobile-quick-nav {
+      background: rgba(9, 13, 22, 0.95);
+      border-bottom-color: rgba(51, 65, 85, 0.5);
+    }
+
+    .mobile-nav-chip {
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--lms-slate);
+      background: rgba(241, 245, 249, 0.9);
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] .mobile-nav-chip, body.dark-theme .mobile-nav-chip {
+      background: rgba(30, 41, 59, 0.8);
+      color: #94a3b8;
+    }
+
+    .mobile-nav-chip.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Option Switching Tabs for Carousel Showcase */
+    .carousel-options-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: rgba(241, 245, 249, 0.85);
+      padding: 5px;
+      border-radius: 9999px;
+      margin: 0 auto 1.15rem;
+      max-width: 440px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      position: relative;
+    }
+
+    [data-theme="dark"] .carousel-options-tabs, body.dark-theme .carousel-options-tabs {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(51, 65, 85, 0.8);
+    }
+
+    .carousel-opt-tab {
+      background: transparent;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.42rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--lms-slate);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .carousel-opt-tab:hover {
+      color: var(--lms-orange);
+    }
+
+    .carousel-opt-tab.active {
+      background: #ffffff;
+      color: var(--lms-orange);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    [data-theme="dark"] .carousel-opt-tab.active, body.dark-theme .carousel-opt-tab.active {
+      background: #1e293b;
+      color: #fbbf24;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .btn-login-teal {
@@ -378,7 +545,7 @@
 <body>
 
   <!-- Top Navigation (Matching LMS Mart Reference) -->
-  <header class="lms-navbar">
+  <header class="lms-navbar" id="topNavbar">
     <div class="container d-flex align-items-center justify-content-between">
       
       <!-- Brand Logo -->
@@ -386,13 +553,14 @@
         Next Gen <span>Grading</span>
       </a>
 
-      <!-- Navigation Links -->
-      <nav class="d-none d-lg-flex align-items-center gap-2">
-        <a href="#home" class="nav-link-item active">Home</a>
-        <a href="#about" class="nav-link-item">About</a>
-        <a href="#features" class="nav-link-item">Features</a>
-        <a href="#how-it-works" class="nav-link-item">How It Works</a>
-        <a href="#contact" class="nav-link-item">Contact</a>
+      <!-- Navigation Links with Sliding Pill Indicator -->
+      <nav class="nav-options-wrapper d-none d-lg-flex align-items-center position-relative" id="mainNavWrapper">
+        <div class="nav-sliding-pill" id="navSlidingPill"></div>
+        <a href="#home" class="nav-link-item active" data-section="home">Home</a>
+        <a href="#about" class="nav-link-item" data-section="about">About</a>
+        <a href="#features" class="nav-link-item" data-section="features">Features</a>
+        <a href="#how-it-works" class="nav-link-item" data-section="how-it-works">How It Works</a>
+        <a href="#contact" class="nav-link-item" data-section="contact">Contact</a>
       </nav>
 
       <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button -->
@@ -411,6 +579,15 @@
 
     </div>
   </header>
+
+  <!-- Mobile Quick-Nav Bar with Smooth Scrolling Chips -->
+  <div class="mobile-quick-nav d-flex d-lg-none" id="mobileQuickNav">
+    <a href="#home" class="mobile-nav-chip active" data-section="home"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="#about" class="mobile-nav-chip" data-section="about"><i class="fa-solid fa-circle-info"></i> About</a>
+    <a href="#features" class="mobile-nav-chip" data-section="features"><i class="fa-solid fa-bolt"></i> Features</a>
+    <a href="#how-it-works" class="mobile-nav-chip" data-section="how-it-works"><i class="fa-solid fa-list-check"></i> Steps</a>
+    <a href="#contact" class="mobile-nav-chip" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+  </div>
 
   <!-- Hero Section (Faithful LMS Mart Layout) -->
   <section class="hero-section-lms" id="home">
@@ -473,6 +650,19 @@
         <div class="col-lg-6">
           <div class="rolling-3d-stage" id="rollingStage">
             
+            <!-- Option Switching Tabs for Carousel Showcase -->
+            <div class="carousel-options-tabs" id="carouselOptionTabs">
+              <button type="button" class="carousel-opt-tab active" onclick="goToSlide(0)" data-slide="0">
+                <i class="fa-solid fa-graduation-cap"></i> Student
+              </button>
+              <button type="button" class="carousel-opt-tab" onclick="goToSlide(1)" data-slide="1">
+                <i class="fa-solid fa-file-excel"></i> Faculty
+              </button>
+              <button type="button" class="carousel-opt-tab" onclick="goToSlide(2)" data-slide="2">
+                <i class="fa-solid fa-file-pdf"></i> Reports
+              </button>
+            </div>
+
             <!-- 3D Carousel Swiping Area -->
             <div class="rolling-3d-carousel" id="carousel3D">
               
@@ -522,6 +712,77 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- About Department & Platform Section -->
+  <section class="py-5" id="about" style="border-top: 1px solid rgba(148, 163, 184, 0.15); scroll-margin-top: 80px;">
+    <div class="container py-4">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="tagline-badge">About Our Platform 💡</div>
+          <h2 class="display-6 fw-bold mb-3">Modernizing Academic Operations with Zero Friction</h2>
+          <p class="text-muted mb-4" style="line-height: 1.75; font-size: 1.05rem;">
+            Next Gen Grading eliminates fragmented spreadsheets, manual percentage calculations, and delayed reporting. We provide an intelligent, cloud-integrated assistant tailored for academic institutions.
+          </p>
+          <div class="d-flex flex-column gap-3 mb-4">
+            <div class="d-flex align-items-start gap-3 p-3 rounded-4 bg-light">
+              <div class="lms-icon-bubble bubble-orange mb-0" style="width: 46px; height: 46px; font-size: 1.15rem; flex-shrink: 0;">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1">Instant Assessment Processing</h6>
+                <p class="text-muted small mb-0">Automatic calculation of internal marks, grade conversions, and exam eligibility criteria.</p>
+              </div>
+            </div>
+            <div class="d-flex align-items-start gap-3 p-3 rounded-4 bg-light">
+              <div class="lms-icon-bubble bubble-teal mb-0" style="width: 46px; height: 46px; font-size: 1.15rem; flex-shrink: 0;">
+                <i class="fa-solid fa-users-viewfinder"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1">Unified Stakeholder Ecosystem</h6>
+                <p class="text-muted small mb-0">Role-tailored dashboards for Administrators, Faculty, Students, and Parents with real-time updates.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="lms-feature-card p-4 p-md-5">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-2 rounded-pill fw-bold">
+                <i class="fa-solid fa-shield-halved me-1"></i> Cloud Connected
+              </span>
+              <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill fw-bold">
+                <i class="fa-solid fa-circle-check me-1"></i> Real-time Sync
+              </span>
+            </div>
+            <h4 class="fw-bold mb-3">Designed for Transparency &amp; Speed</h4>
+            <p class="text-muted small mb-4" style="line-height: 1.65;">
+              From syllabus compliance to parent communication, our system provides complete transparency, robust security, and compliance-ready digital reports with institutional signatures.
+            </p>
+            <div class="row g-3 text-center">
+              <div class="col-4">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="fw-bold fs-3 text-warning">99.9%</div>
+                  <div class="small text-muted" style="font-size: 0.78rem;">Accuracy</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="fw-bold fs-3" style="color: var(--lms-teal);">3x</div>
+                  <div class="small text-muted" style="font-size: 0.78rem;">Faster PTM</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-3 rounded-3 bg-light border">
+                  <div class="fw-bold fs-3 text-dark">100%</div>
+                  <div class="small text-muted" style="font-size: 0.78rem;">Digital</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -763,6 +1024,7 @@
       currentSlide = (index + totalSlides) % totalSlides;
       const slides = document.querySelectorAll('.rolling-3d-slide');
       const dots = document.querySelectorAll('.carousel-pill-dot');
+      const optTabs = document.querySelectorAll('.carousel-opt-tab');
       
       slides.forEach((slide) => {
         const slideIdx = parseInt(slide.getAttribute('data-index'), 10);
@@ -779,6 +1041,10 @@
 
       dots.forEach((dot, idx) => {
         dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      optTabs.forEach((tab, idx) => {
+        tab.classList.toggle('active', idx === currentSlide);
       });
 
       // Update Feature details under the image with smooth transition
@@ -858,10 +1124,116 @@
       });
     }
 
+    // Smooth Scrolling & Sliding Nav Pill Observer
+    function initSmoothScrollAndNavSwitching() {
+      const navContainer = document.getElementById('mainNavWrapper');
+      const slidingPill = document.getElementById('navSlidingPill');
+      const navLinks = document.querySelectorAll('.nav-link-item[data-section]');
+      const mobileChips = document.querySelectorAll('.mobile-nav-chip[data-section]');
+      const navbar = document.getElementById('topNavbar');
+
+      function movePillTo(element) {
+        if (!slidingPill || !navContainer || !element) return;
+        const containerRect = navContainer.getBoundingClientRect();
+        const elemRect = element.getBoundingClientRect();
+        const offsetLeft = elemRect.left - containerRect.left;
+        const width = elemRect.width;
+
+        slidingPill.style.transform = `translateX(${offsetLeft}px)`;
+        slidingPill.style.width = `${width}px`;
+        slidingPill.style.opacity = '1';
+      }
+
+      function setActiveOption(sectionId) {
+        let activeElem = null;
+        navLinks.forEach(link => {
+          const isMatch = link.getAttribute('data-section') === sectionId;
+          link.classList.toggle('active', isMatch);
+          if (isMatch) activeElem = link;
+        });
+
+        mobileChips.forEach(chip => {
+          const isMatch = chip.getAttribute('data-section') === sectionId;
+          chip.classList.toggle('active', isMatch);
+          if (isMatch) {
+            chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+        });
+
+        if (activeElem) {
+          movePillTo(activeElem);
+        }
+      }
+
+      // Smooth scroll handler for nav clicks with accurate offset
+      function handleNavClick(e) {
+        const targetHref = this.getAttribute('href');
+        if (!targetHref || !targetHref.startsWith('#')) return;
+        
+        const targetId = targetHref.substring(1);
+        const targetElem = document.getElementById(targetId);
+        if (!targetElem) return;
+
+        e.preventDefault();
+        setActiveOption(targetId);
+
+        const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
+        const targetPosition = targetElem.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: 'smooth'
+        });
+      }
+
+      navLinks.forEach(link => link.addEventListener('click', handleNavClick));
+      mobileChips.forEach(chip => chip.addEventListener('click', handleNavClick));
+
+      // IntersectionObserver for ScrollSpy dynamic switching while scrolling
+      const sectionIds = ['home', 'about', 'features', 'how-it-works', 'contact'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveOption(entry.target.id);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(sec => observer.observe(sec));
+
+      // Window scroll event for navbar shadow
+      window.addEventListener('scroll', () => {
+        if (navbar) {
+          navbar.classList.toggle('scrolled', window.scrollY > 20);
+        }
+      }, { passive: true });
+
+      // Reposition pill on window resize
+      window.addEventListener('resize', () => {
+        const active = document.querySelector('.nav-link-item.active');
+        if (active) movePillTo(active);
+      });
+
+      // Initial pill placement
+      setTimeout(() => {
+        const active = document.querySelector('.nav-link-item.active') || navLinks[0];
+        if (active) movePillTo(active);
+      }, 100);
+    }
+
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       renderSlide(0);
       startAutoplay();
+      initSmoothScrollAndNavSwitching();
     });
   </script>
 </body>

@@ -543,6 +543,64 @@
     .auth-back-link:hover {
       color: var(--auth-btn-rose);
     }
+
+    /* Segmented Option Switcher with Sliding Pill for Login, Forgot, Request */
+    .auth-segmented-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(149, 99, 110, 0.08);
+      border: 1px solid rgba(149, 99, 110, 0.15);
+      border-radius: 9999px;
+      padding: 4px;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    [data-theme="dark"] .auth-segmented-switcher, body.dark-theme .auth-segmented-switcher {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(51, 65, 85, 0.8);
+    }
+
+    .auth-seg-pill {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: calc(100% - 8px);
+      background: var(--auth-btn-rose);
+      border-radius: 9999px;
+      box-shadow: 0 4px 12px rgba(149, 99, 110, 0.35);
+      z-index: 1;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-seg-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--auth-subtitle-color);
+      padding: 0.45rem 0.6rem;
+      border-radius: 9999px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .auth-seg-tab.active {
+      color: #ffffff !important;
+    }
+
+    .auth-seg-tab:hover:not(.active) {
+      color: var(--auth-title-color);
+    }
   </style>
 </head>
 <body>
@@ -563,6 +621,20 @@
         <!-- Left Side: Interactive View Slider (Sign In vs Forgot Password) -->
         <div class="col-lg-6 auth-left-col">
           
+          <!-- Segmented Option Switcher (Sign In vs Recovery vs Request) -->
+          <div class="auth-segmented-switcher" id="authSegmentedSwitcher">
+            <div class="auth-seg-pill" id="authSegPill"></div>
+            <button type="button" class="auth-seg-tab active" id="tabLogin" onclick="switchToLogin()">
+              <i class="fa-solid fa-lock"></i> Sign In
+            </button>
+            <button type="button" class="auth-seg-tab" id="tabForgot" onclick="switchToForgot()">
+              <i class="fa-solid fa-key"></i> Recovery
+            </button>
+            <button type="button" class="auth-seg-tab" id="tabRequest" onclick="switchToRequestAccess()">
+              <i class="fa-solid fa-user-plus"></i> Request
+            </button>
+          </div>
+
           <div class="auth-view-slider">
             
             <!-- PANE 1: Sign In View -->
@@ -838,7 +910,25 @@
       toggleBtn.innerHTML = isPwd ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
     });
 
-    // View Switching Animations (Sign In <-> Forgot Password <-> Request Access)
+    // Smooth Tab Pill Gliding & View Switching Animations
+    function updateAuthPill(tabId) {
+      const container = document.getElementById('authSegmentedSwitcher');
+      const pill = document.getElementById('authSegPill');
+      const targetTab = document.getElementById(tabId);
+      if (!container || !pill || !targetTab) return;
+
+      document.querySelectorAll('.auth-seg-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.id === tabId);
+      });
+
+      const contRect = container.getBoundingClientRect();
+      const tabRect = targetTab.getBoundingClientRect();
+      const offset = tabRect.left - contRect.left;
+
+      pill.style.transform = `translateX(${offset}px)`;
+      pill.style.width = `${tabRect.width}px`;
+    }
+
     function switchToForgot() {
       const loginPane = document.getElementById('loginPane');
       const forgotPane = document.getElementById('forgotPane');
@@ -852,6 +942,7 @@
       forgotPane.classList.remove('hidden-pane');
       forgotPane.classList.add('active-pane');
       
+      updateAuthPill('tabForgot');
       document.getElementById('forgotEmail').focus();
     }
 
@@ -868,6 +959,7 @@
       reqPane.classList.remove('hidden-pane');
       reqPane.classList.add('active-pane');
 
+      updateAuthPill('tabRequest');
       hideReqAlert();
       document.getElementById('reqFullName').focus();
     }
@@ -891,8 +983,18 @@
       isResetStep = false;
       hideReqAlert();
       
+      updateAuthPill('tabLogin');
       document.getElementById('username').focus();
     }
+
+    // Initialize pill on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => updateAuthPill('tabLogin'), 80);
+    });
+    window.addEventListener('resize', () => {
+      const active = document.querySelector('.auth-seg-tab.active');
+      if (active) updateAuthPill(active.id);
+    });
 
     // Dynamic Alert Box Helper for Request Access
     function showReqAlert(message, type = 'danger') {

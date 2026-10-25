@@ -11,7 +11,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/splash-cursor.js"></script>
   <style>
+    /* Interactive Splash Cursor WebGL Fluid Background */
+    #fluid-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      display: block;
+    }
+
+    .crextio-auth-wrapper {
+      position: relative;
+      z-index: 2;
+    }
     :root {
       --crextio-bg-page: #eaebed;
       --crextio-card-bg: linear-gradient(145deg, #f7f8fa 0%, #f6f5f0 55%, #fef3c7 100%);
@@ -753,6 +770,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Interactive WebGL Splash Cursor Fluid Simulation Background (ReactBits) -->
+  <canvas id="fluid-canvas"></canvas>
 
   <!-- Floating Theme Toggle Button -->
   <button type="button" class="theme-toggle-btn position-fixed top-0 end-0 m-4 shadow-sm" style="z-index: 1000;" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">

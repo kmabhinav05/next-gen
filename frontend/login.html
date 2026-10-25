@@ -96,7 +96,7 @@
       }
     }
 
-    /* Main Rounded Card matching reference */
+    /* Main Rounded Card matching Cleveroad reference */
     .auth-card-master {
       background: var(--auth-card-bg);
       border-radius: 36px;
@@ -105,6 +105,7 @@
       padding: 2.75rem 3rem;
       position: relative;
       overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @media (max-width: 768px) {
@@ -125,20 +126,16 @@
         padding: 1.35rem 0.95rem;
         border-radius: 20px;
       }
-      .auth-title {
+      .auth-dribbble-heading {
         font-size: 1.6rem !important;
       }
-      .auth-subtitle {
+      .auth-dribbble-sub {
         font-size: 0.8rem !important;
         margin-bottom: 1.25rem !important;
       }
-      .auth-input-field {
+      .dribbble-input {
         min-height: 44px;
         font-size: 16px !important;
-        padding: 0.75rem 1rem;
-      }
-      .auth-btn-login {
-        min-height: 44px;
       }
     }
 
@@ -158,6 +155,106 @@
       }
     }
 
+    /* Cleveroad Dribbble Top Bar: [N] Next Gen Grading */
+    .dribbble-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.85rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .brand-dribbble-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .brand-logo-n {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--auth-btn-rose) 0%, #664952 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px -2px rgba(149, 99, 110, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-dribbble-logo:hover .brand-logo-n {
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 12px 24px -2px rgba(149, 99, 110, 0.6);
+    }
+
+    .brand-logo-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-logo-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--auth-title-color);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .brand-logo-name span {
+      color: var(--auth-btn-rose);
+      font-weight: 700;
+    }
+
+    .brand-logo-tagline {
+      font-size: 0.72rem;
+      color: var(--auth-subtitle-color);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .dribbble-top-switch {
+      font-size: 0.84rem;
+      color: var(--auth-subtitle-color);
+      font-weight: 500;
+    }
+
+    .dribbble-top-switch a {
+      color: var(--auth-btn-rose);
+      font-weight: 700;
+      text-decoration: none;
+      margin-left: 0.35rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .dribbble-top-switch a:hover {
+      text-decoration: underline;
+      color: var(--auth-btn-rose-hover);
+    }
+
+    /* Headings */
+    .auth-dribbble-heading {
+      font-size: 2.15rem;
+      font-weight: 800;
+      color: var(--auth-title-color);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35rem;
+    }
+
+    .auth-dribbble-sub {
+      font-size: 0.88rem;
+      color: var(--auth-subtitle-color);
+      margin-bottom: 1.75rem;
+      line-height: 1.45;
+    }
+
     /* Dynamic View Slider (Login View vs Forgot Password View) */
     .auth-view-slider {
       position: relative;
@@ -172,7 +269,7 @@
     .auth-view-pane.hidden-pane {
       display: none;
       opacity: 0;
-      transform: translateX(30px);
+      transform: translateX(35px);
     }
 
     .auth-view-pane.active-pane {
@@ -193,33 +290,43 @@
       }
     }
 
-    .auth-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--auth-title-color);
-      margin-bottom: 0.35rem;
-      letter-spacing: -0.025em;
-      text-align: center;
-    }
-
-    .auth-subtitle {
-      font-size: 0.85rem;
-      color: var(--auth-subtitle-color);
-      margin-bottom: 1.85rem;
-      text-align: center;
-    }
-
-    .auth-input-group {
+    /* Form Fields in Cleveroad Style */
+    .dribbble-field-group {
       margin-bottom: 1.15rem;
-      position: relative;
+      text-align: left;
     }
 
-    .auth-input-field {
+    .dribbble-field-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--auth-title-color);
+      margin-bottom: 0.42rem;
+      letter-spacing: -0.01em;
+    }
+
+    .dribbble-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .dribbble-input-icon {
+      position: absolute;
+      left: 15px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .dribbble-input {
       width: 100%;
       background: var(--auth-input-bg);
-      border: 1px solid #e2e8f0;
+      border: 1.5px solid #e2e8f0;
       border-radius: 14px;
-      padding: 0.88rem 1.25rem;
+      padding: 0.85rem 1.15rem 0.85rem 2.65rem;
       font-size: 0.94rem;
       color: var(--auth-input-text);
       outline: none;
@@ -227,16 +334,23 @@
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
     }
 
-    .auth-input-field:focus {
+    [data-theme="dark"] .dribbble-input, body.dark-theme .dribbble-input {
+      border-color: #334155;
+    }
+
+    .dribbble-input:focus {
       border-color: var(--auth-btn-rose);
       box-shadow: 0 0 0 4px rgba(149, 99, 110, 0.18);
-      background: var(--auth-input-bg);
       transform: translateY(-1px);
     }
 
-    .auth-input-field::placeholder {
+    .dribbble-input-wrapper:focus-within .dribbble-input-icon {
+      color: var(--auth-btn-rose);
+    }
+
+    .dribbble-input::placeholder {
       color: #94a3b8;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .auth-pwd-toggle {
@@ -251,6 +365,7 @@
       padding: 6px;
       font-size: 1rem;
       transition: color 0.15s ease, transform 0.15s ease;
+      z-index: 2;
     }
 
     .auth-pwd-toggle:hover {
@@ -258,59 +373,104 @@
       transform: translateY(-50%) scale(1.1);
     }
 
-    .recovery-link {
-      color: #64748b;
-      font-size: 0.8rem;
+    /* Remember me & Recovery row */
+    .dribbble-form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.35rem;
+      margin-bottom: 1.45rem;
+      font-size: 0.84rem;
+    }
+
+    .dribbble-remember-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--auth-subtitle-color);
+      cursor: pointer;
       font-weight: 500;
+      user-select: none;
+    }
+
+    .dribbble-remember-label input[type="checkbox"] {
+      accent-color: var(--auth-btn-rose);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .dribbble-recovery-link {
+      color: var(--auth-subtitle-color);
+      font-weight: 600;
       text-decoration: none;
-      display: inline-block;
-      text-align: right;
-      width: 100%;
-      margin-top: -0.35rem;
-      margin-bottom: 1.4rem;
-      transition: all 0.2s ease;
+      transition: color 0.2s ease;
       cursor: pointer;
     }
 
-    .recovery-link:hover {
+    .dribbble-recovery-link:hover {
       color: var(--auth-btn-rose);
       text-decoration: underline;
     }
 
-    /* Request Access Link */
-    .request-access-link {
-      color: #64748b;
-      font-size: 0.84rem;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
+    /* Animated Submit Button */
+    .btn-dribbble-submit {
+      background: var(--auth-btn-rose);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 0.88rem 1.75rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      width: 100%;
+      box-shadow: 0 10px 24px -3px rgba(149, 99, 110, 0.45);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      padding: 0.55rem 1rem;
-      border-radius: 12px;
-      background: rgba(149, 99, 110, 0.08);
-      border: 1px dashed rgba(149, 99, 110, 0.35);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      width: 100%;
-      text-align: center;
-      margin-top: 1.15rem;
+      gap: 0.55rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 52px;
     }
 
-    .request-access-link:hover {
-      color: var(--auth-btn-rose);
-      background: rgba(149, 99, 110, 0.16);
-      border-color: var(--auth-btn-rose);
-      transform: translateY(-1px);
+    .btn-dribbble-submit:hover {
+      background: var(--auth-btn-rose-hover);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -3px rgba(149, 99, 110, 0.55);
     }
 
-    textarea.auth-input-field {
-      resize: vertical;
-      min-height: 85px;
-      line-height: 1.45;
+    .btn-dribbble-submit:active {
+      transform: scale(0.98);
     }
 
+    /* Button Loading State */
+    .btn-dribbble-submit.is-loading {
+      width: 52px;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0 auto;
+      pointer-events: none;
+      box-shadow: 0 8px 20px rgba(149, 99, 110, 0.4);
+    }
+
+    .dribbble-spinner-ring {
+      width: 22px;
+      height: 22px;
+      border: 2.5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: dribbbleSpin 0.75s linear infinite;
+    }
+
+    @keyframes dribbbleSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Dynamic Alert Box */
     .auth-alert-dynamic {
       font-size: 0.85rem;
       border-radius: 12px;
@@ -320,57 +480,6 @@
       align-items: flex-start;
       gap: 0.55rem;
       animation: paneSlideIn 0.3s ease forwards;
-    }
-
-    /* Main Submit Button (Mauve / Dusty Rose) */
-    .btn-auth-rose {
-      background: var(--auth-btn-rose);
-      color: #ffffff;
-      border: none;
-      border-radius: 14px;
-      padding: 0.88rem 1.5rem;
-      font-size: 0.98rem;
-      font-weight: 700;
-      width: 100%;
-      box-shadow: 0 10px 24px -3px rgba(149, 99, 110, 0.45);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-auth-rose::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-
-    .btn-auth-rose:hover::after {
-      transform: translateX(100%);
-    }
-
-    .btn-auth-rose:hover {
-      background: var(--auth-btn-rose-hover);
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px -3px rgba(149, 99, 110, 0.55);
-    }
-
-    .btn-auth-rose:active {
-      transform: translateY(0);
-    }
-
-    .btn-auth-rose:disabled {
-      opacity: 0.75;
-      cursor: not-allowed;
-      transform: none;
     }
 
     /* Error Shake Animation (like Dribbble interaction animation) */
@@ -403,7 +512,7 @@
     }
 
     .auth-divider-text span {
-      background: #f5f6fa;
+      background: var(--auth-card-bg);
       padding: 0 14px;
       font-size: 0.78rem;
       color: #94a3b8;
@@ -422,6 +531,10 @@
       z-index: 1;
     }
 
+    [data-theme="dark"] .auth-divider-text::before, body.dark-theme .auth-divider-text::before {
+      background: #334155;
+    }
+
     /* Social Pills */
     .social-pills-row {
       display: flex;
@@ -434,7 +547,7 @@
       width: 54px;
       height: 42px;
       border-radius: 12px;
-      background: #ffffff;
+      background: var(--auth-input-bg);
       border: 1px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
       display: flex;
@@ -446,20 +559,24 @@
       cursor: pointer;
     }
 
+    [data-theme="dark"] .social-pill-btn, body.dark-theme .social-pill-btn {
+      border-color: #334155;
+    }
+
     .social-pill-btn:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 6px 14px rgba(15, 23, 42, 0.09);
       border-color: #cbd5e1;
     }
 
-    /* Right Artwork Column with 3D Depth & Floating Transition */
+    /* Right Artwork Column matching user's screenshot & Dribbble */
     .auth-art-container {
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 18px 40px -6px rgba(30, 20, 25, 0.28);
+      box-shadow: 0 20px 45px -8px rgba(30, 20, 25, 0.32);
       height: 100%;
-      min-height: 480px;
+      min-height: 520px;
       background: #0f172a;
       transition: transform 0.4s ease;
     }
@@ -469,29 +586,30 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.8s ease;
+      animation: floatArtwork 14s ease-in-out infinite alternate;
     }
 
-    .auth-art-container:hover .auth-art-img {
-      transform: scale(1.04);
+    @keyframes floatArtwork {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.04) translateY(-8px); }
     }
 
     .auth-art-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(30, 15, 25, 0.72) 0%, rgba(30, 15, 25, 0.15) 45%, transparent 100%);
+      background: linear-gradient(to top, rgba(30, 15, 25, 0.75) 0%, rgba(30, 15, 25, 0.15) 50%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 2.25rem;
+      padding: 2.5rem;
       color: #ffffff;
     }
 
     .auth-art-quote {
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.35rem;
       line-height: 1.45;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
       transition: opacity 0.25s ease, transform 0.25s ease;
@@ -504,25 +622,52 @@
     }
 
     .carousel-nav-btn {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.4);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .carousel-nav-btn:hover {
       background: rgba(255, 255, 255, 0.45);
       transform: scale(1.1);
+    }
+
+    .carousel-nav-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Carousel Navigation Dots */
+    .art-carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-left: 0.75rem;
+    }
+
+    .art-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .art-dot.active {
+      width: 24px;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     }
 
     /* Back to Homepage */
@@ -621,6 +766,21 @@
         <!-- Left Side: Interactive View Slider (Sign In vs Forgot Password) -->
         <div class="col-lg-6 auth-left-col">
           
+          <!-- Cleveroad Dribbble Top Bar: [N] Next Gen Grading (Q -> N, quickly -> next gen grading) -->
+          <div class="dribbble-top-bar">
+            <a href="/" class="brand-dribbble-logo" title="Next Gen Grading">
+              <div class="brand-logo-n">N</div>
+              <div class="brand-logo-title-wrap">
+                <span class="brand-logo-name">Next Gen <span>Grading</span></span>
+                <span class="brand-logo-tagline">Academic Assistant</span>
+              </div>
+            </a>
+            <div class="dribbble-top-switch">
+              <span id="topSwitchLabel">Don't have an account?</span>
+              <a href="javascript:void(0)" id="topSwitchAction" onclick="toggleMainView()">Request Access</a>
+            </div>
+          </div>
+
           <!-- Segmented Option Switcher (Sign In vs Recovery vs Request) -->
           <div class="auth-segmented-switcher" id="authSegmentedSwitcher">
             <div class="auth-seg-pill" id="authSegPill"></div>
@@ -637,59 +797,64 @@
 
           <div class="auth-view-slider">
             
-            <!-- PANE 1: Sign In View -->
+            <!-- PANE 1: Sign In View (Cleveroad Style) -->
             <div class="auth-view-pane active-pane" id="loginPane">
-              <h1 class="auth-title">Hello Again!</h1>
-              <p class="auth-subtitle">Welcome back to Next Gen Grading</p>
+              <h2 class="auth-dribbble-heading">Welcome back!</h2>
+              <p class="auth-dribbble-sub">Please enter your academic credentials to sign in.</p>
 
               <form id="login-form">
-                <!-- Username / Email Field -->
-                <div class="auth-input-group">
-                  <input 
-                    type="text" 
-                    id="username" 
-                    class="auth-input-field" 
-                    placeholder="Email or Username" 
-                    required 
-                    autocomplete="username"
-                    autofocus
-                  >
+                <!-- Username / Email Field with Icon -->
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="username">Username or Email</label>
+                  <div class="dribbble-input-wrapper">
+                    <i class="fa-regular fa-user dribbble-input-icon"></i>
+                    <input 
+                      type="text" 
+                      id="username" 
+                      class="dribbble-input" 
+                      placeholder="Enter email or username" 
+                      required 
+                      autocomplete="username"
+                      autofocus
+                    >
+                  </div>
                 </div>
 
-                <!-- Password Field with Toggle Button -->
-                <div class="auth-input-group">
-                  <input 
-                    type="password" 
-                    id="password" 
-                    class="auth-input-field pe-5" 
-                    placeholder="Password" 
-                    required 
-                    autocomplete="current-password"
-                  >
-                  <button type="button" id="toggle-pwd-btn" class="auth-pwd-toggle" title="Toggle password visibility">
-                    <i class="fa-regular fa-eye-slash"></i>
-                  </button>
+                <!-- Password Field with Icon and Toggle -->
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="password">Password</label>
+                  <div class="dribbble-input-wrapper">
+                    <i class="fa-solid fa-lock dribbble-input-icon"></i>
+                    <input 
+                      type="password" 
+                      id="password" 
+                      class="dribbble-input pe-5" 
+                      placeholder="••••••••" 
+                      required 
+                      autocomplete="current-password"
+                    >
+                    <button type="button" id="toggle-pwd-btn" class="auth-pwd-toggle" title="Toggle password visibility">
+                      <i class="fa-regular fa-eye-slash"></i>
+                    </button>
+                  </div>
                 </div>
 
-                <!-- Forgot Password / Recovery Trigger -->
-                <div class="text-end">
-                  <a href="javascript:void(0)" class="recovery-link" onclick="switchToForgot()">Recovery Password</a>
+                <!-- Remember Me & Recovery Password Row -->
+                <div class="dribbble-form-meta">
+                  <label class="dribbble-remember-label">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember me</span>
+                  </label>
+                  <a href="javascript:void(0)" class="dribbble-recovery-link" onclick="switchToForgot()">Recovery password</a>
                 </div>
 
                 <!-- Sign In Button with Dribbble-style state animation -->
-                <button type="submit" id="submit-btn" class="btn-auth-rose">
+                <button type="submit" id="submit-btn" class="btn-dribbble-submit">
                   <span id="btn-text">Sign In</span>
-                  <span id="btn-spinner" class="d-none">
-                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Authenticating...
-                  </span>
+                  <div id="btn-spinner" class="dribbble-spinner-ring d-none"></div>
+                  <i id="btn-check" class="fa-solid fa-check fs-5 d-none"></i>
                 </button>
               </form>
-
-              <!-- New User? Request Access Action Link -->
-              <a href="javascript:void(0)" class="request-access-link" onclick="switchToRequestAccess()">
-                <i class="fa-solid fa-user-plus"></i> New user? Request access from the administrator.
-              </a>
 
               <!-- Divider -->
               <div class="auth-divider-text">
@@ -722,55 +887,64 @@
 
             <!-- PANE 2: Forgot / Recovery Password View -->
             <div class="auth-view-pane hidden-pane" id="forgotPane">
-              <h1 class="auth-title">Reset Password</h1>
-              <p class="auth-subtitle">Enter your registered email or username</p>
+              <h2 class="auth-dribbble-heading">Reset Password</h2>
+              <p class="auth-dribbble-sub">Enter your registered email or username to continue.</p>
 
               <!-- Step 1: Verify Identifier -->
               <form id="forgot-form">
-                <div class="auth-input-group">
-                  <input 
-                    type="text" 
-                    id="forgotEmail" 
-                    class="auth-input-field" 
-                    placeholder="Email or Username" 
-                    required 
-                    autocomplete="username"
-                  >
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="forgotEmail">Email or Username</label>
+                  <div class="dribbble-input-wrapper">
+                    <i class="fa-regular fa-envelope dribbble-input-icon"></i>
+                    <input 
+                      type="text" 
+                      id="forgotEmail" 
+                      class="dribbble-input" 
+                      placeholder="alex.smith@college.edu" 
+                      required 
+                      autocomplete="username"
+                    >
+                  </div>
                 </div>
 
                 <!-- Step 2: New Password Fields (Appears once email is verified) -->
                 <div id="newPasswordSection" class="d-none">
-                  <div class="auth-input-group">
-                    <input 
-                      type="password" 
-                      id="newPassword" 
-                      class="auth-input-field" 
-                      placeholder="New Password (min. 8 chars, 1 uppercase, 1 digit)" 
-                    >
+                  <div class="dribbble-field-group">
+                    <label class="dribbble-field-label" for="newPassword">New Password</label>
+                    <div class="dribbble-input-wrapper">
+                      <i class="fa-solid fa-lock dribbble-input-icon"></i>
+                      <input 
+                        type="password" 
+                        id="newPassword" 
+                        class="dribbble-input" 
+                        placeholder="min. 8 chars, 1 uppercase, 1 digit" 
+                      >
+                    </div>
                   </div>
-                  <div class="auth-input-group">
-                    <input 
-                      type="password" 
-                      id="confirmPassword" 
-                      class="auth-input-field" 
-                      placeholder="Confirm New Password" 
-                    >
+                  <div class="dribbble-field-group">
+                    <label class="dribbble-field-label" for="confirmPassword">Confirm Password</label>
+                    <div class="dribbble-input-wrapper">
+                      <i class="fa-solid fa-shield-halved dribbble-input-icon"></i>
+                      <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="dribbble-input" 
+                        placeholder="Re-enter password" 
+                      >
+                    </div>
                   </div>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" id="forgot-submit-btn" class="btn-auth-rose">
+                <button type="submit" id="forgot-submit-btn" class="btn-dribbble-submit">
                   <span id="forgot-btn-text">Verify Account</span>
-                  <span id="forgot-btn-spinner" class="d-none">
-                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                    Processing...
-                  </span>
+                  <div id="forgot-btn-spinner" class="dribbble-spinner-ring d-none"></div>
                 </button>
               </form>
 
               <!-- Back to Sign In Link -->
               <div class="text-center mt-4">
-                <a href="javascript:void(0)" class="recovery-link text-center" onclick="switchToLogin()">
+                <a href="javascript:void(0)" class="dribbble-recovery-link" onclick="switchToLogin()">
                   <i class="fa-solid fa-arrow-left me-1"></i> Back to Sign In
                 </a>
               </div>
@@ -778,61 +952,70 @@
 
             <!-- PANE 3: Request Access View -->
             <div class="auth-view-pane hidden-pane" id="requestAccessPane">
-              <h1 class="auth-title">Request Access</h1>
-              <p class="auth-subtitle">Submit your details to request an account from the administrator</p>
+              <h2 class="auth-dribbble-heading">Request Access</h2>
+              <p class="auth-dribbble-sub">Submit your details to request an account from the administrator.</p>
 
               <!-- Dynamic Alert Box for Success/Error feedback -->
               <div id="reqAlertBox" class="d-none" role="alert"></div>
 
               <form id="request-access-form" novalidate>
                 <!-- Full Name Field -->
-                <div class="auth-input-group">
-                  <input 
-                    type="text" 
-                    id="reqFullName" 
-                    class="auth-input-field" 
-                    placeholder="Full Name (e.g., Prof. Alex Smith)" 
-                    required 
-                    autocomplete="name"
-                  >
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="reqFullName">Full Name</label>
+                  <div class="dribbble-input-wrapper">
+                    <i class="fa-regular fa-id-card dribbble-input-icon"></i>
+                    <input 
+                      type="text" 
+                      id="reqFullName" 
+                      class="dribbble-input" 
+                      placeholder="e.g., Prof. Alex Smith" 
+                      required 
+                      autocomplete="name"
+                    >
+                  </div>
                 </div>
 
                 <!-- Email Address Field -->
-                <div class="auth-input-group">
-                  <input 
-                    type="email" 
-                    id="reqEmail" 
-                    class="auth-input-field" 
-                    placeholder="Email Address (e.g., alex.smith@college.edu)" 
-                    required 
-                    autocomplete="email"
-                  >
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="reqEmail">Email Address</label>
+                  <div class="dribbble-input-wrapper">
+                    <i class="fa-regular fa-envelope dribbble-input-icon"></i>
+                    <input 
+                      type="email" 
+                      id="reqEmail" 
+                      class="dribbble-input" 
+                      placeholder="alex.smith@college.edu" 
+                      required 
+                      autocomplete="email"
+                    >
+                  </div>
                 </div>
 
-                <!-- Reason for Access / Project Name Textarea -->
-                <div class="auth-input-group">
-                  <textarea 
-                    id="reqReason" 
-                    class="auth-input-field" 
-                    rows="3" 
-                    placeholder="Reason for Access / Project Name (e.g., Faculty for CS Dept / Semester 5 Grading)" 
-                    required
-                  ></textarea>
+                <!-- Reason for Access Textarea -->
+                <div class="dribbble-field-group">
+                  <label class="dribbble-field-label" for="reqReason">Reason / Role</label>
+                  <div class="dribbble-input-wrapper">
+                    <textarea 
+                      id="reqReason" 
+                      class="dribbble-input" 
+                      rows="3" 
+                      style="padding-left: 1.15rem; resize: vertical;"
+                      placeholder="Faculty for Computer Science / Semester 5 Marks" 
+                      required
+                    ></textarea>
+                  </div>
                 </div>
 
-                <!-- Submit Button with loading spinner -->
-                <button type="submit" id="reqSubmitBtn" class="btn-auth-rose">
-                  <span id="reqBtnText"><i class="fa-solid fa-paper-plane me-1"></i> Request Access</span>
-                  <span id="reqBtnSpinner" class="d-none">
-                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                    Submitting Request...
-                  </span>
+                <!-- Submit Button -->
+                <button type="submit" id="reqSubmitBtn" class="btn-dribbble-submit">
+                  <span id="reqBtnText"><i class="fa-solid fa-paper-plane me-1"></i> Submit Request</span>
+                  <div id="reqBtnSpinner" class="dribbble-spinner-ring d-none"></div>
                 </button>
               </form>
 
               <!-- Back to Sign In Link -->
               <div class="text-center mt-4">
-                <a href="javascript:void(0)" class="recovery-link text-center" onclick="switchToLogin()">
+                <a href="javascript:void(0)" class="dribbble-recovery-link" onclick="switchToLogin()">
                   <i class="fa-solid fa-arrow-left me-1"></i> Back to Sign In
                 </a>
               </div>
@@ -851,12 +1034,17 @@
                 Track attendance, internal marks, and exam readiness.
               </div>
               <div class="auth-art-carousel-nav">
-                <button type="button" class="carousel-nav-btn" onclick="prevQuote()" title="Previous slide">
+                <button type="button" class="carousel-nav-btn" onclick="prevQuote()" title="Previous slide" aria-label="Previous">
                   <i class="fa-solid fa-arrow-left"></i>
                 </button>
-                <button type="button" class="carousel-nav-btn" onclick="nextQuote()" title="Next slide">
+                <button type="button" class="carousel-nav-btn" onclick="nextQuote()" title="Next slide" aria-label="Next">
                   <i class="fa-solid fa-arrow-right"></i>
                 </button>
+                <div class="art-carousel-dots">
+                  <span class="art-dot active" onclick="goToQuote(0)"></span>
+                  <span class="art-dot" onclick="goToQuote(1)"></span>
+                  <span class="art-dot" onclick="goToQuote(2)"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -870,7 +1058,7 @@
 
   <script src="/assets/js/api.js"></script>
   <script>
-    // Quotes Carousel on the artwork
+    // Quotes Carousel on the artwork with dots indicator
     const quotes = [
       "Track attendance, internal marks, and exam readiness.",
       "Finally, all your academic work in one place.",
@@ -878,6 +1066,7 @@
     ];
     let quoteIndex = 0;
     const quoteEl = document.getElementById('art-quote-text');
+    let quoteTimer = null;
 
     function updateQuote() {
       if (quoteEl) {
@@ -889,26 +1078,81 @@
           quoteEl.style.transform = 'translateY(0)';
         }, 200);
       }
+      document.querySelectorAll('.art-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === quoteIndex);
+      });
     }
 
     function nextQuote() {
       quoteIndex = (quoteIndex + 1) % quotes.length;
       updateQuote();
+      resetQuoteTimer();
     }
 
     function prevQuote() {
       quoteIndex = (quoteIndex - 1 + quotes.length) % quotes.length;
       updateQuote();
+      resetQuoteTimer();
+    }
+
+    function goToQuote(idx) {
+      quoteIndex = idx;
+      updateQuote();
+      resetQuoteTimer();
+    }
+
+    function startQuoteTimer() {
+      quoteTimer = setInterval(() => {
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+        updateQuote();
+      }, 5500);
+    }
+
+    function resetQuoteTimer() {
+      if (quoteTimer) clearInterval(quoteTimer);
+      startQuoteTimer();
     }
 
     // Toggle Password Visibility
     const toggleBtn = document.getElementById('toggle-pwd-btn');
     const pwdInput = document.getElementById('password');
-    toggleBtn.addEventListener('click', () => {
-      const isPwd = pwdInput.type === 'password';
-      pwdInput.type = isPwd ? 'text' : 'password';
-      toggleBtn.innerHTML = isPwd ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
-    });
+    if (toggleBtn && pwdInput) {
+      toggleBtn.addEventListener('click', () => {
+        const isPwd = pwdInput.type === 'password';
+        pwdInput.type = isPwd ? 'text' : 'password';
+        toggleBtn.innerHTML = isPwd ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+      });
+    }
+
+    // Top Right Switcher between Sign In & Request Access
+    function updateTopSwitch(view) {
+      const label = document.getElementById('topSwitchLabel');
+      const action = document.getElementById('topSwitchAction');
+      if (!label || !action) return;
+
+      if (view === 'login') {
+        label.textContent = "Don't have an account?";
+        action.textContent = "Request Access";
+        action.onclick = switchToRequestAccess;
+      } else if (view === 'request') {
+        label.textContent = "Already have an account?";
+        action.textContent = "Sign In";
+        action.onclick = switchToLogin;
+      } else {
+        label.textContent = "Remembered password?";
+        action.textContent = "Sign In";
+        action.onclick = switchToLogin;
+      }
+    }
+
+    function toggleMainView() {
+      const loginPane = document.getElementById('loginPane');
+      if (loginPane && loginPane.classList.contains('active-pane')) {
+        switchToRequestAccess();
+      } else {
+        switchToLogin();
+      }
+    }
 
     // Smooth Tab Pill Gliding & View Switching Animations
     function updateAuthPill(tabId) {
@@ -943,6 +1187,7 @@
       forgotPane.classList.add('active-pane');
       
       updateAuthPill('tabForgot');
+      updateTopSwitch('forgot');
       document.getElementById('forgotEmail').focus();
     }
 
@@ -960,6 +1205,7 @@
       reqPane.classList.add('active-pane');
 
       updateAuthPill('tabRequest');
+      updateTopSwitch('request');
       hideReqAlert();
       document.getElementById('reqFullName').focus();
     }
@@ -984,12 +1230,14 @@
       hideReqAlert();
       
       updateAuthPill('tabLogin');
+      updateTopSwitch('login');
       document.getElementById('username').focus();
     }
 
-    // Initialize pill on page load
+    // Initialize pill & carousel on page load
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => updateAuthPill('tabLogin'), 80);
+      startQuoteTimer();
     });
     window.addEventListener('resize', () => {
       const active = document.querySelector('.auth-seg-tab.active');
@@ -1029,7 +1277,7 @@
       showToast(`Institutional SSO for ${provider} is managed through department directory credentials.`, 'info');
     }
 
-    // Sign In Submission with Dribbble-style interaction feedback
+    // Sign In Submission with Cleveroad state animation
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const username = document.getElementById('username').value.trim();
@@ -1039,8 +1287,10 @@
       const btnSpinner = document.getElementById('btn-spinner');
       const submitBtn = document.getElementById('submit-btn');
 
+      // Morph button into loading state
       btnText.classList.add('d-none');
       btnSpinner.classList.remove('d-none');
+      submitBtn.classList.add('is-loading');
       submitBtn.disabled = true;
 
       try {
@@ -1062,6 +1312,7 @@
 
         // Success animation state
         btnSpinner.classList.add('d-none');
+        submitBtn.classList.remove('is-loading');
         btnText.innerHTML = '<i class="fa-solid fa-check check-pop me-1"></i> Success!';
         btnText.classList.remove('d-none');
         submitBtn.style.background = '#10b981';
@@ -1088,6 +1339,7 @@
       } catch (err) {
         triggerShake();
         showToast(err.message, 'danger');
+        submitBtn.classList.remove('is-loading');
         btnText.classList.remove('d-none');
         btnSpinner.classList.add('d-none');
         submitBtn.disabled = false;

@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/theme.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "animejs": "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm"
+    }
+  }
+  </script>
   <style>
     /* LMS Mart Pristine Theme Styles */
     :root {
@@ -669,6 +676,108 @@
         border-radius: 18px;
       }
     }
+
+    /* Anime.js v4 Interactive Cursor Follower */
+    .hero-cursor-playground {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .docs-demo {
+      position: relative;
+      background: var(--lms-card-bg);
+      border: 1px solid var(--lms-card-border);
+      border-radius: 20px;
+      padding: 1.15rem 1.5rem;
+      box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .docs-demo:hover {
+      box-shadow: 0 16px 36px -8px rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .demo-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .demo-tag {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--lms-orange);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.74rem;
+    }
+
+    .demo-hint {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .docs-demo .large.centered.row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      min-height: 110px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .docs-demo .circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: rgb(164, 255, 79);
+      box-shadow: 0 0 25px rgba(164, 255, 79, 0.7), 0 0 50px rgba(164, 255, 79, 0.35);
+      position: relative;
+      pointer-events: none;
+      will-change: transform, background-color, box-shadow;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .docs-demo .medium.centered.row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.65rem;
+    }
+
+    .docs-demo .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 0.35rem 0.95rem;
+      background: rgba(148, 163, 184, 0.12);
+      border-radius: 999px;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    [data-theme="dark"] .docs-demo .label,
+    body.dark-theme .docs-demo .label {
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.08);
+    }
   </style>
 </head>
 <body>
@@ -770,6 +879,22 @@
             <div class="stat-block">
               <div class="stat-main-number">100%</div>
               <div class="stat-main-label">Automated PTM</div>
+            </div>
+          </div>
+
+          <!-- Anime.js v4 Interactive Cursor Follower Stage -->
+          <div class="hero-cursor-playground mt-4" id="docs-demos">
+            <div class="docs-demo is-active">
+              <div class="demo-top-header">
+                <span class="demo-tag"><i class="fa-solid fa-wand-magic-sparkles text-warning me-1"></i> Interactive Cursor Follower</span>
+                <span class="demo-hint"><i class="fa-solid fa-code me-1"></i> Anime.js v4</span>
+              </div>
+              <div class="large centered row">
+                <div class="circle"></div>
+              </div>
+              <div class="medium centered row">
+                <span class="label"><i class="fa-solid fa-arrow-pointer text-warning"></i> Move cursor around</span>
+              </div>
             </div>
           </div>
 
@@ -1364,6 +1489,68 @@
       startAutoplay();
       initSmoothScrollAndNavSwitching();
     });
+  </script>
+
+  <!-- Anime.js v4 Interactive Cursor Follower -->
+  <script type="module">
+    import { createAnimatable, utils } from 'animejs';
+
+    function initFollower() {
+      const $demos = document.querySelector('#docs-demos');
+      const $demo = document.querySelector('.docs-demo.is-active');
+      if (!$demos || !$demo) return;
+
+      let bounds = $demo.getBoundingClientRect();
+      const refreshBounds = () => bounds = $demo.getBoundingClientRect();
+
+      const circle = createAnimatable('.circle', {
+        x: 0,
+        y: 0,
+        backgroundColor: 0,
+        ease: 'outExpo',
+      });
+
+      const rgb = [164, 255, 79];
+
+      // Sets new durations and easings
+      circle.x(0, 500, 'out(2)');
+      circle.y(0, 500, 'out(3)');
+      circle.backgroundColor(rgb, 250);
+
+      const circleEl = document.querySelector('.docs-demo .circle');
+
+      const onMouseMove = e => {
+        const { width, height, left, top } = bounds;
+        const hw = width / 2;
+        const hh = height / 2;
+        const x = utils.clamp(e.clientX - left - hw, -hw + 26, hw - 26);
+        const y = utils.clamp(e.clientY - top - hh, -hh + 26, hh - 26);
+        rgb[0] = utils.mapRange(x, -hw, hw, 0, 164);
+        rgb[2] = utils.mapRange(x, -hw, hw, 79, 255);
+        circle.x(x).y(y).backgroundColor(rgb); // Update values
+
+        if (circleEl) {
+          const r = Math.round(rgb[0]);
+          const b = Math.round(rgb[2]);
+          circleEl.style.boxShadow = `0 0 24px rgba(${r}, 255, ${b}, 0.75), 0 0 45px rgba(${r}, 255, ${b}, 0.35)`;
+        }
+      };
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) onMouseMove(e.touches[0]);
+      }, { passive: true });
+
+      $demos.addEventListener('scroll', refreshBounds);
+      window.addEventListener('scroll', refreshBounds, { passive: true });
+      window.addEventListener('resize', refreshBounds, { passive: true });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFollower);
+    } else {
+      initFollower();
+    }
   </script>
 </body>
 </html>

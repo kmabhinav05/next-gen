@@ -97,7 +97,7 @@
       }
     }
 
-    /* Top Row inside Card: Brand Pill & Close Button */
+    /* Top Row inside Card: Brand Text Logo (First Choice) & Close Button */
     .crextio-top-bar {
       display: flex;
       align-items: center;
@@ -105,35 +105,34 @@
       margin-bottom: 2rem;
     }
 
-    .brand-pill-tag {
+    /* Next Gen Grading Brand Typography Logo */
+    .brand-text-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 8px 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.16);
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--crextio-text-dark);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-      transition: all 0.2s ease;
+      gap: 0.38rem;
+      letter-spacing: -0.035em;
+      transition: transform 0.2s ease;
     }
 
-    [data-theme="dark"] .brand-pill-tag {
-      background: rgba(15, 23, 42, 0.65);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .brand-pill-tag:hover {
+    .brand-text-logo:hover {
       transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      color: var(--crextio-text-dark);
+    }
+
+    .logo-text-nextgen {
+      color: #111827;
+      transition: color 0.2s ease;
+    }
+
+    [data-theme="dark"] .logo-text-nextgen {
+      color: #f8fafc;
+    }
+
+    .logo-text-grading {
+      color: #f59e0b;
     }
 
     .crextio-close-circle-btn {
@@ -436,18 +435,71 @@
       background: #0f172a;
     }
 
+    /* Auto-Swiping 3-Image Carousel (NO manual arrow buttons) */
+    .lms-carousel-track {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .lms-carousel-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .lms-carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
     .crextio-art-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
-      filter: saturate(1.08) contrast(1.02);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: saturate(1.06) contrast(1.02);
     }
 
-    .crextio-visual-col:hover .crextio-art-img {
-      transform: scale(1.025);
+    /* Minimal Floating Indicator Dots (No manual arrows) */
+    .lms-carousel-indicators {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 7;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .lms-indicator-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.45);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lms-indicator-dot.active {
+      width: 20px;
+      background: #fed053;
+      box-shadow: 0 0 10px rgba(254, 208, 83, 0.85);
     }
 
     /* Floating Widget 1: Top Yellow Task Review Pill Card */
@@ -467,7 +519,7 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      z-index: 2;
+      z-index: 4;
     }
 
     .widget-task-review {
@@ -479,7 +531,7 @@
       border-radius: 14px;
       padding: 10px 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      z-index: 3;
+      z-index: 5;
       animation: floatWidgetA 4s ease-in-out infinite alternate;
     }
 
@@ -513,7 +565,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      z-index: 3;
+      z-index: 5;
       animation: floatWidgetB 5s ease-in-out infinite alternate;
     }
 
@@ -548,7 +600,7 @@
       padding: 12px 18px;
       color: #ffffff;
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-      z-index: 3;
+      z-index: 5;
       user-select: none;
     }
 
@@ -602,7 +654,7 @@
       border-radius: 18px;
       padding: 12px 16px;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
-      z-index: 4;
+      z-index: 6;
       min-width: 170px;
       animation: floatWidgetA 4.5s ease-in-out infinite alternate;
     }
@@ -710,10 +762,11 @@
   <div class="crextio-auth-wrapper">
     <div class="crextio-card-master" id="authCardMaster">
       
-      <!-- Top Row inside Card: Brand Pill & Close Circle Button -->
+      <!-- Top Row inside Card: Brand Text Logo (First Image) & Close Circle Button -->
       <div class="crextio-top-bar">
-        <a href="/" class="brand-pill-tag" title="Next Gen Grading System">
-          Next Gen
+        <a href="/" class="brand-text-logo" title="Next Gen Grading Platform">
+          <span class="logo-text-nextgen">Next Gen</span>
+          <span class="logo-text-grading">Grading</span>
         </a>
         <a href="/" class="crextio-close-circle-btn" title="Back to Portal Home">
           <i class="fa-solid fa-xmark"></i>
@@ -866,11 +919,29 @@
 
         </div>
 
-        <!-- Right Side: Collaboration Photograph + Floating Glass Widgets -->
+        <!-- Right Side: 3-Image Auto-Swiping Student Learning Management Showcase -->
         <div class="col-lg-6 d-none d-lg-block">
           <div class="crextio-visual-col">
-            <!-- Modern Photo: University Collaboration & Study Group -->
-            <img src="/assets/images/study-collaboration.jpg" class="crextio-art-img" alt="Academic Collaboration & Teamwork">
+            
+            <!-- 3 Image Auto-Swipe Track (NO manual arrows) -->
+            <div class="lms-carousel-track" id="lmsCarouselTrack">
+              <div class="lms-carousel-slide active" data-slide="0">
+                <img src="/assets/images/study-collaboration.jpg" class="crextio-art-img" alt="Student Learning Management 1">
+              </div>
+              <div class="lms-carousel-slide" data-slide="1">
+                <img src="/assets/images/learning-management-2.jpg" class="crextio-art-img" alt="Student Learning Management 2">
+              </div>
+              <div class="lms-carousel-slide" data-slide="2">
+                <img src="/assets/images/learning-management-3.jpg" class="crextio-art-img" alt="Student Learning Management 3">
+              </div>
+            </div>
+
+            <!-- Minimal Auto-Swipe Indicator Dots (NO arrow buttons) -->
+            <div class="lms-carousel-indicators" id="lmsIndicators">
+              <span class="lms-indicator-dot active"></span>
+              <span class="lms-indicator-dot"></span>
+              <span class="lms-indicator-dot"></span>
+            </div>
 
             <!-- Floating Widget 1: Task Review With Team (Underneath Dark Pill + Yellow Pill) -->
             <div class="widget-task-review-under">
@@ -940,6 +1011,26 @@
   <script src="/assets/js/api.js"></script>
   <script src="/assets/js/auth.js"></script>
   <script>
+    // Automatic 3-Image Swipe Carousel without manual arrow buttons
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.lms-carousel-slide');
+    const dots = document.querySelectorAll('.lms-indicator-dot');
+    const totalSlides = slides.length;
+
+    function autoSwipeNext() {
+      if (slides.length === 0) return;
+      slides[currentSlide].classList.remove('active');
+      if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+      currentSlide = (currentSlide + 1) % totalSlides;
+
+      slides[currentSlide].classList.add('active');
+      if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    }
+
+    // Auto-swipe every 3.8 seconds
+    let swipeTimer = setInterval(autoSwipeNext, 3800);
+
     // Password Visibility Toggle
     const togglePwdBtn = document.getElementById('toggle-pwd-btn');
     const pwdInput = document.getElementById('password');

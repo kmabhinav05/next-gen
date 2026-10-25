@@ -4,150 +4,222 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Progress Cards | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/theme.js"></script>
   <style>
     @media print {
       body * {
-        visibility: hidden;
+        visibility: hidden !important;
       }
       #printableCard, #printableCard * {
-        visibility: visible;
+        visibility: visible !important;
       }
       #printableCard {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-        background: white;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        z-index: 999999 !important;
       }
       .no-print {
         display: none !important;
       }
     }
+    .card-document-sheet {
+      background: #ffffff;
+      color: #0f172a;
+    }
+    [data-theme="dark"] .card-document-sheet {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #334155 !important;
+    }
+    [data-theme="dark"] .card-document-sheet .bg-light {
+      background: #0f172a !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
   </style>
 </head>
 <body>
 
-<div class="app-container no-print">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="brand-text">
-        <div class="brand-title">Next Gen Grading</div>
-        <div class="brand-subtitle">Faculty Portal</div>
+<div class="student-portal-wrapper no-print">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Faculty Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Faculty Portal" onclick="window.location.href='/staff/index.html'">
+        <i class="fa-solid fa-chalkboard-user"></i>
       </div>
-    </div>
 
-    <ul class="nav-menu">
-      <li class="nav-item">
-        <a href="/staff/index.html" class="nav-link">
-          <i class="fa-solid fa-chart-pie"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/staff/upload-marks.html" class="nav-link">
-          <i class="fa-solid fa-file-excel"></i>
-          <span>Upload Marks (Excel)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/staff/progress-cards.html" class="nav-link active">
-          <i class="fa-solid fa-id-card"></i>
-          <span>Progress Cards</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/index.html" class="nav-link">
-          <i class="fa-solid fa-globe"></i>
-          <span>Public Portal</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="javascript:void(0)" onclick="logout()" class="nav-link text-danger">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <span>Sign Out</span>
-        </a>
-      </li>
-    </ul>
-  </aside>
+      <ul class="student-nav-menu">
+        <li>
+          <a href="/staff/index.html" class="student-nav-link" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/index.html#courses" class="student-nav-link" data-nav="courses">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Allocated Courses</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/index.html#attendance" class="student-nav-link" data-nav="attendance">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Attendance Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/upload-marks.html" class="student-nav-link" data-nav="upload">
+            <i class="fa-solid fa-file-excel"></i>
+            <span>Upload Marks</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/progress-cards.html" class="student-nav-link active" data-nav="progress">
+            <i class="fa-solid fa-id-card"></i>
+            <span>Progress Cards</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
 
-  <!-- Main Wrapper -->
-  <div class="main-wrapper">
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="topbar-left d-flex align-items-center">
-        <button class="btn btn-sm btn-light d-lg-none me-2 p-2 rounded-3 border" onclick="toggleSidebar()" aria-label="Toggle navigation drawer" title="Menu" style="min-width: 44px; min-height: 44px;">
-          <i class="fa-solid fa-bars fs-5"></i>
-        </button>
-        <div>
-          <h5 class="page-title mb-0">Student Progress Cards</h5>
-          <span class="text-muted small">Continuous assessment evaluation, attendance tracking, and parent meeting reports</span>
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Profile Chip -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="studentSearchInput" class="student-search-input" placeholder="Filter enrolled students by name or reg no..." onkeyup="filterStudentsTable()">
+          </div>
         </div>
-      </div>
-      <div class="topbar-right">
-        <button class="theme-toggle-btn me-2" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-        <div class="user-badge" id="userBadgeContainer"></div>
-      </div>
-    </header>
 
-    <!-- Page Body -->
-    <main class="page-content">
-      <!-- Class Filter Card -->
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-          <div class="row g-3 align-items-center">
-            <div class="col-md-6">
-              <label class="form-label fw-bold">Select Class Section *</label>
-              <select class="form-select" id="classSelect" onchange="loadClassStudents()">
-                <option value="">-- Choose Class --</option>
-              </select>
+        <div class="student-topbar-actions">
+          <a href="/staff/upload-marks.html" class="btn btn-teal rounded-pill px-3 py-2 d-none d-sm-inline-flex align-items-center gap-1 shadow-sm" style="font-size: 0.85rem; font-weight: 700; background: var(--brand-teal); color: #fff;">
+            <i class="fa-solid fa-file-excel me-1"></i> Upload Marks
+          </a>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="staffProfileChip">
+            <div class="student-user-avatar" id="staffAvatarInitials">
+              FA
+              <span class="student-online-dot"></span>
             </div>
-            <div class="col-md-6 text-md-end mt-md-4">
-              <span class="text-muted small me-2" id="classStudentCountInfo"></span>
-              <button class="btn btn-teal" onclick="loadClassStudents()">
-                <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh Class
-              </button>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="staffTopbarName">Faculty Member</div>
+              <div class="student-user-meta" id="staffTopbarRole">Department Staff</div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <!-- Students Table Card -->
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-users text-teal me-2"></i>Class Enrolled Students</h6>
-          <span class="badge bg-light text-dark border">Semester 5</span>
+      <!-- Progress Cards Content Section -->
+      <div class="portal-view-section active">
+        <!-- Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <h1 class="portal-section-title mb-1" style="font-size: 1.55rem; font-weight: 800; color: var(--primary-navy); letter-spacing: -0.02em;">
+              Student Academic Progress Cards
+            </h1>
+            <p class="text-muted small mb-0">
+              Generate comprehensive continuous assessment reports, review attendance eligibility, and export official PDF cards.
+            </p>
+          </div>
         </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead class="table-light">
+
+        <!-- Class Filter Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="p-4">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-7">
+                <label class="form-label-custom mb-2" for="classSelect">
+                  Select Class Section Batch <span class="required-asterisk">*</span>
+                </label>
+                <select class="form-select-custom" id="classSelect" onchange="loadClassStudents()">
+                  <option value="">-- Choose Class --</option>
+                </select>
+              </div>
+              <div class="col-md-5 d-flex justify-content-md-end align-items-center gap-3 mt-md-4">
+                <span class="badge-status badge-teal" id="classStudentCountInfo" style="font-size: 0.82rem; padding: 0.45rem 1rem; border-radius: 999px;">0 Enrolled</span>
+                <button class="btn btn-outline-custom rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2" onclick="loadClassStudents()" style="font-size: 0.85rem; font-weight: 600;">
+                  <i class="fa-solid fa-arrows-rotate"></i> Refresh Roster
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Students Roster Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background: rgba(13, 148, 136, 0.12); color: var(--brand-teal);">
+                <i class="fa-solid fa-users"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Class Enrolled Students</h5>
+            </div>
+          </div>
+
+          <div class="table-responsive-custom">
+            <table class="table-custom mb-0" id="studentsTable">
+              <thead>
                 <tr>
-                  <th>Reg No</th>
+                  <th>Register Number</th>
                   <th>Roll No</th>
                   <th>Student Name</th>
                   <th>Class / Batch</th>
                   <th>Semester</th>
-                  <th class="text-end" style="width: 250px;">Actions</th>
+                  <th class="text-end" style="width: 260px;">Actions</th>
                 </tr>
               </thead>
               <tbody id="studentsTableBody">
                 <tr>
-                  <td colspan="6" class="text-center py-4 text-muted">Select a class above to view enrolled students.</td>
+                  <td colspan="6" class="text-center py-4 text-muted">Select a class section above to view enrolled students.</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+
       </div>
     </main>
   </div>
@@ -156,45 +228,55 @@
 <!-- Progress Card Preview Modal -->
 <div class="modal fade" id="progressCardModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content border-0 shadow-lg">
-      <div class="modal-header bg-navy text-white no-print">
-        <h5 class="modal-title"><i class="fa-solid fa-id-card me-2"></i>Student Academic Progress Report</h5>
-        <div>
-          <button type="button" class="btn btn-sm btn-outline-light me-2" onclick="printProgressCard()">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="modal-header text-white no-print py-3 px-4" style="background: var(--primary-navy);">
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle p-2 d-flex align-items-center justify-content-center text-white" style="width: 38px; height: 38px; background: var(--brand-teal);">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <div>
+            <h6 class="modal-title mb-0 fw-bold">Student Academic Progress Report</h6>
+            <small class="text-light opacity-75">Verified continuous assessment & attendance dossier</small>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button type="button" class="btn btn-sm btn-outline-light rounded-pill px-3 py-1" onclick="printProgressCard()">
             <i class="fa-solid fa-print me-1"></i> Print
           </button>
-          <button type="button" class="btn btn-sm btn-teal me-2" id="modalPdfBtn" onclick="downloadCurrentPDF()">
+          <button type="button" class="btn btn-sm btn-teal rounded-pill px-3 py-1 text-white" id="modalPdfBtn" onclick="downloadCurrentPDF()" style="background: var(--brand-teal); border: none;">
             <i class="fa-solid fa-file-pdf me-1"></i> Download PDF
           </button>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
       </div>
-      <div class="modal-body p-4" id="printableCard">
+      <div class="modal-body p-4" id="printableCard" style="overflow-y: auto;">
         <!-- Digital Card Document Container -->
-        <div class="card-document-sheet border rounded p-4 shadow-sm" style="max-width: 950px; margin: 0 auto;">
+        <div class="card-document-sheet border rounded-4 p-4 shadow-sm" style="max-width: 950px; margin: 0 auto; border-color: var(--border-subtle) !important;">
           <!-- Header Banner -->
-          <div class="text-center border-bottom pb-3 mb-3">
-            <h4 class="fw-bold mb-0 text-navy" id="cardInstName">METROPOLITAN INSTITUTE OF SCIENCE & TECHNOLOGY</h4>
+          <div class="text-center border-bottom pb-3 mb-3" style="border-color: var(--border-subtle) !important;">
+            <h4 class="fw-bold mb-1 text-navy" id="cardInstName">METROPOLITAN INSTITUTE OF SCIENCE & TECHNOLOGY</h4>
             <div class="small text-muted" id="cardInstAccreditation">Autonomous Institution • Approved by AICTE • Affiliated to State Technological University</div>
-            <h6 class="fw-bold text-teal mt-1 mb-0" id="cardInstDept">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</h6>
-            <div class="badge bg-navy text-white px-3 py-2 mt-2">OFFICIAL CONTINUOUS ASSESSMENT & ATTENDANCE PROGRESS CARD</div>
+            <h6 class="fw-bold text-teal mt-2 mb-2" id="cardInstDept">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</h6>
+            <div class="badge rounded-pill px-3 py-2 text-white" style="background: var(--primary-navy); font-size: 0.8rem; letter-spacing: 0.05em;">
+              OFFICIAL CONTINUOUS ASSESSMENT & ATTENDANCE PROGRESS CARD
+            </div>
           </div>
 
           <!-- Student Meta Grid -->
-          <div class="row g-2 border rounded p-3 mb-3 bg-light small">
+          <div class="row g-2 border rounded-3 p-3 mb-3 bg-light small" style="border-color: var(--border-subtle) !important;">
             <div class="col-sm-6"><strong>Student Name:</strong> <span id="cardStudentName">--</span></div>
-            <div class="col-sm-6"><strong>Register Number:</strong> <span id="cardStudentReg">--</span></div>
+            <div class="col-sm-6"><strong>Register Number:</strong> <span id="cardStudentReg" class="fw-bold">--</span></div>
             <div class="col-sm-6"><strong>Class & Section:</strong> <span id="cardStudentClass">--</span></div>
             <div class="col-sm-6"><strong>Roll Number:</strong> <span id="cardStudentRoll">--</span></div>
             <div class="col-sm-6"><strong>Academic Year:</strong> <span id="cardStudentYear">--</span></div>
-            <div class="col-sm-6"><strong>Report Date:</strong> <span id="cardReportDate">--</span></div>
+            <div class="col-sm-6"><strong>Report Generated:</strong> <span id="cardReportDate">--</span></div>
           </div>
 
           <!-- Section 1: Assessment Marks Table -->
-          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-clipboard-list text-teal me-1"></i> 1. Internal Assessment Marks</h6>
-          <div class="table-responsive mb-3">
-            <table class="table table-sm table-bordered align-middle mb-0">
-              <thead class="table-dark text-center" style="font-size: 12px;">
+          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-clipboard-list text-teal me-1"></i> 1. Continuous Internal Assessment Marks</h6>
+          <div class="table-responsive-custom mb-3">
+            <table class="table-custom mb-0">
+              <thead>
                 <tr>
                   <th>Code</th>
                   <th>Subject Title</th>
@@ -205,16 +287,16 @@
                   <th>%</th>
                 </tr>
               </thead>
-              <tbody id="cardMarksTable" style="font-size: 13px;">
+              <tbody id="cardMarksTable">
               </tbody>
             </table>
           </div>
 
           <!-- Section 2: Attendance Table -->
-          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-calendar-check text-teal me-1"></i> 2. Subject Attendance Record (Min. 75% Required)</h6>
-          <div class="table-responsive mb-3">
-            <table class="table table-sm table-bordered align-middle mb-0">
-              <thead class="table-dark text-center" style="font-size: 12px;">
+          <h6 class="fw-bold text-navy mb-2 mt-4"><i class="fa-solid fa-calendar-check text-teal me-1"></i> 2. Subject Attendance Record (Min. 75% Required)</h6>
+          <div class="table-responsive-custom mb-3">
+            <table class="table-custom mb-0">
+              <thead>
                 <tr>
                   <th>Code</th>
                   <th>Subject Title</th>
@@ -224,25 +306,25 @@
                   <th>Eligibility</th>
                 </tr>
               </thead>
-              <tbody id="cardAttendanceTable" style="font-size: 13px;">
+              <tbody id="cardAttendanceTable">
               </tbody>
             </table>
           </div>
 
           <!-- Overall Academic Standing Alert -->
-          <div class="alert p-3 mb-4 text-center fw-bold" id="cardStandingAlert">
+          <div class="alert p-3 mb-4 text-center fw-bold rounded-3" id="cardStandingAlert">
           </div>
 
           <!-- Signatures Section -->
-          <div class="row text-center pt-4 border-top mt-4" style="font-size: 12px;">
+          <div class="row text-center pt-4 border-top mt-4" style="font-size: 12px; border-color: var(--border-subtle) !important;">
             <div class="col-4">
-              <div class="border-top border-dark pt-1 mx-3 fw-bold">Class Advisor / Mentor</div>
+              <div class="border-top border-dark pt-2 mx-3 fw-bold">Class Advisor / Mentor</div>
             </div>
             <div class="col-4">
-              <div class="border-top border-dark pt-1 mx-3 fw-bold">Head of Department (HOD)</div>
+              <div class="border-top border-dark pt-2 mx-3 fw-bold">Head of Department (HOD)</div>
             </div>
             <div class="col-4">
-              <div class="border-top border-dark pt-1 mx-3 fw-bold">Parent / Guardian Signature</div>
+              <div class="border-top border-dark pt-2 mx-3 fw-bold">Parent / Guardian Signature</div>
             </div>
           </div>
         </div>
@@ -261,7 +343,14 @@
   document.addEventListener('DOMContentLoaded', async () => {
     const user = requireAuth('staff');
     if (!user) return;
-    renderUserBadge();
+
+    // Set Profile Chip
+    const facultyName = user.profile?.displayName || user.username || 'Professor';
+    const initials = facultyName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'FA';
+    const topbarName = document.getElementById('staffTopbarName');
+    if (topbarName) topbarName.textContent = facultyName;
+    const avatar = document.getElementById('staffAvatarInitials');
+    if (avatar) avatar.innerHTML = `${initials}<span class="student-online-dot"></span>`;
 
     cardModalInstance = new bootstrap.Modal(document.getElementById('progressCardModal'));
 
@@ -276,7 +365,6 @@
       const res = await api.get('/staff/dashboard');
       if (res.success && res.data) {
         const courses = res.data.assignedCourses || [];
-        // Unique classes
         const classesMap = new Map();
         courses.forEach(c => {
           if (!classesMap.has(c.class_id)) {
@@ -308,35 +396,36 @@
     const tbody = document.getElementById('studentsTableBody');
 
     if (!classId) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Select a class above.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Select a class section above.</td></tr>';
+      document.getElementById('classStudentCountInfo').textContent = '0 Enrolled';
       return;
     }
 
-    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4"><div class="spinner-border text-teal spinner-border-sm me-2"></div>Loading students...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4"><div class="spinner-border text-teal spinner-border-sm me-2"></div>Loading enrolled students...</td></tr>';
 
     try {
       const res = await api.get(`/staff/progress-cards/students?classId=${classId}`);
       if (res.success && res.data) {
         const students = res.data;
-        document.getElementById('classStudentCountInfo').textContent = `Total: ${students.length} Students`;
+        document.getElementById('classStudentCountInfo').textContent = `${students.length} Enrolled`;
 
         if (students.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No students enrolled in this class.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No students enrolled in this class section.</td></tr>';
           return;
         }
 
         tbody.innerHTML = students.map(s => `
           <tr>
-            <td class="fw-bold">${s.register_number}</td>
+            <td class="fw-bold" style="color: var(--primary-navy);">${s.register_number}</td>
             <td>${s.roll_no || '-'}</td>
-            <td class="fw-semibold text-navy">${s.first_name} ${s.last_name}</td>
+            <td class="fw-semibold">${s.first_name} ${s.last_name}</td>
             <td>${s.batch_name} - Sec ${s.section}</td>
             <td>Sem ${s.semester_number}</td>
             <td class="text-end">
-              <button class="btn btn-sm btn-outline-teal me-2" onclick="viewProgressCard(${s.student_id})">
-                <i class="fa-solid fa-eye me-1"></i> View Card
+              <button class="btn btn-sm btn-outline-custom rounded-pill px-3 py-1 me-2" onclick="viewProgressCard(${s.student_id})">
+                <i class="fa-solid fa-eye me-1 text-teal"></i> View Card
               </button>
-              <a href="${API_BASE}/staff/progress-cards/${s.student_id}/pdf?token=${encodeURIComponent(localStorage.getItem('token'))}" target="_blank" class="btn btn-sm btn-outline-primary">
+              <a href="${API_BASE}/staff/progress-cards/${s.student_id}/pdf?token=${encodeURIComponent(localStorage.getItem('token'))}" target="_blank" class="btn btn-sm btn-teal rounded-pill px-3 py-1" style="background: var(--brand-teal); color: #fff;">
                 <i class="fa-solid fa-file-pdf me-1"></i> PDF
               </a>
             </td>
@@ -346,6 +435,15 @@
     } catch (err) {
       tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-danger">${err.message || 'Failed to load students'}</td></tr>`;
     }
+  }
+
+  function filterStudentsTable() {
+    const query = (document.getElementById('studentSearchInput')?.value || '').toLowerCase();
+    const rows = document.querySelectorAll('#studentsTableBody tr');
+    rows.forEach(r => {
+      const text = r.textContent.toLowerCase();
+      r.style.display = text.includes(query) ? '' : 'none';
+    });
   }
 
   async function viewProgressCard(studentId) {
@@ -380,7 +478,7 @@
     const marksTbody = document.getElementById('cardMarksTable');
     marksTbody.innerHTML = data.subjects.map(sub => {
       const assessmentsList = sub.assessments.map(a => 
-        `<span class="badge bg-light text-dark border me-1">${a.assessmentName}: ${a.marksObtained !== null ? a.marksObtained : 'Abs'}</span>`
+        `<span class="badge rounded-pill bg-light text-dark border px-2 py-1 me-1">${a.assessmentName}: ${a.marksObtained !== null ? a.marksObtained : 'Abs'}</span>`
       ).join(' ') || '<span class="text-muted small">Pending</span>';
 
       const pctBadge = sub.percentage !== null
@@ -389,7 +487,7 @@
 
       return `
         <tr>
-          <td><span class="badge bg-navy">${sub.subjectCode}</span></td>
+          <td><span class="badge-status badge-teal" style="font-size: 0.78rem;">${sub.subjectCode}</span></td>
           <td class="fw-semibold">${sub.subjectName}</td>
           <td class="text-center">${sub.credit}</td>
           <td>${assessmentsList}</td>
@@ -408,7 +506,7 @@
         <td></td>
         <td class="text-center">${data.summary.totalScoredMarks}</td>
         <td class="text-center">${data.summary.totalMaxInternalMarks}</td>
-        <td class="text-center text-navy">${data.summary.overallMarksPct}%</td>
+        <td class="text-center text-teal">${data.summary.overallMarksPct}%</td>
       </tr>
     `;
 
@@ -417,15 +515,15 @@
     attTbody.innerHTML = data.subjects.map(sub => {
       const att = sub.attendance;
       const isShort = att.percentage < 75;
-      const eligBadge = isShort ? `<span class="badge bg-danger">${att.eligibility}</span>` : `<span class="badge bg-success">${att.eligibility}</span>`;
+      const eligBadge = isShort ? `<span class="badge bg-danger rounded-pill px-2 py-1">${att.eligibility}</span>` : `<span class="badge bg-success rounded-pill px-2 py-1">${att.eligibility}</span>`;
 
       return `
         <tr>
-          <td><span class="badge bg-navy">${sub.subjectCode}</span></td>
+          <td><span class="badge-status badge-teal" style="font-size: 0.78rem;">${sub.subjectCode}</span></td>
           <td class="fw-semibold">${sub.subjectName}</td>
           <td class="text-center">${att.totalSessions}</td>
           <td class="text-center">${att.attendedSessions}</td>
-          <td class="text-center fw-bold ${isShort ? 'text-danger' : 'text-navy'}">${att.percentage}%</td>
+          <td class="text-center fw-bold ${isShort ? 'text-danger' : 'text-teal'}">${att.percentage}%</td>
           <td class="text-center">${eligBadge}</td>
         </tr>
       `;
@@ -437,18 +535,18 @@
         <td colspan="2">OVERALL ATTENDANCE SUMMARY</td>
         <td class="text-center">${data.summary.totalConductedSessions}</td>
         <td class="text-center">${data.summary.totalAttendedSessions}</td>
-        <td class="text-center ${data.summary.isAttendanceShortage ? 'text-danger' : 'text-navy'}">${data.summary.overallAttPct}%</td>
-        <td class="text-center">${data.summary.isAttendanceShortage ? '<span class="badge bg-danger">Shortage</span>' : '<span class="badge bg-success">Eligible</span>'}</td>
+        <td class="text-center ${data.summary.isAttendanceShortage ? 'text-danger' : 'text-teal'}">${data.summary.overallAttPct}%</td>
+        <td class="text-center">${data.summary.isAttendanceShortage ? '<span class="badge bg-danger rounded-pill px-2 py-1">Shortage</span>' : '<span class="badge bg-success rounded-pill px-2 py-1">Eligible</span>'}</td>
       </tr>
     `;
 
     // Standing Alert
     const standingAlert = document.getElementById('cardStandingAlert');
     if (data.summary.isAttendanceShortage) {
-      standingAlert.className = 'alert alert-danger p-3 mb-4 text-center fw-bold';
+      standingAlert.className = 'alert alert-danger p-3 mb-4 text-center fw-bold rounded-4 border-0';
       standingAlert.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i> Academic Standing: ${data.summary.overallStatus}`;
     } else {
-      standingAlert.className = 'alert alert-success p-3 mb-4 text-center fw-bold';
+      standingAlert.className = 'alert alert-success p-3 mb-4 text-center fw-bold rounded-4 border-0';
       standingAlert.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i> Academic Standing: ${data.summary.overallStatus}`;
     }
   }

@@ -1100,15 +1100,29 @@ body.modal-open {
   border-radius: 22px;
   width: 100%;
   max-width: 640px;
-  max-height: 90vh;
+  max-height: calc(100vh - 3.5rem);
+  height: auto;
   display: flex;
   flex-direction: column;
   box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.04);
   overflow: hidden;
   position: relative;
+  margin: auto;
   transform: scale(0.98) translateY(8px);
   transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
   animation: modalDialogEntrance 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Modal Form Wrapper - guarantees header & footer stay anchored while body scrolls smoothly */
+.modal-dialog-custom > form,
+.modal-dialog-custom form {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  margin: 0 !important;
 }
 
 @keyframes modalDialogEntrance {
@@ -1225,23 +1239,30 @@ body.modal-open {
   outline-offset: 2px;
 }
 
-/* Modal Body */
+/* Modal Body - always scrollable with smooth scrollbar */
 .modal-body-custom {
   padding: 1.65rem 1.85rem;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
   background: #ffffff;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
 }
 
 .modal-body-custom::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 .modal-body-custom::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #f1f5f9;
+  border-radius: 6px;
 }
 .modal-body-custom::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 2px solid #f1f5f9;
 }
 .modal-body-custom::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
@@ -2432,6 +2453,7 @@ body.dark-theme {
 [data-theme="dark"] .modal-body-custom {
   background-color: #1e293b !important;
   color: #f8fafc !important;
+  scrollbar-color: #334155 #0f172a;
 }
 
 [data-theme="dark"] .modal-footer,
@@ -4062,6 +4084,17 @@ body.sidebar-drawer-open {
     max-height: 92vh !important;
     border-radius: 20px 20px 0 0 !important;
     margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .modal-dialog-custom > form,
+  .modal-dialog-custom form {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
   }
 
   .modal-header-custom {

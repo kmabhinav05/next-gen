@@ -3,230 +3,316 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Assessment Marks | Next Gen Grading</title>
+  <title>Excel Marks Import & Validation | Next Gen Grading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/theme.js"></script>
   <style>
-    .drop-zone {
-      border: 2px dashed #0d9488;
-      border-radius: 12px;
-      padding: 40px 20px;
+    .modern-drop-zone {
+      border: 2px dashed var(--brand-teal);
+      border-radius: 18px;
+      padding: 42px 24px;
       text-align: center;
-      background: #f8fafc;
+      background: rgba(13, 148, 136, 0.03);
       color: var(--text-primary);
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      position: relative;
     }
-    .drop-zone:hover, .drop-zone.dragover {
-      background: rgba(13, 148, 136, 0.08);
-      border-color: #0d9488;
+    .modern-drop-zone:hover, .modern-drop-zone.dragover {
+      background: rgba(13, 148, 136, 0.09);
+      border-color: var(--brand-teal);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.15);
     }
-    [data-theme="dark"] .drop-zone {
-      background: #0f172a;
+    [data-theme="dark"] .modern-drop-zone {
+      background: rgba(15, 23, 42, 0.5);
       border-color: #0d9488;
       color: #f8fafc;
     }
-    [data-theme="dark"] .drop-zone:hover, [data-theme="dark"] .drop-zone.dragover {
-      background: rgba(13, 148, 136, 0.16);
+    [data-theme="dark"] .modern-drop-zone:hover, [data-theme="dark"] .modern-drop-zone.dragover {
+      background: rgba(13, 148, 136, 0.18);
       border-color: #2dd4bf;
     }
-    .badge-error {
-      background-color: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #f87171;
-    }
-    [data-theme="dark"] .badge-error {
-      background-color: rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
-      border-color: rgba(239, 68, 68, 0.4);
+    .upload-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand-teal);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
 
-<div class="app-container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="brand-text">
-        <div class="brand-title">Next Gen Grading</div>
-        <div class="brand-subtitle">Faculty Portal</div>
-      </div>
-    </div>
+<div class="student-portal-wrapper">
+  <!-- Master Floating Dashboard Canvas -->
+  <div class="student-dashboard-card">
+    
+    <!-- Left Floating Rounded Pill Sidebar -->
+    <aside class="student-clay-sidebar">
+      <!-- Close drawer button for mobile screens -->
+      <button class="sidebar-drawer-close-btn" onclick="closeAllSidebars()" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
 
-    <ul class="nav-menu">
-      <li class="nav-item">
-        <a href="/staff/index.html" class="nav-link">
-          <i class="fa-solid fa-chart-pie"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/staff/upload-marks.html" class="nav-link active">
-          <i class="fa-solid fa-file-excel"></i>
-          <span>Upload Marks (Excel)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/staff/progress-cards.html" class="nav-link">
-          <i class="fa-solid fa-id-card"></i>
-          <span>Progress Cards</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="/index.html" class="nav-link">
-          <i class="fa-solid fa-globe"></i>
-          <span>Public Portal</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="javascript:void(0)" onclick="logout()" class="nav-link text-danger">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <span>Sign Out</span>
-        </a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- Main Wrapper -->
-  <div class="main-wrapper">
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="topbar-left d-flex align-items-center">
-        <button class="btn btn-sm btn-light d-lg-none me-2 p-2 rounded-3 border" onclick="toggleSidebar()" aria-label="Toggle navigation drawer" title="Menu" style="min-width: 44px; min-height: 44px;">
-          <i class="fa-solid fa-bars fs-5"></i>
-        </button>
-        <div>
-          <h5 class="page-title mb-0">Excel Marks Import & Validation</h5>
-          <span class="text-muted small">Upload, validate and commit continuous assessment scores</span>
-        </div>
-      </div>
-      <div class="topbar-right">
-        <button class="theme-toggle-btn me-2" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-        <div class="user-badge" id="userBadgeContainer"></div>
-      </div>
-    </header>
-
-    <!-- Page Body -->
-    <main class="page-content">
-      <!-- Step 1: Select Course & Download Template Card -->
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-1 text-teal me-2"></i>Select Course Allocation & Download Template</h6>
-        </div>
-        <div class="card-body">
-          <div class="row g-3 align-items-end">
-            <div class="col-md-7">
-              <label class="form-label fw-bold">Select Assigned Course & Class *</label>
-              <select class="form-select" id="courseSelect" onchange="onCourseSelected()">
-                <option value="">-- Choose Allocation --</option>
-              </select>
-            </div>
-            <div class="col-md-5">
-              <button class="btn btn-outline-teal w-100" id="downloadTemplateBtn" onclick="downloadTemplate()" disabled>
-                <i class="fa-solid fa-download me-1"></i> Download Pre-Formatted Excel Template
-              </button>
-            </div>
-          </div>
-          <small class="text-muted d-block mt-2">
-            <i class="fa-solid fa-circle-info text-teal me-1"></i> The downloaded template contains student register numbers pre-filled in alphabetical order with required assessment columns.
-          </small>
-        </div>
+      <!-- Faculty Squircle Badge -->
+      <div class="sidebar-cap-squircle" title="Next Gen Grading - Faculty Portal" onclick="window.location.href='/staff/index.html'">
+        <i class="fa-solid fa-chalkboard-user"></i>
       </div>
 
-      <!-- Step 2: Upload Excel File Card -->
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-white py-3 border-bottom">
-          <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-2 text-teal me-2"></i>Upload Completed Excel File (.xlsx)</h6>
-        </div>
-        <div class="card-body">
-          <form id="uploadForm" onsubmit="handleAnalyzeExcel(event)">
-            <div class="drop-zone mb-3" id="dropZone" onclick="document.getElementById('excelFileInput').click()">
-              <i class="fa-solid fa-cloud-arrow-up fa-3x text-teal mb-2"></i>
-              <h6 class="fw-bold mb-1" id="dropZoneText">Click or Drag & Drop Excel File Here</h6>
-              <p class="small text-muted mb-0">Supported formats: .xlsx, .xls (Maximum 5MB)</p>
-              <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="d-none" onchange="onFileSelected(this)">
-            </div>
+      <ul class="student-nav-menu">
+        <li>
+          <a href="/staff/index.html" class="student-nav-link" data-nav="overview">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/index.html#courses" class="student-nav-link" data-nav="courses">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Allocated Courses</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/index.html#attendance" class="student-nav-link" data-nav="attendance">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Attendance Logs</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/upload-marks.html" class="student-nav-link active" data-nav="upload">
+            <i class="fa-solid fa-file-excel"></i>
+            <span>Upload Marks</span>
+          </a>
+        </li>
+        <li>
+          <a href="/staff/progress-cards.html" class="student-nav-link" data-nav="progress">
+            <i class="fa-solid fa-id-card"></i>
+            <span>Progress Cards</span>
+          </a>
+        </li>
+        <li>
+          <a href="/index.html" class="student-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Public Portal</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" onclick="logout()" class="student-nav-link text-danger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
 
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="small text-muted" id="selectedFileInfo">No file chosen yet</span>
-              <button type="submit" class="btn btn-teal px-4" id="analyzeBtn" disabled>
-                <i class="fa-solid fa-magnifying-glass-chart me-1"></i> Analyze & Validate Records
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Step 3: Validation Results & Preview Card (Appears after analysis) -->
-      <div class="card border-0 shadow-sm mb-4 d-none" id="validationResultsCard">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="fw-bold mb-0 text-navy"><i class="fa-solid fa-3 text-teal me-2"></i>Validation Analysis & Data Preview</h6>
-            <small class="text-muted" id="validationSummaryText">Verification summary</small>
-          </div>
-          <button class="btn btn-success px-4" id="commitBtn" onclick="commitMarks()" disabled>
-            <i class="fa-solid fa-circle-check me-1"></i> Commit Marks to Database
+    <!-- Main Content Area -->
+    <main class="student-main-content">
+      
+      <!-- Topbar Header with Search Pill & Profile Chip -->
+      <header class="student-topbar">
+        <div class="student-topbar-left">
+          <button class="student-sidebar-toggle-btn" onclick="toggleStudentSidebar()" aria-label="Toggle navigation drawer" title="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
           </button>
-        </div>
-        <div class="card-body">
-          <!-- Summary Counters -->
-          <div class="row g-3 mb-4">
-            <div class="col-md-4">
-              <div class="p-3 border rounded bg-light text-center">
-                <span class="small text-muted fw-bold d-block">Total Rows Read</span>
-                <h4 class="mb-0 fw-bold" id="totalRowsCount">0</h4>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="p-3 border rounded bg-success-subtle text-center">
-                <span class="small text-success fw-bold d-block">Valid Records</span>
-                <h4 class="mb-0 fw-bold text-success" id="validRowsCount">0</h4>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="p-3 border rounded bg-danger-subtle text-center">
-                <span class="small text-danger fw-bold d-block">Validation Issues</span>
-                <h4 class="mb-0 fw-bold text-danger" id="errorRowsCount">0</h4>
-              </div>
-            </div>
-          </div>
-
-          <!-- Error Alert List (if any) -->
-          <div id="errorSection" class="d-none mb-4">
-            <div class="alert alert-danger border-0">
-              <h6 class="fw-bold mb-2"><i class="fa-solid fa-triangle-exclamation me-2"></i>The following issues were detected:</h6>
-              <ul class="mb-0 ps-3 small" id="errorList"></ul>
-            </div>
-          </div>
-
-          <!-- Preview Table of Valid Rows -->
-          <h6 class="fw-bold text-navy mb-2"><i class="fa-solid fa-table me-2 text-teal"></i>Valid Records Ready for Commit</h6>
-          <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
-            <table class="table table-sm table-bordered table-hover align-middle mb-0">
-              <thead class="table-light sticky-top">
-                <tr>
-                  <th>Row #</th>
-                  <th>Register Number</th>
-                  <th>Student Name</th>
-                  <th>Assessment</th>
-                  <th>Max Marks</th>
-                  <th>Marks Obtained</th>
-                  <th>Absent?</th>
-                  <th>Remarks</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="previewTableBody">
-              </tbody>
-            </table>
+          <div class="student-search-pill">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="marksSearchFilter" class="student-search-input" placeholder="Search validations or students..." onkeyup="filterPreviewRows()">
           </div>
         </div>
+
+        <div class="student-topbar-actions">
+          <a href="/staff/progress-cards.html" class="btn btn-outline-custom rounded-pill px-3 py-2 d-none d-sm-inline-flex align-items-center gap-1" style="font-size: 0.85rem; font-weight: 600;">
+            <i class="fa-solid fa-id-card me-1"></i> Progress Cards
+          </a>
+
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <div class="student-user-profile-chip" id="staffProfileChip">
+            <div class="student-user-avatar" id="staffAvatarInitials">
+              FA
+              <span class="student-online-dot"></span>
+            </div>
+            <div class="d-none d-sm-block text-start">
+              <div class="student-user-name" id="staffTopbarName">Faculty Member</div>
+              <div class="student-user-meta" id="staffTopbarRole">Department Staff</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Marks Upload Content Section -->
+      <div class="portal-view-section active">
+        <!-- Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <h1 class="portal-section-title mb-1" style="font-size: 1.55rem; font-weight: 800; color: var(--primary-navy); letter-spacing: -0.02em;">
+              Excel Marks Import & Verification
+            </h1>
+            <p class="text-muted small mb-0">
+              Download pre-formatted class rosters, upload continuous assessment scores, and commit verified grades.
+            </p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge-status badge-teal" style="font-size: 0.8rem; padding: 0.45rem 1rem; border-radius: 999px;">
+              <i class="fa-solid fa-circle-check me-1"></i> AI Verification Active
+            </span>
+          </div>
+        </div>
+
+        <!-- Step 1: Select Allocation & Download Template Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <span class="upload-step-num">1</span>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Select Course Allocation & Download Template</h5>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-7">
+                <label class="form-label-custom mb-2" for="courseSelect">
+                  Assigned Course & Class Batch <span class="required-asterisk">*</span>
+                </label>
+                <select class="form-select-custom" id="courseSelect" onchange="onCourseSelected()">
+                  <option value="">-- Choose Allocation --</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <button class="btn btn-outline-custom w-100 rounded-pill py-2 font-weight-bold d-inline-flex align-items-center justify-content-center gap-2" id="downloadTemplateBtn" onclick="downloadTemplate()" disabled style="min-height: 44px; font-weight: 700;">
+                  <i class="fa-solid fa-file-arrow-down text-teal"></i> Download Pre-Formatted Excel (.xlsx)
+                </button>
+              </div>
+            </div>
+            <div class="d-flex align-items-center gap-2 mt-3 text-muted small">
+              <i class="fa-solid fa-circle-info text-teal"></i>
+              <span>The downloaded template contains student register numbers pre-filled in alphabetical order with required assessment columns.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Upload Excel File Card -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <span class="upload-step-num" style="background: var(--brand-orange);">2</span>
+              <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Upload Completed Assessment Spreadsheet</h5>
+            </div>
+          </div>
+          <div class="p-4">
+            <form id="uploadForm" onsubmit="handleAnalyzeExcel(event)">
+              <div class="modern-drop-zone mb-3" id="dropZone" onclick="document.getElementById('excelFileInput').click()">
+                <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 58px; height: 58px; background: rgba(13, 148, 136, 0.12); color: var(--brand-teal); font-size: 1.5rem;">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <h6 class="fw-bold mb-1" id="dropZoneText" style="font-size: 1.05rem; color: var(--primary-navy);">Click or Drag & Drop Excel File Here</h6>
+                <p class="small text-muted mb-0">Supported format: Microsoft Excel (.xlsx, .xls) • Max 5MB</p>
+                <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="d-none" onchange="onFileSelected(this)">
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <span class="small text-muted" id="selectedFileInfo">
+                  <i class="fa-regular fa-file me-1"></i> No file chosen yet
+                </span>
+                <button type="submit" class="btn btn-teal rounded-pill px-4 py-2 font-weight-bold d-inline-flex align-items-center gap-2 shadow-sm" id="analyzeBtn" disabled style="min-height: 44px; font-weight: 700; background: var(--brand-teal); color: #fff;">
+                  <i class="fa-solid fa-magnifying-glass-chart"></i> Analyze & Validate Records
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Step 3: Validation Results & Preview Card (Revealed after analysis) -->
+        <div class="daily-notice-clay-card p-0 overflow-hidden mb-4 d-none" id="validationResultsCard" style="border-radius: 20px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+          <div class="d-flex flex-wrap align-items-center justify-content-between px-4 py-3 border-bottom gap-3" style="border-color: var(--border-subtle) !important; background: rgba(248, 250, 252, 0.03);">
+            <div class="d-flex align-items-center gap-2">
+              <span class="upload-step-num" style="background: #10b981;">3</span>
+              <div>
+                <h5 class="mb-0 fw-bold" style="font-size: 1.05rem; color: var(--primary-navy);">Validation Analysis & Data Preview</h5>
+                <small class="text-muted" id="validationSummaryText">Verification summary</small>
+              </div>
+            </div>
+            <button class="btn btn-success rounded-pill px-4 py-2 font-weight-bold d-inline-flex align-items-center gap-2 shadow-sm" id="commitBtn" onclick="commitMarks()" disabled style="min-height: 44px; font-weight: 700;">
+              <i class="fa-solid fa-circle-check"></i> Commit Marks to Database
+            </button>
+          </div>
+
+          <div class="p-4">
+            <!-- Metric Counters Grid -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-4">
+                <div class="p-3 rounded-4 text-center" style="background: rgba(148, 163, 184, 0.08); border: 1px solid var(--border-subtle);">
+                  <span class="small text-muted fw-bold d-block mb-1">Total Rows Evaluated</span>
+                  <h3 class="mb-0 fw-bold" id="totalRowsCount" style="color: var(--primary-navy);">0</h3>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 rounded-4 text-center" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);">
+                  <span class="small text-success fw-bold d-block mb-1">Valid Ready Records</span>
+                  <h3 class="mb-0 fw-bold text-success" id="validRowsCount">0</h3>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 rounded-4 text-center" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25);">
+                  <span class="small text-danger fw-bold d-block mb-1">Validation Errors</span>
+                  <h3 class="mb-0 fw-bold text-danger" id="errorRowsCount">0</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error List Alert (if any) -->
+            <div id="errorSection" class="d-none mb-4">
+              <div class="alert alert-danger rounded-4 border-0 p-3 mb-0" style="background: rgba(239, 68, 68, 0.12); color: #991b1b;">
+                <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                  <i class="fa-solid fa-triangle-exclamation"></i> Identified Formatting & Data Issues:
+                </h6>
+                <ul class="mb-0 ps-3 small" id="errorList"></ul>
+              </div>
+            </div>
+
+            <!-- Preview Table of Valid Rows -->
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h6 class="fw-bold mb-0" style="color: var(--primary-navy);">
+                <i class="fa-solid fa-table-list text-teal me-2"></i>Valid Records Ready for Commit
+              </h6>
+            </div>
+            
+            <div class="table-responsive-custom" style="max-height: 420px; overflow-y: auto;">
+              <table class="table-custom mb-0">
+                <thead>
+                  <tr>
+                    <th>Row #</th>
+                    <th>Register Number</th>
+                    <th>Student Name</th>
+                    <th>Assessment</th>
+                    <th>Max Marks</th>
+                    <th>Marks Scored</th>
+                    <th>Absent?</th>
+                    <th>Remarks</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="previewTableBody">
+                  <tr><td colspan="9" class="text-center py-4 text-muted">No records parsed yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
   </div>
@@ -243,7 +329,14 @@
   document.addEventListener('DOMContentLoaded', async () => {
     const user = requireAuth('staff');
     if (!user) return;
-    renderUserBadge();
+    
+    // Set Profile Chip
+    const facultyName = user.profile?.displayName || user.username || 'Professor';
+    const initials = facultyName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'FA';
+    const topbarName = document.getElementById('staffTopbarName');
+    if (topbarName) topbarName.textContent = facultyName;
+    const avatar = document.getElementById('staffAvatarInitials');
+    if (avatar) avatar.innerHTML = `${initials}<span class="student-online-dot"></span>`;
 
     // Check query params for pre-selection
     const urlParams = new URLSearchParams(window.location.search);
@@ -419,15 +512,15 @@
     } else {
       tbody.innerHTML = parsedValidRows.map(row => `
         <tr>
-          <td>${row.rowNumber}</td>
-          <td class="fw-semibold">${row.registerNumber}</td>
-          <td>${row.studentName}</td>
-          <td><span class="badge bg-light text-dark border">${row.assessmentName}</span></td>
+          <td><span class="badge rounded-pill bg-light text-dark border px-2 py-1">${row.rowNumber}</span></td>
+          <td class="fw-bold" style="color: var(--primary-navy);">${row.registerNumber}</td>
+          <td class="fw-semibold">${row.studentName}</td>
+          <td><span class="badge-status badge-teal" style="font-size: 0.78rem;">${row.assessmentName}</span></td>
           <td>${row.maxMarks}</td>
           <td><strong>${row.isAbsent ? 'Absent' : row.marksObtained}</strong></td>
-          <td>${row.isAbsent ? '<span class="badge bg-danger">Yes</span>' : '<span class="badge bg-secondary">No</span>'}</td>
+          <td>${row.isAbsent ? '<span class="badge bg-danger rounded-pill">Yes</span>' : '<span class="badge bg-secondary rounded-pill">No</span>'}</td>
           <td class="text-muted small">${row.remarks || '-'}</td>
-          <td><span class="badge bg-success"><i class="fa-solid fa-check me-1"></i> Valid</span></td>
+          <td><span class="badge bg-success rounded-pill px-2 py-1"><i class="fa-solid fa-check me-1"></i> Valid</span></td>
         </tr>
       `).join('');
 
@@ -436,6 +529,15 @@
 
     // Scroll to results
     card.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function filterPreviewRows() {
+    const query = (document.getElementById('marksSearchFilter')?.value || '').toLowerCase();
+    const rows = document.querySelectorAll('#previewTableBody tr');
+    rows.forEach(r => {
+      const text = r.textContent.toLowerCase();
+      r.style.display = text.includes(query) ? '' : 'none';
+    });
   }
 
   async function commitMarks() {
@@ -462,7 +564,7 @@
         showToast(res.message || 'Assessment marks committed successfully!', 'success');
         setTimeout(() => {
           window.location.href = `/staff/progress-cards.html?classId=${classId}`;
-        }, 1500);
+        }, 1200);
       }
     } catch (err) {
       showToast(err.message || 'Failed to save marks', 'danger');

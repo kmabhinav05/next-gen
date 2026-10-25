@@ -4211,3 +4211,26 @@ body.sidebar-drawer-open {
     transform: translateY(0);
   }
 }
+
+/* ============================================================================
+   ULTRA-PREMIUM FROSTED GLASS & LIQUID GLASSMORPHISM STYLES
+   ============================================================================ */
+.glass-panel-morphism {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 8px 32px 0 rgba(15, 23, 42, 0.06),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .glass-panel-morphism,
+body.dark-theme .glass-panel-morphism {
+  background: rgba(30, 41, 59, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15);
+}

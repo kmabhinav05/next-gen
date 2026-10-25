@@ -52,25 +52,33 @@
 
     /* Sticky Navbar with Glass Blur & Smooth Scroll Shadow */
     .lms-navbar {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       padding: 1.15rem 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
       position: sticky;
       top: 0;
       z-index: 1050;
-      transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     [data-theme="dark"] .lms-navbar, body.dark-theme .lms-navbar {
-      background: rgba(9, 13, 22, 0.92);
-      border-bottom-color: rgba(51, 65, 85, 0.5);
+      background: rgba(9, 13, 22, 0.68);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 25px -2px rgba(0, 0, 0, 0.35);
     }
 
     .lms-navbar.scrolled {
       padding: 0.75rem 0;
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 1px 1px rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="dark"] .lms-navbar.scrolled, body.dark-theme .lms-navbar.scrolled {
+      background: rgba(9, 13, 22, 0.85);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(255, 255, 255, 0.06);
     }
 
     .brand-logo-text {
@@ -90,30 +98,61 @@
       color: var(--lms-orange);
     }
 
-    /* Nav Options Pill Container with Smooth Sliding Active Bubble */
+    /* Pristine Frosted Glass Menu Bar (.nav-options-wrapper) */
     .nav-options-wrapper {
       position: relative;
       display: inline-flex;
       align-items: center;
-      background: rgba(241, 245, 249, 0.75);
-      padding: 4px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px) saturate(190%);
+      -webkit-backdrop-filter: blur(20px) saturate(190%);
+      padding: 5px;
       border-radius: 9999px;
-      border: 1px solid rgba(226, 232, 240, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 
+        0 8px 32px 0 rgba(15, 23, 42, 0.06),
+        0 2px 8px 0 rgba(15, 23, 42, 0.02),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-options-wrapper:hover {
+      background: rgba(255, 255, 255, 0.68);
+      border-color: #ffffff;
+      box-shadow: 
+        0 12px 36px 0 rgba(15, 23, 42, 0.09),
+        0 4px 12px 0 rgba(15, 23, 42, 0.04),
+        inset 0 2px 3px 0 rgba(255, 255, 255, 1);
     }
 
     [data-theme="dark"] .nav-options-wrapper, body.dark-theme .nav-options-wrapper {
-      background: rgba(30, 41, 59, 0.65);
-      border-color: rgba(51, 65, 85, 0.8);
+      background: rgba(30, 41, 59, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25);
     }
 
+    [data-theme="dark"] .nav-options-wrapper:hover, body.dark-theme .nav-options-wrapper:hover {
+      background: rgba(30, 41, 59, 0.65);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Radiant Glass Luminous Active Pill */
     .nav-sliding-pill {
       position: absolute;
-      top: 4px;
+      top: 5px;
       left: 0;
-      height: calc(100% - 8px);
-      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      height: calc(100% - 10px);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.94) 100%);
       border-radius: 9999px;
-      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 6px 20px -2px rgba(245, 158, 11, 0.55),
+        0 2px 8px 0 rgba(245, 158, 11, 0.3),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
       z-index: 1;
       pointer-events: none;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
@@ -123,37 +162,114 @@
     .nav-link-item {
       position: relative;
       z-index: 2;
-      color: var(--lms-slate);
+      color: #475569;
       font-weight: 600;
-      font-size: 0.92rem;
-      padding: 0.45rem 1.15rem;
+      font-size: 0.93rem;
+      padding: 0.48rem 1.2rem;
       text-decoration: none;
       border-radius: 9999px;
-      transition: color 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
       cursor: pointer;
     }
 
-    .nav-link-item:hover {
+    [data-theme="dark"] .nav-link-item, body.dark-theme .nav-link-item {
+      color: #cbd5e1;
+    }
+
+    .nav-link-item:hover:not(.active) {
       color: var(--lms-orange);
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    [data-theme="dark"] .nav-link-item:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fbbf24;
     }
 
     .nav-link-item.active {
       color: #ffffff !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    /* Mobile Quick Nav with Smooth Scrolling Chips */
+    /* Glassy Theme Toggle Button */
+    .theme-toggle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04), inset 0 1px 1.5px rgba(255, 255, 255, 0.9);
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] .theme-toggle-btn, body.dark-theme .theme-toggle-btn {
+      background: rgba(30, 41, 59, 0.55) !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+      color: #fbbf24 !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: var(--lms-orange);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Glassy Search Action Link */
+    .nav-search-glass-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      color: #64748b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] .nav-search-glass-btn, body.dark-theme .nav-search-glass-btn {
+      background: rgba(30, 41, 59, 0.45);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+    }
+
+    .nav-search-glass-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--lms-orange);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.15);
+    }
+
+    /* Mobile Quick Nav with Frosted Glass Chips */
     .mobile-quick-nav {
       position: sticky;
       top: 66px;
       z-index: 1040;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
       padding: 0.5rem 1rem;
       overflow-x: auto;
       gap: 0.5rem;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
@@ -163,17 +279,21 @@
     }
 
     [data-theme="dark"] .mobile-quick-nav, body.dark-theme .mobile-quick-nav {
-      background: rgba(9, 13, 22, 0.95);
-      border-bottom-color: rgba(51, 65, 85, 0.5);
+      background: rgba(9, 13, 22, 0.7);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
     }
 
     .mobile-nav-chip {
-      padding: 0.35rem 0.85rem;
+      padding: 0.38rem 0.95rem;
       border-radius: 9999px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--lms-slate);
-      background: rgba(241, 245, 249, 0.9);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 1.5px rgba(255, 255, 255, 0.9);
       text-decoration: none;
       white-space: nowrap;
       display: inline-flex;
@@ -183,14 +303,17 @@
     }
 
     [data-theme="dark"] .mobile-nav-chip, body.dark-theme .mobile-nav-chip {
-      background: rgba(30, 41, 59, 0.8);
-      color: #94a3b8;
+      background: rgba(30, 41, 59, 0.55);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.1);
     }
 
     .mobile-nav-chip.active {
-      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(234, 88, 12, 0.95) 100%);
       color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5);
     }
 
     /* Option Switching Tabs for Carousel Showcase */
@@ -250,7 +373,9 @@
     }
 
     .btn-login-teal {
-      background: var(--lms-teal);
+      background: linear-gradient(135deg, rgba(58, 166, 140, 0.95) 0%, rgba(46, 139, 117, 0.95) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       color: #ffffff !important;
       font-weight: 600;
       font-size: 0.95rem;
@@ -260,15 +385,19 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 8px 20px -3px rgba(58, 166, 140, 0.4);
-      transition: all 0.2s ease;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 
+        0 8px 24px -3px rgba(58, 166, 140, 0.45),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.5);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-login-teal:hover {
-      background: var(--lms-teal-dark);
+      background: linear-gradient(135deg, rgba(46, 139, 117, 1) 0%, rgba(35, 112, 94, 1) 100%);
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px -3px rgba(58, 166, 140, 0.5);
+      box-shadow: 
+        0 14px 28px -3px rgba(58, 166, 140, 0.55),
+        inset 0 1px 2px rgba(255, 255, 255, 0.7);
     }
 
     /* Hero Section */
@@ -565,8 +694,8 @@
 
       <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button -->
       <div class="d-flex align-items-center gap-3">
-        <a href="#features" class="text-secondary text-decoration-none d-none d-sm-inline-block px-2" title="Search platform features">
-          <i class="fa-solid fa-magnifying-glass fs-5"></i>
+        <a href="#features" class="nav-search-glass-btn d-none d-sm-inline-flex" title="Search platform features">
+          <i class="fa-solid fa-magnifying-glass"></i>
         </a>
         <button type="button" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle light and dark mode" title="Toggle theme">
           <i class="fa-solid fa-moon"></i>

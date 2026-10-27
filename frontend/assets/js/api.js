@@ -4,7 +4,7 @@
  */
 
 // Production tunnel URL for Cloudflare-hosted frontend
-const CLOUDFLARE_BACKEND_ORIGIN = 'https://established-keyboard-optics-south.trycloudflare.com';
+const CLOUDFLARE_BACKEND_ORIGIN = 'https://overall-conceptual-appointment-producer.trycloudflare.com';
 
 const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? '/api'

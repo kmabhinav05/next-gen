@@ -151,12 +151,13 @@
       top: 5px;
       left: 0;
       height: calc(100% - 10px);
-      background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.94) 100%);
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       box-shadow: 
-        0 6px 20px -2px rgba(13, 148, 136, 0.45),
-        0 2px 8px 0 rgba(13, 148, 136, 0.25);
+        0 6px 20px -2px rgba(245, 158, 11, 0.55),
+        0 2px 8px 0 rgba(245, 158, 11, 0.3),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
       z-index: 1;
       pointer-events: none;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
@@ -182,13 +183,13 @@
     }
 
     .nav-link-item:hover:not(.active) {
-      color: #0d9488;
-      background: rgba(13, 148, 136, 0.08);
+      color: var(--lms-orange, #f59e0b);
+      background: rgba(255, 255, 255, 0.45);
     }
 
     [data-theme="dark"] .nav-link-item:hover:not(.active) {
       background: rgba(255, 255, 255, 0.08);
-      color: #2dd4bf;
+      color: #fbbf24;
     }
 
     .nav-link-item.active {
@@ -772,7 +773,7 @@
           </li>
           <li class="sm-panel-itemWrap">
             <a class="sm-panel-item" href="#features" data-index="3">
-              <span class="sm-panel-itemLabel">Capabilities</span>
+              <span class="sm-panel-itemLabel">Features</span>
             </a>
           </li>
           <li class="sm-panel-itemWrap">
@@ -783,11 +784,6 @@
           <li class="sm-panel-itemWrap">
             <a class="sm-panel-item" href="#contact" data-index="5">
               <span class="sm-panel-itemLabel">Contact</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="/login.html" data-index="6">
-              <span class="sm-panel-itemLabel">Portal Login</span>
             </a>
           </li>
         </ul>
@@ -827,7 +823,7 @@
     <a href="#home" class="mobile-nav-chip active" data-section="home"><i class="fa-solid fa-house"></i> Home</a>
     <a href="#about" class="mobile-nav-chip" data-section="about"><i class="fa-solid fa-circle-info"></i> About</a>
     <a href="#features" class="mobile-nav-chip" data-section="features"><i class="fa-solid fa-bolt"></i> Features</a>
-    <a href="#how-it-works" class="mobile-nav-chip" data-section="how-it-works"><i class="fa-solid fa-list-check"></i> Steps</a>
+    <a href="#how-it-works" class="mobile-nav-chip" data-section="how-it-works"><i class="fa-solid fa-list-check"></i> How It Works</a>
     <a href="#contact" class="mobile-nav-chip" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
   </div>
 

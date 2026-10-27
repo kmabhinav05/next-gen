@@ -14,6 +14,9 @@
   <script src="/assets/js/theme.js"></script>
   <link rel="stylesheet" href="/assets/css/specular-button.css">
   <script src="/assets/js/specular-button.js"></script>
+  <link rel="stylesheet" href="/assets/css/staggered-menu.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/assets/js/staggered-menu.js"></script>
   <script src="/assets/js/grainient.js"></script>
   <style>
     /* LMS Mart Pristine Theme Styles */
@@ -696,7 +699,7 @@
         <a href="#contact" class="nav-link-item" data-section="contact">Contact</a>
       </nav>
 
-      <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button -->
+      <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button + Staggered Menu Toggle -->
       <div class="d-flex align-items-center gap-3">
         <a href="#features" class="nav-search-glass-btn d-none d-sm-inline-flex" title="Search platform features">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -708,10 +711,100 @@
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
           <span>Login</span>
         </a>
+
+        <!-- ReactBits StaggeredMenu Toggle Button -->
+        <button type="button" class="sm-toggle" id="staggeredMenuToggleBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staggered-menu-panel">
+          <span class="sm-toggle-textWrap" aria-hidden="true">
+            <span class="sm-toggle-textInner">
+              <span class="sm-toggle-line">Menu</span>
+            </span>
+          </span>
+          <span class="sm-icon" aria-hidden="true">
+            <span class="sm-icon-line"></span>
+            <span class="sm-icon-line sm-icon-line-v"></span>
+          </span>
+        </button>
       </div>
 
     </div>
   </header>
+
+  <!-- ReactBits StaggeredMenu Component Drawer -->
+  <div id="staggered-menu" class="staggered-menu-wrapper fixed-wrapper" data-position="right">
+    <div class="staggered-menu-backdrop" aria-hidden="true"></div>
+
+    <!-- Staggered Underlay Pre-layers with Warm LMS Brand Accents -->
+    <div class="sm-prelayers" aria-hidden="true">
+      <div class="sm-prelayer" style="background: #fef3c7;"></div>
+      <div class="sm-prelayer" style="background: #f59e0b;"></div>
+      <div class="sm-prelayer" style="background: #3aa68c;"></div>
+    </div>
+
+    <!-- Aside Drawer Panel -->
+    <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
+      <div class="sm-panel-inner">
+        <ul class="sm-panel-list" role="list" data-numbering="true">
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#home" data-index="1">
+              <span class="sm-panel-itemLabel">Home</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#about" data-index="2">
+              <span class="sm-panel-itemLabel">About</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#features" data-index="3">
+              <span class="sm-panel-itemLabel">Capabilities</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#how-it-works" data-index="4">
+              <span class="sm-panel-itemLabel">How It Works</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="#contact" data-index="5">
+              <span class="sm-panel-itemLabel">Contact</span>
+            </a>
+          </li>
+          <li class="sm-panel-itemWrap">
+            <a class="sm-panel-item" href="/login.html" data-index="6">
+              <span class="sm-panel-itemLabel">Portal Login</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Institutional Portals / Social Links -->
+        <div class="sm-socials" aria-label="Institutional Portals">
+          <h3 class="sm-socials-title">Institutional Portals</h3>
+          <ul class="sm-socials-list" role="list">
+            <li class="sm-socials-item">
+              <a href="/login.html" class="sm-socials-link">
+                <i class="fa-solid fa-graduation-cap"></i> Student
+              </a>
+            </li>
+            <li class="sm-socials-item">
+              <a href="/login.html" class="sm-socials-link">
+                <i class="fa-solid fa-chalkboard-user"></i> Faculty
+              </a>
+            </li>
+            <li class="sm-socials-item">
+              <a href="/login.html" class="sm-socials-link">
+                <i class="fa-solid fa-users"></i> Parent
+              </a>
+            </li>
+            <li class="sm-socials-item">
+              <a href="/login.html" class="sm-socials-link">
+                <i class="fa-solid fa-shield-halved"></i> Admin
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
 
   <!-- Mobile Quick-Nav Bar with Smooth Scrolling Chips -->
   <div class="mobile-quick-nav d-flex d-lg-none" id="mobileQuickNav">

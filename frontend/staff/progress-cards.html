@@ -15,6 +15,11 @@
   <link rel="stylesheet" href="/assets/css/specular-button.css">
   <script src="/assets/js/specular-button.js"></script>
   <script src="/assets/js/grainient.js"></script>
+  <link rel="stylesheet" href="/assets/css/lanyard.css">
+  <link rel="stylesheet" href="/assets/css/profile-modal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="/assets/js/lanyard.js"></script>
+  <script src="/assets/js/profile-modal.js"></script>
   <style>
     @media print {
       body * {
@@ -104,6 +109,12 @@
           </a>
         </li>
         <li>
+          <a href="javascript:void(0)" onclick="openProfileModal()" class="student-nav-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>Digital ID Card</span>
+          </a>
+        </li>
+        <li>
           <a href="/index.html" class="student-nav-link">
             <i class="fa-solid fa-house"></i>
             <span>Public Portal</span>
@@ -142,7 +153,7 @@
             <i class="fa-solid fa-moon"></i>
           </button>
 
-          <div class="student-user-profile-chip" id="staffProfileChip">
+          <div class="student-user-profile-chip" id="staffProfileChip" onclick="openProfileModal()" title="View Interactive 3D Digital ID Card">
             <div class="student-user-avatar" id="staffAvatarInitials">
               FA
               <span class="student-online-dot"></span>

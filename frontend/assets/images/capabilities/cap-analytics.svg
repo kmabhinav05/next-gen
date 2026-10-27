@@ -1,51 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
   <defs>
     <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#182333"/>
-      <stop offset="50%" stop-color="#101826"/>
-      <stop offset="100%" stop-color="#0a0f19"/>
+      <stop offset="0%" stop-color="#14263b"/>
+      <stop offset="50%" stop-color="#0e1b2b"/>
+      <stop offset="100%" stop-color="#060d17"/>
     </linearGradient>
-    <radialGradient id="glow4" cx="50%" cy="35%" r="55%">
-      <stop offset="0%" stop-color="#3aa68c" stop-opacity="0.32"/>
+    <radialGradient id="glow4" cx="50%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#3aa68c" stop-opacity="0.45"/>
       <stop offset="100%" stop-color="#3aa68c" stop-opacity="0"/>
     </radialGradient>
-    <filter id="sh4" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#3aa68c" flood-opacity="0.35"/>
+    <filter id="sh4" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#3aa68c" flood-opacity="0.45"/>
     </filter>
   </defs>
 
-  <rect width="800" height="600" rx="36" fill="url(#bg4)" stroke="rgba(58,166,140,0.25)" stroke-width="2"/>
-  <circle cx="400" cy="220" r="280" fill="url(#glow4)"/>
+  <!-- Card Body with Vibrant Neon Border -->
+  <rect width="800" height="600" rx="42" fill="url(#bg4)" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="4"/>
+  <circle cx="400" cy="200" r="320" fill="url(#glow4)"/>
 
-  <!-- Matrix Background Dots -->
-  <g opacity="0.12" fill="#ffffff">
-    <circle cx="90" cy="90" r="3"/><circle cx="130" cy="90" r="3"/><circle cx="170" cy="90" r="3"/>
-    <circle cx="90" cy="130" r="3"/><circle cx="130" cy="130" r="3"/><circle cx="170" cy="130" r="3"/>
-    <circle cx="630" cy="470" r="3"/><circle cx="670" cy="470" r="3"/><circle cx="710" cy="470" r="3"/>
-    <circle cx="630" cy="510" r="3"/><circle cx="670" cy="510" r="3"/><circle cx="710" cy="510" r="3"/>
+  <!-- Matrix Background Accents -->
+  <g opacity="0.18" fill="#ffffff">
+    <circle cx="80" cy="80" r="4"/><circle cx="120" cy="80" r="4"/><circle cx="160" cy="80" r="4"/>
+    <circle cx="80" cy="120" r="4"/><circle cx="120" cy="120" r="4"/><circle cx="160" cy="120" r="4"/>
+    <circle cx="640" cy="480" r="4"/><circle cx="680" cy="480" r="4"/><circle cx="720" cy="480" r="4"/>
+    <circle cx="640" cy="520" r="4"/><circle cx="680" cy="520" r="4"/><circle cx="720" cy="520" r="4"/>
   </g>
 
-  <!-- Capability Pill -->
-  <g transform="translate(320, 80)">
-    <rect width="160" height="36" rx="18" fill="#3aa68c" fill-opacity="0.18" stroke="#3aa68c" stroke-width="1.5"/>
-    <text x="80" y="23" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#3aa68c" text-anchor="middle" letter-spacing="0.05em">VISUAL INSIGHTS</text>
+  <!-- Top Capability Badge -->
+  <g transform="translate(285, 50)">
+    <rect width="230" height="42" rx="21" fill="#3aa68c" fill-opacity="0.22" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="115" y="27" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="16" font-weight="800" fill="#5eead4" text-anchor="middle" letter-spacing="0.08em">VISUAL INSIGHTS</text>
   </g>
 
   <!-- Main Icon Bubble -->
-  <g filter="url(#sh4)" transform="translate(340, 145)">
-    <rect width="120" height="120" rx="32" fill="#3aa68c"/>
+  <g filter="url(#sh4)" transform="translate(330, 115)">
+    <rect width="140" height="140" rx="36" fill="linear-gradient(135deg, #10b981 0%, #0d9488 100%)"/>
     <!-- Analytics Chart Line Icon -->
-    <path d="M3 3v18h18v-2H5V3H3zm4 14h2v-6H7v6zm4 0h2V7h-2v10zm4 0h2v-4h-2v4zm4 0h2V4h-2v13z" fill="#ffffff" transform="translate(24, 24) scale(3)"/>
+    <path d="M3 3v18h18v-2H5V3H3zm4 14h2v-6H7v6zm4 0h2V7h-2v10zm4 0h2v-4h-2v4zm4 0h2V4h-2v13z" fill="#ffffff" transform="translate(28, 28) scale(3.5)"/>
   </g>
 
-  <!-- Typography -->
-  <text x="400" y="340" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-0.02em">Academic Analytics</text>
-  <text x="400" y="380" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" text-anchor="middle">Interactive visual analytics highlight student progress trends,</text>
-  <text x="400" y="405" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" text-anchor="middle">class averages, subject distributions, and exam eligibility criteria.</text>
+  <!-- High-Contrast Bold Typography -->
+  <text x="400" y="325" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="44" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.025em">Academic Analytics</text>
+  <text x="400" y="380" font-family="'Inter', system-ui, sans-serif" font-size="23" font-weight="600" fill="#f8fafc" text-anchor="middle">Interactive visual analytics highlight student progress trends,</text>
+  <text x="400" y="415" font-family="'Inter', system-ui, sans-serif" font-size="23" font-weight="600" fill="#cbd5e1" text-anchor="middle">class averages, subject distributions, and exam eligibility criteria.</text>
 
-  <!-- Bottom CTA Tag -->
-  <g transform="translate(280, 470)">
-    <rect width="240" height="48" rx="24" fill="rgba(58,166,140,0.12)" stroke="rgba(58,166,140,0.4)" stroke-width="1.5"/>
-    <text x="120" y="29" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="700" fill="#3aa68c" text-anchor="middle">📈 Visual Performance Curves</text>
+  <!-- Bottom CTA Pill Tag -->
+  <g transform="translate(245, 475)">
+    <rect width="310" height="56" rx="28" fill="rgba(45,212,191,0.18)" stroke="#2dd4bf" stroke-width="2"/>
+    <text x="155" y="35" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="18" font-weight="800" fill="#5eead4" text-anchor="middle">📈 Performance Curves</text>
   </g>
 </svg>

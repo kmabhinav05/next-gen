@@ -1044,88 +1044,6 @@
       <div class="flex-carousel-wrapper my-4">
         <div id="capabilities-flex-carousel"></div>
       </div>
-
-      <div class="row g-4 mt-3" id="capabilities-card-grid">
-        
-        <!-- Feature 1 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(0)" data-feature-index="0" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-orange">
-              <i class="fa-solid fa-id-card"></i>
-            </div>
-            <h5 class="fw-bold mb-2">Automated Progress Cards</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              One-click compilation of internal assessment scores, session attendance records, and faculty remarks into official PDF reports for parent–teacher meetings.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(1)" data-feature-index="1" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-teal">
-              <i class="fa-solid fa-file-excel"></i>
-            </div>
-            <h5 class="fw-bold mb-2">Excel Marks Import</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              Download pre-formatted class spreadsheets, upload scores via drag-and-drop, and preview row validations with database transaction safety.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(2)" data-feature-index="2" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-orange">
-              <i class="fa-solid fa-clipboard-user"></i>
-            </div>
-            <h5 class="fw-bold mb-2">Attendance Tracking</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              Subject-wise period tracking calculates attendance percentages in real time, automatically triggering shortage alerts when below 75%.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(3)" data-feature-index="3" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-teal">
-              <i class="fa-solid fa-chart-line"></i>
-            </div>
-            <h5 class="fw-bold mb-2">Academic Analytics</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              Interactive visual analytics highlight student progress trends, class averages, subject distributions, and exam eligibility criteria.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(4)" data-feature-index="4" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-orange">
-              <i class="fa-solid fa-children"></i>
-            </div>
-            <h5 class="fw-bold mb-2">Parent–Teacher Collaboration</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              Dedicated parent portal to track student attendance and performance, eliminating communication gaps before PTM conferences.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(5)" data-feature-index="5" title="Click to view in 3D carousel">
-            <div class="lms-icon-bubble bubble-teal">
-              <i class="fa-solid fa-robot"></i>
-            </div>
-            <h5 class="fw-bold mb-2">AI Academic Assistant</h5>
-            <p class="text-muted small mb-0 flex-grow-1">
-              Pre-seeded academic FAQ chatbot that answers questions regarding attendance condonation, IA mark calculations, and study tips.
-            </p>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
@@ -1554,18 +1472,17 @@
 
       window.capabilitiesCarousel = initFlexCarousel(carouselEl, {
         items,
-        preset: 'liquid',
+        preset: 'ribbon',
         intro: 'rise',
-        cardHeight: 0.5,
-        gap: 12,
-        squeeze: 0.2,
+        cardHeight: 0.72,
+        tilt: 0,
+        bend: 0.16,
+        reach: 0.28,
+        dispersion: 0.05,
+        squeeze: 0.02,
+        gap: 20,
         focusOnClick: true,
-        captions: true,
-        onChange: (index) => {
-          document.querySelectorAll('[data-feature-index]').forEach((el, i) => {
-            el.classList.toggle('active-feature-highlight', i === index);
-          });
-        }
+        captions: true
       });
     });
   </script>

@@ -5,21 +5,21 @@
 .flex-carousel-wrapper {
   position: relative;
   width: 100%;
-  height: 560px;
-  max-width: 1200px;
+  height: 640px;
+  max-width: 1280px;
   margin: 0 auto;
-  border-radius: 28px;
+  border-radius: 32px;
   overflow: hidden;
   background: rgba(15, 23, 42, 0.03);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 25px 60px -10px rgba(15, 23, 42, 0.1);
 }
 
 [data-theme="dark"] .flex-carousel-wrapper,
 body.dark-theme .flex-carousel-wrapper {
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(15, 23, 42, 0.55);
   border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.65);
 }
 
 .flex-carousel {
@@ -56,11 +56,12 @@ body.dark-theme .flex-carousel-wrapper {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(50% + var(--flex-carousel-half, 25%) * var(--flex-carousel-lift, 1) + 18px);
+  bottom: 22px;
+  top: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   padding: 0 16px;
   pointer-events: none;
   text-align: center;
@@ -73,11 +74,11 @@ body.dark-theme .flex-carousel-wrapper {
   flex-direction: column;
   align-items: center;
   max-width: 100%;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-primary, #111827);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary, #0f172a);
   line-height: 1.35;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   animation: flex-carousel-title 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -87,32 +88,33 @@ body.dark-theme .flex-carousel__title {
 }
 
 .flex-carousel__subtitle {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  color: var(--text-muted, #64748b);
-  opacity: 0.85;
-  margin-top: 3px;
+  color: var(--text-secondary, #334155);
+  opacity: 0.95;
+  margin-top: 4px;
 }
 
 [data-theme="dark"] .flex-carousel__subtitle,
 body.dark-theme .flex-carousel__subtitle {
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 .flex-carousel__count {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 800;
   line-height: 1;
   font-variant-numeric: tabular-nums;
   color: var(--brand-orange, #f59e0b);
-  background: rgba(245, 158, 11, 0.12);
-  padding: 4px 10px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 5px 14px;
   border-radius: 999px;
   transition: opacity 400ms ease;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .flex-carousel__count[data-hidden] {

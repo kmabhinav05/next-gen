@@ -152,12 +152,21 @@ body {
   pointer-events: auto;
 }
 
-/* Translucent Frosted Glass Overlays for Grainient (Available on all pages) */
+/* Translucent Frosted Glass Overlays for LiquidChrome & Grainient (Available on all pages) */
+body.has-liquid-chrome,
 body.has-grainient {
   background: transparent !important;
   background-color: transparent !important;
 }
 
+body.has-liquid-chrome .student-portal-wrapper,
+body.has-liquid-chrome .app-container,
+body.has-liquid-chrome .app-layout,
+body.has-liquid-chrome .main-wrapper,
+body.has-liquid-chrome .app-main,
+body.has-liquid-chrome .app-content,
+body.has-liquid-chrome .page-content,
+body.has-liquid-chrome .hero-section-lms,
 body.has-grainient .student-portal-wrapper,
 body.has-grainient .app-container,
 body.has-grainient .app-layout,
@@ -171,6 +180,7 @@ body.has-grainient .hero-section-lms {
 }
 
 /* Translucent Claymorphic Master Dashboard Canvas across all portal pages */
+body.has-liquid-chrome .student-dashboard-card,
 body.has-grainient .student-dashboard-card {
   background: rgba(255, 255, 255, 0.78) !important;
   backdrop-filter: blur(28px) saturate(180%) !important;
@@ -179,6 +189,8 @@ body.has-grainient .student-dashboard-card {
   box-shadow: 0 30px 80px -15px rgba(15, 23, 42, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 
+[data-theme="dark"] body.has-liquid-chrome .student-dashboard-card,
+body.dark-theme.has-liquid-chrome .student-dashboard-card,
 [data-theme="dark"] body.has-grainient .student-dashboard-card,
 body.dark-theme.has-grainient .student-dashboard-card {
   background: rgba(15, 23, 42, 0.72) !important;
@@ -189,6 +201,7 @@ body.dark-theme.has-grainient .student-dashboard-card {
 }
 
 /* Translucent Frosted Sidebar Menu across all portal pages */
+body.has-liquid-chrome .student-clay-sidebar,
 body.has-grainient .student-clay-sidebar {
   background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(20px) !important;
@@ -196,6 +209,8 @@ body.has-grainient .student-clay-sidebar {
   border: 1.5px solid rgba(226, 232, 240, 0.8) !important;
 }
 
+[data-theme="dark"] body.has-liquid-chrome .student-clay-sidebar,
+body.dark-theme.has-liquid-chrome .student-clay-sidebar,
 [data-theme="dark"] body.has-grainient .student-clay-sidebar,
 body.dark-theme.has-grainient .student-clay-sidebar {
   background: rgba(19, 29, 49, 0.78) !important;
@@ -205,6 +220,9 @@ body.dark-theme.has-grainient .student-clay-sidebar {
 }
 
 /* Translucent Frosted Header / Topbar */
+body.has-liquid-chrome .topbar,
+body.has-liquid-chrome .app-header,
+body.has-liquid-chrome .lms-navbar,
 body.has-grainient .topbar,
 body.has-grainient .app-header,
 body.has-grainient .lms-navbar {
@@ -214,6 +232,10 @@ body.has-grainient .lms-navbar {
   border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
 
+[data-theme="dark"] body.has-liquid-chrome .topbar,
+[data-theme="dark"] body.has-liquid-chrome .app-header,
+[data-theme="dark"] body.has-liquid-chrome .lms-navbar,
+body.dark-theme.has-liquid-chrome .lms-navbar,
 [data-theme="dark"] body.has-grainient .topbar,
 [data-theme="dark"] body.has-grainient .app-header,
 [data-theme="dark"] body.has-grainient .lms-navbar,
@@ -3010,7 +3032,7 @@ body.dark-theme .theme-toggle-btn:hover i {
   overflow: hidden;
 }
 
-[data-theme="dark"] body:not(.has-grainient) .student-dashboard-card {
+[data-theme="dark"] body:not(.has-grainient):not(.has-liquid-chrome) .student-dashboard-card {
   background: #0f172a;
   border-color: #1e293b;
   box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.7);

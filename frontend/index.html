@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="stylesheet" href="/assets/css/flex-carousel.css">
   <link rel="stylesheet" href="/assets/css/kokonut-switch.css">
+  <link rel="stylesheet" href="/assets/css/text-parallax.css">
   <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/kokonut-switch.js"></script>
   <link rel="stylesheet" href="/assets/css/specular-button.css">
@@ -21,6 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap-trial@3/dist/ScrollSmoother.min.js"></script>
   <script src="/assets/js/staggered-menu.js"></script>
+  <script src="/assets/js/text-parallax.js"></script>
   <link rel="stylesheet" href="/assets/css/folder.css">
   <script src="/assets/js/folder.js"></script>
   <script src="/assets/js/grainient.js"></script>
@@ -1050,20 +1051,127 @@
     </div>
   </section>
 
-  <!-- Features & Capabilities Section -->
-  <section class="py-5" id="features" style="background: var(--lms-warm-bg);">
+  <!-- Features Section: Hover.dev Text Parallax Content (Scroll) Showcase -->
+  <section class="py-5 text-parallax-wrapper" id="features">
     <div class="container py-4">
       <div class="text-center mb-5">
         <div class="tagline-badge justify-content-center">Platform Capabilities ⚡</div>
         <h2 class="display-6 fw-bold mb-2">Built for Effortless Academic Excellence</h2>
-        <p class="text-muted mx-auto" style="max-width: 580px;">
+        <p class="text-muted mx-auto" style="max-width: 620px;">
           Empowering administrators, faculty, students, and parents with seamless tools, real-time analytics, and automated progress cards.
         </p>
       </div>
+    </div>
 
-      <!-- ReactBits FlexCarousel WebGL Curved Ribbon Showcase -->
-      <div class="flex-carousel-wrapper my-4">
-        <div id="capabilities-flex-carousel"></div>
+    <!-- Parallax Stage 1: Collaboration & Portal Ecosystem -->
+    <div class="text-parallax-container">
+      <div class="text-parallax-stage">
+        <div class="text-parallax-sticky-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop');">
+          <div class="text-parallax-scrim"></div>
+        </div>
+        <div class="text-parallax-overlay-copy">
+          <p class="text-parallax-subheading">Collaborate &amp; Coordinate</p>
+          <h3 class="text-parallax-heading">Built for all of us.</h3>
+        </div>
+      </div>
+      <div class="text-parallax-content-block">
+        <div class="text-parallax-grid">
+          <div>
+            <h4 class="text-parallax-lead-title">Unified Portal Ecosystem for Administrators, Faculty, Students &amp; Parents</h4>
+          </div>
+          <div>
+            <p class="text-parallax-body-text">
+              Eliminate fragmented communication channels and outdated notification chains. Next Gen Grading connects every academic stakeholder with role-tailored, cryptographically verified portals designed for instantaneous synchronization.
+            </p>
+            <p class="text-parallax-body-text">
+              Faculty can upload internal marks in seconds, students track their academic standing and mandatory attendance quotas live, and parents receive immediate milestone notifications before PTM sessions.
+            </p>
+            <div class="text-parallax-tags">
+              <span class="text-parallax-tag"><i class="fa-solid fa-graduation-cap"></i> Student Portal</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-chalkboard-user"></i> Faculty Portal</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-users"></i> Parent Portal</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-shield-halved"></i> Institutional Admin</span>
+            </div>
+            <a href="/login.html" class="text-parallax-action-btn">
+              <span>Explore Portals</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parallax Stage 2: Automated Precision & Spreadsheet Ingestion -->
+    <div class="text-parallax-container">
+      <div class="text-parallax-stage">
+        <div class="text-parallax-sticky-img" style="background-image: url('https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?q=80&w=2564&auto=format&fit=crop');">
+          <div class="text-parallax-scrim"></div>
+        </div>
+        <div class="text-parallax-overlay-copy">
+          <p class="text-parallax-subheading">Precision &amp; Integrity</p>
+          <h3 class="text-parallax-heading">Never compromise.</h3>
+        </div>
+      </div>
+      <div class="text-parallax-content-block">
+        <div class="text-parallax-grid">
+          <div>
+            <h4 class="text-parallax-lead-title">Batch Excel Marks Ingestion with Real-Time Schema Validation</h4>
+          </div>
+          <div>
+            <p class="text-parallax-body-text">
+              Say goodbye to tedious manual calculations and spreadsheet discrepancies. Our high-throughput ingestion engine parses institution-standard Excel files directly into encrypted PostgreSQL databases.
+            </p>
+            <p class="text-parallax-body-text">
+              Automated row validation, duplicate check, and instant roll-back ensure 99.9% data integrity. Course coordinators can import semester marks in under 3 seconds with comprehensive error reporting.
+            </p>
+            <div class="text-parallax-tags">
+              <span class="text-parallax-tag"><i class="fa-solid fa-file-excel"></i> Drag-and-Drop XLSX</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-bolt"></i> Instant Validation</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-database"></i> Atomic Rollback</span>
+            </div>
+            <a href="#how-it-works" class="text-parallax-action-btn">
+              <span>View Workflow</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parallax Stage 3: Institutional Excellence & Progress Cards -->
+    <div class="text-parallax-container">
+      <div class="text-parallax-stage">
+        <div class="text-parallax-sticky-img" style="background-image: url('https://images.unsplash.com/photo-1504610926078-a1611febcad3?q=80&w=2416&auto=format&fit=crop');">
+          <div class="text-parallax-scrim"></div>
+        </div>
+        <div class="text-parallax-overlay-copy">
+          <p class="text-parallax-subheading">Institutional Standard</p>
+          <h3 class="text-parallax-heading">Dress for the best.</h3>
+        </div>
+      </div>
+      <div class="text-parallax-content-block">
+        <div class="text-parallax-grid">
+          <div>
+            <h4 class="text-parallax-lead-title">Official Vector PDF Generation Ready for Parent-Teacher Conferences</h4>
+          </div>
+          <div>
+            <p class="text-parallax-body-text">
+              Generate publication-grade academic progress cards with institutional watermarks, department seals, and cryptographically verified signatures in one click.
+            </p>
+            <p class="text-parallax-body-text">
+              Detailed subject breakdowns, semester GPA trends, attendance summaries, and personalized faculty remarks empower meaningful academic mentoring during institutional conferences.
+            </p>
+            <div class="text-parallax-tags">
+              <span class="text-parallax-tag"><i class="fa-solid fa-file-pdf"></i> Vector PDFKit</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-stamp"></i> Department Seal</span>
+              <span class="text-parallax-tag"><i class="fa-solid fa-chart-pie"></i> Performance Radar</span>
+            </div>
+            <a href="/login.html" class="text-parallax-action-btn">
+              <span>Generate Progress Cards</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1488,70 +1596,6 @@
       renderSlide(0);
       startAutoplay();
       initSmoothScrollAndNavSwitching();
-    });
-  </script>
-
-  <!-- ReactBits FlexCarousel Module Initialization -->
-  <script type="module">
-    import { initFlexCarousel } from '/assets/js/flex-carousel.js';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const carouselEl = document.getElementById('capabilities-flex-carousel');
-      if (!carouselEl) return;
-
-      const items = [
-        {
-          src: '/assets/images/capabilities/cap-progress-cards.svg',
-          alt: 'Automated Progress Cards',
-          title: 'Automated Progress Cards',
-          subtitle: 'One-click PDF generation for parent–teacher meetings'
-        },
-        {
-          src: '/assets/images/capabilities/cap-excel-import.svg',
-          alt: 'Excel Marks Import',
-          title: 'Excel Marks Import',
-          subtitle: 'Drag-and-drop spreadsheet upload with instant validation'
-        },
-        {
-          src: '/assets/images/capabilities/cap-attendance.svg',
-          alt: 'Attendance Tracking',
-          title: 'Attendance Tracking',
-          subtitle: 'Real-time period calculations with automated 75% alerts'
-        },
-        {
-          src: '/assets/images/capabilities/cap-analytics.svg',
-          alt: 'Academic Analytics',
-          title: 'Academic Analytics',
-          subtitle: 'Interactive visual analytics for class averages and trends'
-        },
-        {
-          src: '/assets/images/capabilities/cap-collaboration.svg',
-          alt: 'Parent–Teacher Collaboration',
-          title: 'Parent–Teacher Collaboration',
-          subtitle: 'Dedicated parent portal bridging communication before PTMs'
-        },
-        {
-          src: '/assets/images/capabilities/cap-ai-assistant.svg',
-          alt: 'AI Academic Assistant',
-          title: 'AI Academic Assistant',
-          subtitle: 'Pre-seeded academic FAQ chatbot for grading inquiries'
-        }
-      ];
-
-      window.capabilitiesCarousel = initFlexCarousel(carouselEl, {
-        items,
-        preset: 'ribbon',
-        intro: 'rise',
-        cardHeight: 0.72,
-        tilt: 0,
-        bend: 0.16,
-        reach: 0.28,
-        dispersion: 0.05,
-        squeeze: 0.02,
-        gap: 20,
-        focusOnClick: true,
-        captions: true
-      });
     });
   </script>
 

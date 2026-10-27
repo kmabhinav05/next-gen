@@ -1,0 +1,236 @@
+/**
+ * Hover.dev TextParallaxContent Component Styles
+ * Adapted for Next Gen Grading Academic Platform
+ * Matches www.hover.dev/components/features#text-parallax-content-(scroll)
+ */
+
+.text-parallax-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.text-parallax-container {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .text-parallax-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 3.5rem;
+  }
+}
+
+/* 150vh Container that provides the scroll distance */
+.text-parallax-stage {
+  position: relative;
+  height: 150vh;
+  width: 100%;
+}
+
+/* Sticky Image with rounded-3xl and backdrop shadow */
+.text-parallax-sticky-img {
+  position: sticky;
+  top: 12px;
+  height: calc(100vh - 24px);
+  width: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Dark gradient scrim on top of the image */
+.text-parallax-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 26, 0.68);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Parallax Floating Text Overlay */
+.text-parallax-overlay-copy {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  z-index: 2;
+  pointer-events: none;
+  padding: 1.5rem;
+  will-change: transform, opacity;
+}
+
+.text-parallax-subheading {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  margin-bottom: 0.65rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 768px) {
+  .text-parallax-subheading {
+    font-size: 1.85rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.text-parallax-heading {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  max-width: 950px;
+  margin: 0 auto;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.75);
+}
+
+@media (min-width: 768px) {
+  .text-parallax-heading {
+    font-size: 4.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .text-parallax-heading {
+    font-size: 5rem;
+  }
+}
+
+/* Bottom Content Details Block */
+.text-parallax-content-block {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 6.5rem;
+}
+
+.text-parallax-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .text-parallax-grid {
+    grid-template-columns: 4fr 8fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+.text-parallax-lead-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary, #0f172a);
+}
+
+[data-theme="dark"] .text-parallax-lead-title,
+body.dark-theme .text-parallax-lead-title {
+  color: #f8fafc;
+}
+
+.text-parallax-body-text {
+  font-size: 1.18rem;
+  line-height: 1.75;
+  color: var(--text-secondary, #475569);
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .text-parallax-body-text,
+body.dark-theme .text-parallax-body-text {
+  color: #94a3b8;
+}
+
+/* Badges list inside content */
+.text-parallax-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+}
+
+.text-parallax-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="dark"] .text-parallax-tag,
+body.dark-theme .text-parallax-tag {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+/* Modern Action CTA Button with upward-right arrow */
+.text-parallax-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.95rem 2.25rem;
+  border-radius: 9999px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  border: 1px solid transparent;
+}
+
+.text-parallax-action-btn i {
+  transition: transform 0.25s ease;
+}
+
+.text-parallax-action-btn:hover {
+  background: var(--lms-orange, #f59e0b);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+}
+
+.text-parallax-action-btn:hover i {
+  transform: translate(3px, -3px);
+}
+
+[data-theme="dark"] .text-parallax-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .text-parallax-action-btn:hover {
+  background: var(--lms-orange, #f59e0b);
+  border-color: var(--lms-orange, #f59e0b);
+  color: #0f172a;
+}

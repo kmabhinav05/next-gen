@@ -152,45 +152,76 @@ body {
   pointer-events: auto;
 }
 
-/* Translucent Frosted Glass Overlays for Grainient */
+/* Translucent Frosted Glass Overlays for Grainient (Available on all pages) */
 body.has-grainient {
+  background: transparent !important;
   background-color: transparent !important;
 }
 
+body.has-grainient .student-portal-wrapper,
+body.has-grainient .app-container,
+body.has-grainient .app-layout,
+body.has-grainient .main-wrapper,
+body.has-grainient .app-main,
+body.has-grainient .app-content,
+body.has-grainient .page-content,
 body.has-grainient .hero-section-lms {
   background: transparent !important;
+  background-color: transparent !important;
 }
 
-body.has-grainient .student-portal-wrapper {
-  background: transparent !important;
-}
-
+/* Translucent Claymorphic Master Dashboard Canvas across all portal pages */
 body.has-grainient .student-dashboard-card {
-  background: rgba(255, 255, 255, 0.90) !important;
-  backdrop-filter: blur(28px) !important;
-  -webkit-backdrop-filter: blur(28px) !important;
-  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 30px 80px -15px rgba(15, 23, 42, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 
 [data-theme="dark"] body.has-grainient .student-dashboard-card,
 body.dark-theme.has-grainient .student-dashboard-card {
-  background: rgba(15, 23, 42, 0.88) !important;
-  backdrop-filter: blur(28px) !important;
-  -webkit-backdrop-filter: blur(28px) !important;
-  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
 }
 
+/* Translucent Frosted Sidebar Menu across all portal pages */
+body.has-grainient .student-clay-sidebar {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1.5px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+[data-theme="dark"] body.has-grainient .student-clay-sidebar,
+body.dark-theme.has-grainient .student-clay-sidebar {
+  background: rgba(19, 29, 49, 0.78) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Translucent Frosted Header / Topbar */
+body.has-grainient .topbar,
+body.has-grainient .app-header,
 body.has-grainient .lms-navbar {
   background: rgba(255, 255, 255, 0.8) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
 
+[data-theme="dark"] body.has-grainient .topbar,
+[data-theme="dark"] body.has-grainient .app-header,
 [data-theme="dark"] body.has-grainient .lms-navbar,
 body.dark-theme.has-grainient .lms-navbar {
-  background: rgba(11, 15, 25, 0.8) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Smooth Theme Transitions */
@@ -2979,7 +3010,7 @@ body.dark-theme .theme-toggle-btn:hover i {
   overflow: hidden;
 }
 
-[data-theme="dark"] .student-dashboard-card {
+[data-theme="dark"] body:not(.has-grainient) .student-dashboard-card {
   background: #0f172a;
   border-color: #1e293b;
   box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.7);

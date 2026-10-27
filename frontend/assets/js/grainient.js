@@ -635,6 +635,11 @@ void main() {
       return;
     }
 
+    if (!document.body) {
+      document.addEventListener('DOMContentLoaded', autoMountGrainient);
+      return;
+    }
+
     let bgContainer = document.getElementById('grainient-background');
     if (!bgContainer) {
       bgContainer = document.createElement('div');

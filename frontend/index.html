@@ -165,38 +165,6 @@
       transform: rotate(25deg) scale(1.18);
     }
 
-    /* Glassy Search Action Link */
-    .nav-search-glass-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.85);
-      color: #64748b;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    [data-theme="dark"] .nav-search-glass-btn, body.dark-theme .nav-search-glass-btn {
-      background: rgba(30, 41, 59, 0.45);
-      border-color: rgba(255, 255, 255, 0.12);
-      color: #94a3b8;
-    }
-
-    .nav-search-glass-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.75);
-      color: var(--lms-orange);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.15);
-    }
-
     /* Option Switching Tabs for Carousel Showcase */
     .carousel-options-tabs {
       display: flex;
@@ -563,14 +531,9 @@
         Next Gen <span>Grading</span>
       </a>
 
-      <!-- Right Actions: 1. Search -> 2. Menu -> 3. Dark/Light -> 4. Login -->
+      <!-- Right Actions: 1. Menu -> 2. Dark/Light -> 3. Login -->
       <div class="d-flex align-items-center gap-3">
-        <!-- 1. Search Icon -->
-        <a href="#features" class="nav-search-glass-btn d-none d-sm-inline-flex" title="Search platform features">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </a>
-
-        <!-- 2. ReactBits StaggeredMenu Toggle Button -->
+        <!-- 1. ReactBits StaggeredMenu Toggle Button -->
         <button type="button" class="sm-toggle" id="staggeredMenuToggleBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staggered-menu-panel">
           <span class="sm-toggle-textWrap" aria-hidden="true">
             <span class="sm-toggle-textInner">
@@ -583,11 +546,11 @@
           </span>
         </button>
 
-        <!-- 3. KokonutUI SwitchButton (Dark/Light Mode) -->
+        <!-- 2. KokonutUI SwitchButton (Dark/Light Mode) -->
         <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
         </button>
 
-        <!-- 4. Specular Button Login -->
+        <!-- 3. Specular Button Login -->
         <a href="/login.html" class="btn-login-teal specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#3aa68c" data-specular-tint-opacity="0.18">
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
           <span>Login</span>

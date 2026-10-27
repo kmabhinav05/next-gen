@@ -11,30 +11,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/theme.js"></script>
-  <script src="/assets/js/ghost-fibers.js"></script>
+  <script src="/assets/js/splash-cursor.js"></script>
   <style>
-    /* GhostFibers WebGL2 Interactive Ribbon Simulation Background (ReactBits) */
-    .ghost-fibers-container,
-    #ghost-fibers-background {
+    /* Interactive Splash Cursor WebGL Fluid Background */
+    #fluid-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: 0;
-      pointer-events: auto;
-      overflow: hidden;
-      background: #070711;
-    }
-
-    .ghost-fibers-canvas,
-    #ghost-fibers-background canvas {
-      position: absolute;
-      inset: 0;
+      pointer-events: none;
       display: block;
-      width: 100%;
-      height: 100%;
-      pointer-events: auto;
     }
 
     .crextio-auth-wrapper {
@@ -42,25 +30,25 @@
       z-index: 2;
     }
     :root {
-      --crextio-bg-page: #0b0a17;
-      --crextio-card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.94) 55%, rgba(254, 243, 199, 0.95) 100%);
+      --crextio-bg-page: #eaebed;
+      --crextio-card-bg: linear-gradient(145deg, #f7f8fa 0%, #f6f5f0 55%, #fef3c7 100%);
       --crextio-yellow: #fed053;
       --crextio-yellow-hover: #fec73a;
       --crextio-text-dark: #1e293b;
       --crextio-text-muted: #64748b;
       --crextio-input-bg: #ffffff;
       --crextio-input-border: rgba(226, 232, 240, 0.95);
-      --crextio-card-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15);
+      --crextio-card-shadow: 0 35px 80px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04);
     }
 
     [data-theme="dark"], body.dark-theme {
-      --crextio-bg-page: #06050e;
-      --crextio-card-bg: linear-gradient(145deg, rgba(30, 41, 59, 0.94) 0%, rgba(21, 31, 50, 0.94) 60%, rgba(43, 35, 18, 0.94) 100%);
+      --crextio-bg-page: #0b0f19;
+      --crextio-card-bg: linear-gradient(145deg, #1e293b 0%, #151f32 60%, #2b2312 100%);
       --crextio-text-dark: #f8fafc;
       --crextio-text-muted: #94a3b8;
       --crextio-input-bg: #0f172a;
       --crextio-input-border: #334155;
-      --crextio-card-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --crextio-card-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
     }
 
     body {
@@ -783,10 +771,8 @@
 </head>
 <body>
 
-  <!-- GhostFibers Interactive WebGL2 Ribbon Simulation Background (ReactBits) -->
-  <div id="ghost-fibers-background" class="ghost-fibers-container">
-    <canvas class="ghost-fibers-canvas" aria-hidden="true"></canvas>
-  </div>
+  <!-- Interactive WebGL Splash Cursor Fluid Simulation Background (ReactBits) -->
+  <canvas id="fluid-canvas"></canvas>
 
   <!-- Floating Theme Toggle Button -->
   <button type="button" class="theme-toggle-btn position-fixed top-0 end-0 m-4 shadow-sm" style="z-index: 1000;" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">

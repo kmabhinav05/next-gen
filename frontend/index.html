@@ -563,20 +563,14 @@
         Next Gen <span>Grading</span>
       </a>
 
-      <!-- Right Actions: Search Icon + Theme Toggle + Teal Login Button + Staggered Menu Toggle -->
+      <!-- Right Actions: 1. Search -> 2. Menu -> 3. Dark/Light -> 4. Login -->
       <div class="d-flex align-items-center gap-3">
+        <!-- 1. Search Icon -->
         <a href="#features" class="nav-search-glass-btn d-none d-sm-inline-flex" title="Search platform features">
           <i class="fa-solid fa-magnifying-glass"></i>
         </a>
-        <!-- KokonutUI SwitchButton (Sun-Moon WAAPI Morph + Circular View Transition Reveal) -->
-        <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
-        </button>
-        <a href="/login.html" class="btn-login-teal specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#3aa68c" data-specular-tint-opacity="0.18">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          <span>Login</span>
-        </a>
 
-        <!-- ReactBits StaggeredMenu Toggle Button -->
+        <!-- 2. ReactBits StaggeredMenu Toggle Button -->
         <button type="button" class="sm-toggle" id="staggeredMenuToggleBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staggered-menu-panel">
           <span class="sm-toggle-textWrap" aria-hidden="true">
             <span class="sm-toggle-textInner">
@@ -588,6 +582,16 @@
             <span class="sm-icon-line sm-icon-line-v"></span>
           </span>
         </button>
+
+        <!-- 3. KokonutUI SwitchButton (Dark/Light Mode) -->
+        <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
+        </button>
+
+        <!-- 4. Specular Button Login -->
+        <a href="/login.html" class="btn-login-teal specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#3aa68c" data-specular-tint-opacity="0.18">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>Login</span>
+        </a>
       </div>
 
     </div>

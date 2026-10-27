@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="/assets/css/staggered-menu.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="/assets/js/staggered-menu.js"></script>
+  <link rel="stylesheet" href="/assets/css/folder.css">
+  <script src="/assets/js/folder.js"></script>
   <script src="/assets/js/grainient.js"></script>
   <style>
     /* LMS Mart Pristine Theme Styles */
@@ -1127,34 +1129,55 @@
       <div class="row g-4 justify-content-center">
         <!-- Step 1 -->
         <div class="col-md-4">
-          <div class="lms-step-card">
-            <div class="step-number-pill">01</div>
+          <div class="lms-step-card text-center">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <div class="step-number-pill">01</div>
+              <span class="badge bg-warning-subtle text-warning fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
+            </div>
+            <div class="step-folder-container" id="step-folder-1"></div>
             <h5 class="fw-bold mb-2">Upload Assessment Marks</h5>
-            <p class="text-muted small mb-0">
+            <p class="text-muted small mb-2 flex-grow-1">
               Faculty download pre-populated Excel templates for their allocated courses and upload internal marks with automated row validation.
             </p>
+            <div class="small text-muted mt-2 opacity-75">
+              <i class="fa-solid fa-hand-pointer me-1 text-warning"></i> Click folder to inspect templates
+            </div>
           </div>
         </div>
 
         <!-- Step 2 -->
         <div class="col-md-4">
-          <div class="lms-step-card">
-            <div class="step-number-pill teal">02</div>
+          <div class="lms-step-card text-center">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <div class="step-number-pill teal">02</div>
+              <span class="badge bg-success-subtle text-success fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
+            </div>
+            <div class="step-folder-container" id="step-folder-2"></div>
             <h5 class="fw-bold mb-2">Compute Attendance &amp; Stats</h5>
-            <p class="text-muted small mb-0">
+            <p class="text-muted small mb-2 flex-grow-1">
               The engine automatically calculates attendance percentages from stored session registers and identifies shortage cases.
             </p>
+            <div class="small text-muted mt-2 opacity-75">
+              <i class="fa-solid fa-hand-pointer me-1 text-teal"></i> Click folder to inspect registers
+            </div>
           </div>
         </div>
 
         <!-- Step 3 -->
         <div class="col-md-4">
-          <div class="lms-step-card">
-            <div class="step-number-pill">03</div>
+          <div class="lms-step-card text-center">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <div class="step-number-pill">03</div>
+              <span class="badge bg-warning-subtle text-warning fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
+            </div>
+            <div class="step-folder-container" id="step-folder-3"></div>
             <h5 class="fw-bold mb-2">Generate Progress Cards</h5>
-            <p class="text-muted small mb-0">
+            <p class="text-muted small mb-2 flex-grow-1">
               Official digital progress cards with institutional signatures are generated as downloadable PDFs for students and parents.
             </p>
+            <div class="small text-muted mt-2 opacity-75">
+              <i class="fa-solid fa-hand-pointer me-1 text-warning"></i> Click folder to inspect PDF cards
+            </div>
           </div>
         </div>
       </div>
@@ -1530,6 +1553,65 @@
           });
         }
       });
+    });
+  </script>
+
+  <!-- ReactBits Folder Component Initialization for How It Works -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Step 1: Upload Assessment Marks Folder
+      const f1 = document.getElementById('step-folder-1');
+      if (f1 && window.initFolder) {
+        window.initFolder(f1, {
+          label: 'Excel Upload',
+          color: '#f59e0b',
+          mode: 'flap',
+          variant: 'solid',
+          size: 0.88,
+          tabPosition: 'right',
+          items: [
+            { title: 'Class Marksheet.xlsx', description: 'Pre-populated roll numbers and department course codes' },
+            { title: 'Assessment IA-1 & IA-2', description: 'Strict component limits and grade thresholds validation' },
+            { title: 'Schema Verification', description: 'Zero database commit errors on spreadsheet parse' }
+          ]
+        });
+      }
+
+      // Step 2: Compute Attendance & Stats Folder
+      const f2 = document.getElementById('step-folder-2');
+      if (f2 && window.initFolder) {
+        window.initFolder(f2, {
+          label: 'Attendance Stats',
+          color: '#3aa68c',
+          mode: 'flap',
+          variant: 'solid',
+          size: 0.88,
+          tabPosition: 'right',
+          items: [
+            { title: '75% Threshold Engine', description: 'Real-time aggregate percentage calculation across periods' },
+            { title: 'Shortage Condonation', description: 'Automated flagging of low-attendance candidates' },
+            { title: 'Class Average Curve', description: 'Statistical distribution and subject performance trends' }
+          ]
+        });
+      }
+
+      // Step 3: Generate Progress Cards Folder
+      const f3 = document.getElementById('step-folder-3');
+      if (f3 && window.initFolder) {
+        window.initFolder(f3, {
+          label: 'Progress Cards',
+          color: '#ea580c',
+          mode: 'flap',
+          variant: 'solid',
+          size: 0.88,
+          tabPosition: 'right',
+          items: [
+            { title: 'Official Term Report.pdf', description: 'Print-ready layout with HOD institutional seal' },
+            { title: 'Parent Portal Sync', description: 'Immediate publication for parent-teacher conferences' },
+            { title: 'Cumulative History', description: 'Multi-semester GPA tracking & faculty feedback' }
+          ]
+        });
+      }
     });
   </script>
 </body>

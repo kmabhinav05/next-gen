@@ -1,0 +1,224 @@
+/**
+ * KokonutUI SwitchButton CSS (v2.0.0 adapted for Next Gen Grading)
+ * @author: @dorianbaffier
+ * @license: MIT
+ * Features:
+ * - View Transitions API circular theme reveal from button origin
+ * - Precise SVG mask morphing (Sun to Moon crescent bite)
+ * - Staggered ray retraction and central disc scaling
+ * - Dual-state cross-fading typography labels
+ */
+
+/* View Transitions API Circular Theme Expansion */
+html[data-theme-reveal]::view-transition-old(root),
+html[data-theme-reveal]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* KokonutUI Switch Button Base */
+.kokonut-switch-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 38px;
+  padding: 0 0.85rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: rgba(255, 255, 255, 0.92);
+  color: #18181b;
+  box-shadow: 
+    0 1px 2px 0 rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: 
+    background-color 0.18s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.18s cubic-bezier(0.23, 1, 0.32, 1),
+    color 0.18s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.18s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  outline: none;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.kokonut-switch-btn:hover {
+  background: #ffffff;
+  border-color: rgba(203, 213, 225, 1);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 14px -2px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.kokonut-switch-btn:active {
+  transform: translateY(0);
+  background: #f8fafc;
+}
+
+.kokonut-switch-btn:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 2px #ffffff,
+    0 0 0 4px var(--lms-orange, #f59e0b) !important;
+}
+
+/* Dark Theme State */
+[data-theme="dark"] .kokonut-switch-btn,
+html.dark .kokonut-switch-btn,
+body.dark-theme .kokonut-switch-btn {
+  border-color: rgba(63, 63, 70, 0.75);
+  background: rgba(24, 24, 27, 0.88);
+  color: #f4f4f5;
+  box-shadow: 
+    0 1px 3px 0 rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+[data-theme="dark"] .kokonut-switch-btn:hover,
+html.dark .kokonut-switch-btn:hover,
+body.dark-theme .kokonut-switch-btn:hover {
+  background: rgba(39, 39, 42, 0.96);
+  border-color: rgba(82, 82, 91, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 16px -2px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+[data-theme="dark"] .kokonut-switch-btn:active,
+html.dark .kokonut-switch-btn:active,
+body.dark-theme .kokonut-switch-btn:active {
+  transform: translateY(0);
+  background: rgba(24, 24, 27, 0.95);
+}
+
+[data-theme="dark"] .kokonut-switch-btn:focus-visible,
+html.dark .kokonut-switch-btn:focus-visible,
+body.dark-theme .kokonut-switch-btn:focus-visible {
+  box-shadow: 
+    0 0 0 2px #090d16,
+    0 0 0 4px #fbbf24 !important;
+}
+
+/* SVG Icon & Parts */
+.kokonut-switch-icon {
+  pointer-events: none;
+  shrink: 0;
+  overflow: visible;
+  display: block;
+}
+
+/* Base Part Styles (Light Mode) */
+.kokonut-bite {
+  translate: 10px -10px;
+}
+
+.kokonut-disc {
+  transform-origin: 12px 12px;
+  transform-box: view-box;
+  scale: 1;
+}
+
+.kokonut-ray {
+  transform-origin: 12px 12px;
+  transform-box: view-box;
+  scale: 1;
+  opacity: 1;
+}
+
+/* Dark Mode Part Styles */
+[data-theme="dark"] .kokonut-bite,
+html.dark .kokonut-bite,
+body.dark-theme .kokonut-bite {
+  translate: 0px 0px;
+}
+
+[data-theme="dark"] .kokonut-disc,
+html.dark .kokonut-disc,
+body.dark-theme .kokonut-disc {
+  scale: 1.8;
+}
+
+[data-theme="dark"] .kokonut-ray,
+html.dark .kokonut-ray,
+body.dark-theme .kokonut-ray {
+  scale: 0.5;
+  opacity: 0;
+}
+
+/* Typography Label Cross-fade */
+.kokonut-switch-label-wrap {
+  display: grid;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.kokonut-switch-label {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.kokonut-label-light {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.kokonut-label-dark {
+  opacity: 0;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .kokonut-label-light,
+html.dark .kokonut-label-light,
+body.dark-theme .kokonut-label-light {
+  opacity: 0;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .kokonut-label-dark,
+html.dark .kokonut-label-dark,
+body.dark-theme .kokonut-label-dark {
+  opacity: 1;
+  filter: blur(0px);
+  pointer-events: auto;
+}
+
+/* Square / Icon-only modifier */
+.kokonut-switch-btn.icon-only {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+
+.kokonut-switch-btn.icon-only .kokonut-switch-label-wrap {
+  display: none !important;
+}
+
+/* Responsive adjustment for compact screens */
+@media (max-width: 575.98px) {
+  .kokonut-switch-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    gap: 0;
+  }
+  .kokonut-switch-label-wrap {
+    display: none !important;
+  }
+}

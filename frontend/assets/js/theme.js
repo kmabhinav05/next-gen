@@ -41,6 +41,7 @@ function setTheme(theme) {
   // Add temporary transition class for smooth visual shift
   root.classList.add('theme-transitioning');
   root.setAttribute('data-theme', theme);
+  root.classList.toggle('dark', isDark);
   
   if (document.body) {
     document.body.classList.toggle('dark-theme', isDark);
@@ -60,7 +61,15 @@ function setTheme(theme) {
  * Toggle between light and dark themes
  */
 function toggleTheme(event) {
-  // Animate the clicked button icon
+  if (window.handleKokonutClick && document.querySelector('.kokonut-switch-btn')) {
+    const targetBtn = (event && (event.currentTarget || event.target.closest('.kokonut-switch-btn'))) || document.querySelector('.kokonut-switch-btn');
+    if (targetBtn) {
+      window.handleKokonutClick({ currentTarget: targetBtn });
+      return;
+    }
+  }
+
+  // Fallback animation for legacy toggle buttons
   const btn = (event && (event.currentTarget || event.target)) || document.querySelector('.theme-toggle-btn');
   const icon = btn ? (btn.tagName === 'I' ? btn : btn.querySelector('i')) : null;
   if (icon) {
@@ -86,7 +95,13 @@ function updateThemeToggleIcons() {
   const current = getTheme();
   const isDark = current === 'dark';
 
-  document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+  document.querySelectorAll('.kokonut-switch-btn').forEach((btn) => {
+    btn.setAttribute('aria-pressed', isDark);
+    btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+  });
+
+  document.querySelectorAll('.theme-toggle-btn:not(.kokonut-switch-btn)').forEach((btn) => {
     btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     btn.classList.toggle('is-dark', isDark);

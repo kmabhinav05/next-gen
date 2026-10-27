@@ -1,6 +1,7 @@
 /* ============================================================================
    ReactBits SpecularButton Component CSS
    Dynamic WebGL2 Specular Reflection Rim Lighting for Buttons
+   Source: https://reactbits.dev/components/specular-button
    ============================================================================ */
 
 .specular-button {
@@ -17,26 +18,63 @@
   justify-content: center;
   gap: 0.5em;
   margin: 0;
+  border: 0 !important;
   border-radius: var(--sb-radius);
   font: inherit;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1;
   letter-spacing: 0.01em;
-  cursor: pointer;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
-  overflow: visible !important;
-}
-
-/* Standalone Specular Button styles (when not already styled by Bootstrap/LMS classes) */
-.specular-button:not(.btn):not([class*="btn-"]):not([class*="crextio-"]):not([class*="demo-chip-"]):not([class*="theme-toggle-"]) {
-  border: 0;
   color: var(--sb-text-color);
   background: color-mix(in srgb, var(--sb-tint) calc(var(--sb-tint-opacity) * 100%), transparent);
   box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45);
   -webkit-backdrop-filter: blur(var(--sb-blur));
   backdrop-filter: blur(var(--sb-blur));
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, background-color 0.2s ease;
+  overflow: visible !important;
+  text-decoration: none !important;
+}
+
+/* Light mode adjustments for high contrast */
+html:not(.dark) .specular-button:not([class*="dark"]):not(.text-parallax-action-btn) {
+  --sb-tint: #0f172a;
+  --sb-tint-opacity: 0.06;
+  --sb-text-color: #0f172a;
+}
+
+html.dark .specular-button,
+[data-theme="dark"] .specular-button,
+body.dark-theme .specular-button {
+  --sb-tint: #ffffff;
+  --sb-tint-opacity: 0.06;
+  --sb-text-color: #f5f5f5;
+}
+
+/* Themed variants maintain brand color glow while enjoying specular sheen */
+.specular-button.btn-explore-orange,
+.specular-button.btn-orange-specular {
+  --sb-tint: #f59e0b;
+  --sb-tint-opacity: 0.18;
+  --sb-text-color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), rgba(217, 119, 6, 0.9)) !important;
+  box-shadow: 0 12px 28px -10px rgba(245, 158, 11, 0.55);
+}
+
+.specular-button.btn-login-teal,
+.specular-button.btn-teal-specular {
+  --sb-tint: #3aa68c;
+  --sb-tint-opacity: 0.18;
+  --sb-text-color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(58, 166, 140, 0.95), rgba(46, 139, 117, 0.9)) !important;
+  box-shadow: 0 12px 28px -10px rgba(58, 166, 140, 0.55);
+}
+
+/* Active & hover interactions */
+.specular-button:hover {
+  color: var(--sb-text-color);
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .specular-button:active {
@@ -44,7 +82,7 @@
 }
 
 .specular-button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--sb-text-color, #ffffff) 55%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--sb-text-color) 55%, transparent);
   outline-offset: 3px;
 }
 
@@ -57,6 +95,7 @@
   transform: none;
 }
 
+/* Sizing matching React Bits SpecularButton props */
 .specular-button--sm {
   padding: 10px 20px;
   font-size: 0.875rem;
@@ -92,5 +131,4 @@
   align-items: center;
   justify-content: center;
   gap: inherit;
-  width: 100%;
 }

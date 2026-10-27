@@ -1,0 +1,24 @@
+/* ============================================================================
+   ReactBits FadeContent Component CSS
+   GSAP & ScrollTrigger Procedural Noise, Dissolve, Mist, Focus & Develop Fades
+   ============================================================================ */
+
+.fade-content,
+fade-content,
+[data-fade-content] {
+  display: block;
+  visibility: hidden;
+  will-change: transform, opacity, filter;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .fade-content,
+  fade-content,
+  [data-fade-content] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}

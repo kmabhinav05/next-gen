@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="/assets/css/staggered-menu.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/fade-content.css">
+  <script src="/assets/js/fade-content.js"></script>
   <script src="/assets/js/staggered-menu.js"></script>
   <script src="/assets/js/text-parallax.js"></script>
   <link rel="stylesheet" href="/assets/css/folder.css">
@@ -728,7 +730,7 @@
         <!-- KokonutUI SwitchButton (Sun-Moon WAAPI Morph + Circular View Transition Reveal) -->
         <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
         </button>
-        <a href="/login.html" class="btn-login-teal">
+        <a href="/login.html" class="btn-login-teal specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#3aa68c" data-specular-tint-opacity="0.18">
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
           <span>Login</span>
         </a>
@@ -811,30 +813,31 @@
         
         <!-- Left Content -->
         <div class="col-lg-6">
-          
-          <!-- Tagline: Learn From Today 🎓 -->
-          <div class="tagline-badge">
-            <span>Learn From Today</span>
-            <span style="font-size: 1.35rem;">🎓</span>
-          </div>
+          <div data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1" data-trigger="mount">
+            <!-- Tagline: Learn From Today 🎓 -->
+            <div class="tagline-badge">
+              <span>Learn From Today</span>
+              <span style="font-size: 1.35rem;">🎓</span>
+            </div>
 
-          <!-- Headline: The Best way For Your Learning -->
-          <h1 class="hero-main-title">
-            The Best way For<br>
-            Your <span class="keyword-highlight">Learning</span>
-          </h1>
+            <!-- Headline: The Best way For Your Learning -->
+            <h1 class="hero-main-title">
+              The Best way For<br>
+              Your <span class="keyword-highlight">Learning</span>
+            </h1>
 
-          <!-- Description text -->
-          <p class="hero-subtext">
-            Our academic department assistance system has been developed to be a vehicle of delivering automated grading, internal marks upload, and digital progress cards for students, teachers, and parents.
-          </p>
+            <!-- Description text -->
+            <p class="hero-subtext">
+              Our academic department assistance system has been developed to be a vehicle of delivering automated grading, internal marks upload, and digital progress cards for students, teachers, and parents.
+            </p>
 
-          <!-- Primary CTA Button -->
-          <div class="d-flex flex-wrap gap-3 mb-5">
-            <a href="/login.html" class="btn-explore-orange">
-              <span>Explore Portals</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <!-- Primary CTA Button -->
+            <div class="d-flex flex-wrap gap-3 mb-5">
+              <a href="/login.html" class="btn-explore-orange specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#f59e0b" data-specular-tint-opacity="0.18">
+                <span>Explore Portals</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
           </div>
 
           <!-- Floating Stats Box (Clean White Box with Dividers) -->
@@ -935,7 +938,7 @@
   <section class="py-5" id="about" style="border-top: 1px solid rgba(148, 163, 184, 0.15); scroll-margin-top: 80px;">
     <div class="container py-4">
       <div class="row align-items-center g-5">
-        <div class="col-lg-6">
+        <div class="col-lg-6" data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1">
           <div class="tagline-badge">About Our Platform 💡</div>
           <h2 class="display-6 fw-bold mb-3">Modernizing Academic Operations with Zero Friction</h2>
           <p class="text-muted mb-4" style="line-height: 1.75; font-size: 1.05rem;">
@@ -962,7 +965,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6" data-fade-content data-effect="focus" data-duration="1.5" data-threshold="0.1">
           <div class="lms-feature-card p-4 p-md-5">
             <div class="d-flex align-items-center gap-2 mb-4">
               <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-2 rounded-pill fw-bold">
@@ -1130,7 +1133,7 @@
   <!-- How It Works (3 Steps) -->
   <section class="py-5" id="how-it-works">
     <div class="container py-4">
-      <div class="text-center mb-5">
+      <div class="text-center mb-5" data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1">
         <div class="tagline-badge justify-content-center">Simplified Workflow 🚀</div>
         <h2 class="display-6 fw-bold mb-2">How It Works</h2>
         <p class="text-muted mx-auto" style="max-width: 520px;">
@@ -1138,7 +1141,7 @@
         </p>
       </div>
 
-      <div class="row g-4 justify-content-center">
+      <div class="row g-4 justify-content-center" data-fade-content data-effect="focus" data-duration="1.5" data-stagger="0.12" data-threshold="0.1">
         <!-- Step 1 -->
         <div class="col-md-4">
           <div class="lms-step-card text-center">
@@ -1200,7 +1203,7 @@
   <section class="py-5" id="contact" style="background: var(--lms-warm-bg);">
     <div class="container py-4">
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-8" data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1">
           <div class="lms-feature-card text-center p-5">
             <div class="tagline-badge justify-content-center">Academic Department Assistance 🏛️</div>
             <h3 class="fw-bold mb-2">Have Inquiries or Need Technical Support?</h3>
@@ -1222,7 +1225,7 @@
               </div>
             </div>
             <div>
-              <a href="/login.html" class="btn-explore-orange px-4 py-3">
+              <a href="/login.html" class="btn-explore-orange px-4 py-3 specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#f59e0b" data-specular-tint-opacity="0.18">
                 <i class="fa-solid fa-lock me-2"></i> Access Secured Portal
               </a>
             </div>

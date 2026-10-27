@@ -238,6 +238,9 @@ void main() {
     }
 
     button.classList.add('specular-button');
+    if (!button.className.includes('specular-button--')) {
+      button.classList.add('specular-button--lg');
+    }
 
     // Ensure DOM structure: <canvas class="specular-button__light" /> followed by <span class="specular-button__label">
     let canvas = button.querySelector(':scope > .specular-button__light');
@@ -286,9 +289,9 @@ void main() {
     } catch (e) {}
 
     const settings = {
-      radius: Math.max(0, options.radius !== undefined ? options.radius : (parseFloat(button.dataset.specularRadius) || compRadius)),
-      lineColor: String(options.lineColor || button.dataset.specularLineColor || defaultLine),
-      baseColor: String(options.baseColor || button.dataset.specularBaseColor || defaultBase),
+      radius: Math.max(0, options.radius !== undefined ? options.radius : (parseFloat(button.dataset.specularRadius) || compRadius || 18)),
+      lineColor: String(options.lineColor || button.dataset.specularLineColor || defaultLine || '#ffffff'),
+      baseColor: String(options.baseColor || button.dataset.specularBaseColor || defaultBase || '#525252'),
       intensity: Math.max(0, options.intensity !== undefined ? options.intensity : (parseFloat(button.dataset.specularIntensity) || 1)),
       idleIntensity: clamp(options.idleIntensity !== undefined ? options.idleIntensity : (parseFloat(button.dataset.specularIdleIntensity) || 0.35), 0, 1),
       shineSize: Math.max(0, options.shineSize !== undefined ? options.shineSize : (parseFloat(button.dataset.specularShineSize) || 10)),
@@ -296,9 +299,9 @@ void main() {
       thickness: Math.max(0, options.thickness !== undefined ? options.thickness : (parseFloat(button.dataset.specularThickness) || 1.2)),
       glow: Math.max(0, options.glow !== undefined ? options.glow : (parseFloat(button.dataset.specularGlow) || 1)),
       speed: options.speed !== undefined ? options.speed : (parseFloat(button.dataset.specularSpeed) || 0.35),
-      followMouse: options.followMouse !== false,
+      followMouse: options.followMouse !== undefined ? options.followMouse : (button.dataset.specularFollowMouse === 'true'),
       proximity: Math.max(1, options.proximity !== undefined ? options.proximity : (parseFloat(button.dataset.specularProximity) || 250)),
-      autoAnimate: options.autoAnimate || button.dataset.specularAutoAnimate === 'true',
+      autoAnimate: options.autoAnimate !== undefined ? options.autoAnimate : (button.dataset.specularAutoAnimate === 'true'),
       disabled: button.disabled || options.disabled || false
     };
 
@@ -540,6 +543,7 @@ void main() {
       'a.btn-secondary-navy:not([data-no-specular])',
       'a.nav-search-glass-btn:not([data-no-specular])',
       'a.crextio-close-circle-btn:not([data-no-specular])',
+      'a.text-parallax-action-btn:not([data-no-specular])',
       '.specular-button:not([data-no-specular])'
     ].join(', ');
 

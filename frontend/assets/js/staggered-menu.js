@@ -332,17 +332,13 @@
           const target = document.getElementById(href.substring(1));
           if (target) {
             e.preventDefault();
-            if (window.smoother) {
-              window.smoother.scrollTo(target, true, 'top 80px');
-            } else {
-              const navbar = document.querySelector('.lms-navbar');
-              const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
-              const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-              window.scrollTo({
-                top: Math.max(0, targetPos),
-                behavior: 'smooth'
-              });
-            }
+            const navbar = document.querySelector('.lms-navbar');
+            const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({
+              top: Math.max(0, targetPos),
+              behavior: 'smooth'
+            });
           }
         }
       });

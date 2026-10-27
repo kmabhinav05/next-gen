@@ -19,30 +19,12 @@
   <link rel="stylesheet" href="/assets/css/staggered-menu.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap-trial@3/dist/ScrollSmoother.min.js"></script>
   <script src="/assets/js/staggered-menu.js"></script>
   <script src="/assets/js/text-parallax.js"></script>
   <link rel="stylesheet" href="/assets/css/folder.css">
   <script src="/assets/js/folder.js"></script>
   <script src="/assets/js/grainient.js"></script>
   <style>
-    /* GSAP ScrollSmoother Structure */
-    #smooth-wrapper {
-      overflow: hidden;
-      position: fixed;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    #smooth-content {
-      overflow: visible;
-      width: 100%;
-      position: relative;
-    }
-
     /* LMS Mart Pristine Theme Styles */
     :root {
       --lms-orange: #f59e0b;
@@ -849,12 +831,8 @@
     <a href="#contact" class="mobile-nav-chip" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
   </div>
 
-  <!-- GSAP ScrollSmoother Main Viewport Wrapper -->
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-
-      <!-- Hero Section (Faithful LMS Mart Layout) -->
-      <section class="hero-section-lms" id="home">
+  <!-- Hero Section (Faithful LMS Mart Layout) -->
+  <section class="hero-section-lms" id="home">
     <div class="container">
       <div class="row align-items-center g-5">
         
@@ -862,7 +840,7 @@
         <div class="col-lg-6">
           
           <!-- Tagline: Learn From Today 🎓 -->
-          <div class="tagline-badge" data-speed="clamp(0.92)">
+          <div class="tagline-badge">
             <span>Learn From Today</span>
             <span style="font-size: 1.35rem;">🎓</span>
           </div>
@@ -887,7 +865,7 @@
           </div>
 
           <!-- Floating Stats Box (Clean White Box with Dividers) -->
-          <div class="hero-stats-card-box" data-speed="clamp(1.06)">
+          <div class="hero-stats-card-box">
             <div class="stat-block">
               <div class="stat-main-number">10+</div>
               <div class="stat-main-label">Institutions</div>
@@ -1012,7 +990,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="lms-feature-card p-4 p-md-5" data-speed="clamp(1.04)">
+          <div class="lms-feature-card p-4 p-md-5">
             <div class="d-flex align-items-center gap-2 mb-4">
               <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-2 rounded-pill fw-bold">
                 <i class="fa-solid fa-shield-halved me-1"></i> Cloud Connected
@@ -1306,8 +1284,6 @@
       </div>
     </div>
   </footer>
-    </div><!-- /#smooth-content -->
-  </div><!-- /#smooth-wrapper -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -1441,34 +1417,13 @@
       });
     }
 
-    // GSAP ScrollSmoother & Dynamic Navigation Synchronization
+    // Smooth Scrolling & Sliding Nav Pill Observer
     function initSmoothScrollAndNavSwitching() {
       const navContainer = document.getElementById('mainNavWrapper');
       const slidingPill = document.getElementById('navSlidingPill');
       const navLinks = document.querySelectorAll('.nav-link-item[data-section]');
       const mobileChips = document.querySelectorAll('.mobile-nav-chip[data-section]');
       const navbar = document.getElementById('topNavbar');
-
-      // 1. Initialize ScrollSmoother if available
-      if (typeof gsap !== 'undefined' && typeof ScrollSmoother !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          try {
-            window.smoother = ScrollSmoother.create({
-              wrapper: '#smooth-wrapper',
-              content: '#smooth-content',
-              smooth: 1.6,           // Smooth lag duration (seconds)
-              effects: true,          // Enables data-speed & data-lag parallax
-              normalizeScroll: true,  // Consistent smooth behavior across devices
-              smoothTouch: 0.1
-            });
-            console.log('[ScrollSmoother] Initialized successfully');
-          } catch (err) {
-            console.warn('[ScrollSmoother] Initialization fallback:', err);
-          }
-        }
-      }
 
       function movePillTo(element) {
         if (!slidingPill || !navContainer || !element) return;
@@ -1503,7 +1458,7 @@
         }
       }
 
-      // Smooth scroll handler for nav clicks with accurate offset & ScrollSmoother integration
+      // Smooth scroll handler for nav clicks with accurate offset
       function handleNavClick(e) {
         const targetHref = this.getAttribute('href');
         if (!targetHref || !targetHref.startsWith('#')) return;
@@ -1515,62 +1470,41 @@
         e.preventDefault();
         setActiveOption(targetId);
 
-        if (window.smoother) {
-          window.smoother.scrollTo(targetElem, true, 'top 80px');
-        } else {
-          const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
-          const targetPosition = targetElem.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
+        const targetPosition = targetElem.getBoundingClientRect().top + window.pageYOffset - navHeight;
 
-          window.scrollTo({
-            top: Math.max(0, targetPosition),
-            behavior: 'smooth'
-          });
-        }
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: 'smooth'
+        });
       }
 
       navLinks.forEach(link => link.addEventListener('click', handleNavClick));
       mobileChips.forEach(chip => chip.addEventListener('click', handleNavClick));
 
-      // ScrollSpy: ScrollTrigger + IntersectionObserver fallback
+      // IntersectionObserver for ScrollSpy dynamic switching while scrolling
       const sectionIds = ['home', 'about', 'features', 'how-it-works', 'contact'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
-      if (typeof ScrollTrigger !== 'undefined') {
-        sectionIds.forEach(id => {
-          const sec = document.getElementById(id);
-          if (sec) {
-            ScrollTrigger.create({
-              trigger: sec,
-              start: 'top 45%',
-              end: 'bottom 45%',
-              onEnter: () => setActiveOption(id),
-              onEnterBack: () => setActiveOption(id)
-            });
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveOption(entry.target.id);
           }
         });
+      }, observerOptions);
 
-        if (navbar) {
-          ScrollTrigger.create({
-            start: 'top -20',
-            onUpdate: (self) => {
-              navbar.classList.toggle('scrolled', self.scroll() > 20);
-            }
-          });
-        }
-      } else {
-        const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              setActiveOption(entry.target.id);
-            }
-          });
-        }, { rootMargin: '-20% 0px -55% 0px', threshold: 0 });
-        sections.forEach(sec => observer.observe(sec));
-      }
+      sections.forEach(sec => observer.observe(sec));
 
-      // Window scroll event for navbar shadow (native fallback)
+      // Window scroll event for navbar shadow
       window.addEventListener('scroll', () => {
-        if (navbar && !window.smoother) {
+        if (navbar) {
           navbar.classList.toggle('scrolled', window.scrollY > 20);
         }
       }, { passive: true });
@@ -1579,16 +1513,13 @@
       window.addEventListener('resize', () => {
         const active = document.querySelector('.nav-link-item.active');
         if (active) movePillTo(active);
-        if (typeof ScrollTrigger !== 'undefined') {
-          ScrollTrigger.refresh();
-        }
       });
 
       // Initial pill placement
       setTimeout(() => {
         const active = document.querySelector('.nav-link-item.active') || navLinks[0];
         if (active) movePillTo(active);
-      }, 150);
+      }, 100);
     }
 
     // Initialize

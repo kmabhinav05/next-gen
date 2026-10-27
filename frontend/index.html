@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/flex-carousel.css">
   <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/grainient.js"></script>
   <style>
@@ -928,11 +929,16 @@
         </p>
       </div>
 
-      <div class="row g-4">
+      <!-- ReactBits FlexCarousel WebGL Curved Ribbon Showcase -->
+      <div class="flex-carousel-wrapper my-4">
+        <div id="capabilities-flex-carousel"></div>
+      </div>
+
+      <div class="row g-4 mt-3" id="capabilities-card-grid">
         
         <!-- Feature 1 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(0)" data-feature-index="0" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-orange">
               <i class="fa-solid fa-id-card"></i>
             </div>
@@ -945,7 +951,7 @@
 
         <!-- Feature 2 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(1)" data-feature-index="1" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-teal">
               <i class="fa-solid fa-file-excel"></i>
             </div>
@@ -958,7 +964,7 @@
 
         <!-- Feature 3 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(2)" data-feature-index="2" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-orange">
               <i class="fa-solid fa-clipboard-user"></i>
             </div>
@@ -971,7 +977,7 @@
 
         <!-- Feature 4 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(3)" data-feature-index="3" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-teal">
               <i class="fa-solid fa-chart-line"></i>
             </div>
@@ -984,7 +990,7 @@
 
         <!-- Feature 5 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(4)" data-feature-index="4" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-orange">
               <i class="fa-solid fa-children"></i>
             </div>
@@ -997,7 +1003,7 @@
 
         <!-- Feature 6 -->
         <div class="col-md-6 col-lg-4">
-          <div class="lms-feature-card">
+          <div class="lms-feature-card cursor-pointer" onclick="window.capabilitiesCarousel?.goToIndex(5)" data-feature-index="5" title="Click to view in 3D carousel">
             <div class="lms-icon-bubble bubble-teal">
               <i class="fa-solid fa-robot"></i>
             </div>
@@ -1364,6 +1370,71 @@
       renderSlide(0);
       startAutoplay();
       initSmoothScrollAndNavSwitching();
+    });
+  </script>
+
+  <!-- ReactBits FlexCarousel Module Initialization -->
+  <script type="module">
+    import { initFlexCarousel } from '/assets/js/flex-carousel.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const carouselEl = document.getElementById('capabilities-flex-carousel');
+      if (!carouselEl) return;
+
+      const items = [
+        {
+          src: '/assets/images/capabilities/cap-progress-cards.svg',
+          alt: 'Automated Progress Cards',
+          title: 'Automated Progress Cards',
+          subtitle: 'One-click PDF generation for parent–teacher meetings'
+        },
+        {
+          src: '/assets/images/capabilities/cap-excel-import.svg',
+          alt: 'Excel Marks Import',
+          title: 'Excel Marks Import',
+          subtitle: 'Drag-and-drop spreadsheet upload with instant validation'
+        },
+        {
+          src: '/assets/images/capabilities/cap-attendance.svg',
+          alt: 'Attendance Tracking',
+          title: 'Attendance Tracking',
+          subtitle: 'Real-time period calculations with automated 75% alerts'
+        },
+        {
+          src: '/assets/images/capabilities/cap-analytics.svg',
+          alt: 'Academic Analytics',
+          title: 'Academic Analytics',
+          subtitle: 'Interactive visual analytics for class averages and trends'
+        },
+        {
+          src: '/assets/images/capabilities/cap-collaboration.svg',
+          alt: 'Parent–Teacher Collaboration',
+          title: 'Parent–Teacher Collaboration',
+          subtitle: 'Dedicated parent portal bridging communication before PTMs'
+        },
+        {
+          src: '/assets/images/capabilities/cap-ai-assistant.svg',
+          alt: 'AI Academic Assistant',
+          title: 'AI Academic Assistant',
+          subtitle: 'Pre-seeded academic FAQ chatbot for grading inquiries'
+        }
+      ];
+
+      window.capabilitiesCarousel = initFlexCarousel(carouselEl, {
+        items,
+        preset: 'liquid',
+        intro: 'rise',
+        cardHeight: 0.5,
+        gap: 12,
+        squeeze: 0.2,
+        focusOnClick: true,
+        captions: true,
+        onChange: (index) => {
+          document.querySelectorAll('[data-feature-index]').forEach((el, i) => {
+            el.classList.toggle('active-feature-highlight', i === index);
+          });
+        }
+      });
     });
   </script>
 </body>

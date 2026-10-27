@@ -3,12 +3,10 @@
  * Compatible with both apiRequest() and api.get() / api.post() syntax
  */
 
-// Production tunnel URL for Cloudflare-hosted frontend
-const CLOUDFLARE_BACKEND_ORIGIN = 'https://overall-conceptual-appointment-producer.trycloudflare.com';
-
-const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-  ? '/api'
-  : (window.__CUSTOM_API_BASE__ || `${CLOUDFLARE_BACKEND_ORIGIN}/api`);
+// Universal API Base URL - always use relative '/api' when served over HTTP/HTTPS (whether localhost, tunnel, or domain),
+// or fallback to window.__CUSTOM_API_BASE__ / local server when loaded as a local file.
+const API_BASE = window.__CUSTOM_API_BASE__ || (window.location.protocol.startsWith('http') ? '/api' : 'http://localhost:5000/api');
+window.API_BASE = API_BASE;
 
 /**
  * Toast Notification Dispatcher
@@ -127,6 +125,7 @@ const api = {
 window.api = api;
 window.apiRequest = apiRequest;
 window.showToast = showToast;
+window.API_BASE = API_BASE;
 
 /**
  * Utility: Format ISO date string

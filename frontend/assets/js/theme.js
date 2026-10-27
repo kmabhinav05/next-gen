@@ -38,8 +38,14 @@ function setTheme(theme) {
   const isDark = theme === 'dark';
   const root = document.documentElement;
 
-  // Add temporary transition class for smooth visual shift
-  root.classList.add('theme-transitioning');
+  // Add temporary transition class for smooth visual shift only when View Transitions API is not actively expanding
+  if (!root.hasAttribute('data-theme-reveal')) {
+    root.classList.add('theme-transitioning');
+    setTimeout(() => {
+      root.classList.remove('theme-transitioning');
+    }, 350);
+  }
+
   root.setAttribute('data-theme', theme);
   root.classList.toggle('dark', isDark);
   
@@ -51,10 +57,6 @@ function setTheme(theme) {
   updateThemeToggleIcons();
 
   window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
-
-  setTimeout(() => {
-    root.classList.remove('theme-transitioning');
-  }, 350);
 }
 
 /**

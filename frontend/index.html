@@ -201,8 +201,8 @@
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    /* Glassy Theme Toggle Button */
-    .theme-toggle-btn {
+    /* Glassy Theme Toggle Button (Legacy icon buttons only) */
+    .theme-toggle-btn:not(.kokonut-switch-btn) {
       width: 42px;
       height: 42px;
       border-radius: 9999px;
@@ -219,18 +219,18 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .theme-toggle-btn i {
+    .theme-toggle-btn:not(.kokonut-switch-btn) i {
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    [data-theme="dark"] .theme-toggle-btn, body.dark-theme .theme-toggle-btn {
+    [data-theme="dark"] .theme-toggle-btn:not(.kokonut-switch-btn), body.dark-theme .theme-toggle-btn:not(.kokonut-switch-btn) {
       background: rgba(23, 32, 51, 0.85) !important;
       border-color: rgba(255, 255, 255, 0.14) !important;
       color: #fbbf24 !important;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
     }
 
-    .theme-toggle-btn:hover {
+    .theme-toggle-btn:not(.kokonut-switch-btn):hover {
       transform: translateY(-2px);
       background: #ffffff;
       border-color: #0d9488;
@@ -238,18 +238,18 @@
       box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
     }
 
-    .theme-toggle-btn:hover i {
+    .theme-toggle-btn:not(.kokonut-switch-btn):hover i {
       transform: rotate(20deg) scale(1.15);
     }
 
-    [data-theme="dark"] .theme-toggle-btn:hover, body.dark-theme .theme-toggle-btn:hover {
+    [data-theme="dark"] .theme-toggle-btn:not(.kokonut-switch-btn):hover, body.dark-theme .theme-toggle-btn:not(.kokonut-switch-btn):hover {
       background: rgba(245, 158, 11, 0.16) !important;
       border-color: #fbbf24 !important;
       color: #f59e0b !important;
       box-shadow: 0 8px 22px rgba(245, 158, 11, 0.35) !important;
     }
 
-    [data-theme="dark"] .theme-toggle-btn:hover i, body.dark-theme .theme-toggle-btn:hover i {
+    [data-theme="dark"] .theme-toggle-btn:not(.kokonut-switch-btn):hover i, body.dark-theme .theme-toggle-btn:not(.kokonut-switch-btn):hover i {
       transform: rotate(25deg) scale(1.18);
     }
 
@@ -726,7 +726,7 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </a>
         <!-- KokonutUI SwitchButton (Sun-Moon WAAPI Morph + Circular View Transition Reveal) -->
-        <button type="button" class="kokonut-switch-btn theme-toggle-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
+        <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
         </button>
         <a href="/login.html" class="btn-login-teal">
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
@@ -791,33 +791,6 @@
             </a>
           </li>
         </ul>
-
-        <!-- Institutional Portals / Social Links -->
-        <div class="sm-socials" aria-label="Institutional Portals">
-          <h3 class="sm-socials-title">Institutional Portals</h3>
-          <ul class="sm-socials-list" role="list">
-            <li class="sm-socials-item">
-              <a href="/login.html" class="sm-socials-link">
-                <i class="fa-solid fa-graduation-cap"></i> Student
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="/login.html" class="sm-socials-link">
-                <i class="fa-solid fa-chalkboard-user"></i> Faculty
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="/login.html" class="sm-socials-link">
-                <i class="fa-solid fa-users"></i> Parent
-              </a>
-            </li>
-            <li class="sm-socials-item">
-              <a href="/login.html" class="sm-socials-link">
-                <i class="fa-solid fa-shield-halved"></i> Admin
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
     </aside>
   </div>

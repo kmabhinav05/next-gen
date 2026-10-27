@@ -208,21 +208,23 @@
       const beforeSnapshot = snapshot(allParts);
 
       // Apply theme to DOM
-      root.setAttribute('data-theme', nextTheme);
-      root.classList.toggle('dark', nextTheme === 'dark');
-      if (document.body) {
-        document.body.classList.toggle('dark-theme', nextTheme === 'dark');
+      if (typeof setTheme === 'function') {
+        setTheme(nextTheme);
+      } else {
+        root.setAttribute('data-theme', nextTheme);
+        root.classList.toggle('dark', nextTheme === 'dark');
+        if (document.body) {
+          document.body.classList.toggle('dark-theme', nextTheme === 'dark');
+        }
+        localStorage.setItem('ngg_theme', nextTheme);
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: nextTheme } }));
       }
-      localStorage.setItem('ngg_theme', nextTheme);
 
       // Update ARIA states
       buttons.forEach(b => {
         b.setAttribute('aria-pressed', nextTheme === 'dark');
         b.setAttribute('aria-label', nextTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
       });
-
-      // Dispatch global event for listeners (e.g. Grainient canvas palette)
-      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: nextTheme } }));
 
       // Run WAAPI morphing
       morph(beforeSnapshot, nextTheme === 'dark');

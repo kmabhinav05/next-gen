@@ -16,6 +16,26 @@ html[data-theme-reveal]::view-transition-new(root) {
   mix-blend-mode: normal;
 }
 
+html[data-theme-reveal]::view-transition-group(root) {
+  animation: none;
+}
+
+html[data-theme-reveal]::view-transition-old(root) {
+  z-index: 1;
+}
+
+html[data-theme-reveal]::view-transition-new(root) {
+  z-index: 999999;
+}
+
+/* Disable DOM CSS transitions while View Transition is capturing to avoid mid-state ghosting */
+html[data-theme-reveal],
+html[data-theme-reveal] *,
+html[data-theme-reveal] *::before,
+html[data-theme-reveal] *::after {
+  transition: none !important;
+}
+
 /* KokonutUI Switch Button Base */
 .kokonut-switch-btn {
   position: relative;
@@ -23,9 +43,11 @@ html[data-theme-reveal]::view-transition-new(root) {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  height: 38px;
-  padding: 0 0.85rem;
-  border-radius: 10px;
+  height: 38px !important;
+  width: auto !important;
+  min-width: 82px;
+  padding: 0 0.85rem !important;
+  border-radius: 10px !important;
   font-family: inherit;
   font-size: 13.5px;
   font-weight: 600;
@@ -201,9 +223,10 @@ body.dark-theme .kokonut-label-dark {
 
 /* Square / Icon-only modifier */
 .kokonut-switch-btn.icon-only {
-  width: 38px;
-  height: 38px;
-  padding: 0;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  padding: 0 !important;
 }
 
 .kokonut-switch-btn.icon-only .kokonut-switch-label-wrap {
@@ -213,10 +236,11 @@ body.dark-theme .kokonut-label-dark {
 /* Responsive adjustment for compact screens */
 @media (max-width: 575.98px) {
   .kokonut-switch-btn {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    gap: 0;
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    gap: 0 !important;
   }
   .kokonut-switch-label-wrap {
     display: none !important;

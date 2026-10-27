@@ -36,20 +36,44 @@ function getTheme() {
  */
 function setTheme(theme) {
   const isDark = theme === 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
+  const root = document.documentElement;
+
+  // Add temporary transition class for smooth visual shift
+  root.classList.add('theme-transitioning');
+  root.setAttribute('data-theme', theme);
+  
   if (document.body) {
     document.body.classList.toggle('dark-theme', isDark);
   }
+  
   localStorage.setItem('ngg_theme', theme);
   updateThemeToggleIcons();
 
   window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+
+  setTimeout(() => {
+    root.classList.remove('theme-transitioning');
+  }, 350);
 }
 
 /**
  * Toggle between light and dark themes
  */
-function toggleTheme() {
+function toggleTheme(event) {
+  // Animate the clicked button icon
+  const btn = (event && (event.currentTarget || event.target)) || document.querySelector('.theme-toggle-btn');
+  const icon = btn ? (btn.tagName === 'I' ? btn : btn.querySelector('i')) : null;
+  if (icon) {
+    icon.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+    icon.style.transform = 'rotate(180deg) scale(0.7)';
+    setTimeout(() => {
+      icon.style.transform = 'rotate(360deg) scale(1.15)';
+      setTimeout(() => {
+        icon.style.transform = '';
+      }, 200);
+    }, 150);
+  }
+
   const current = getTheme();
   const next = current === 'dark' ? 'light' : 'dark';
   setTheme(next);
@@ -65,6 +89,7 @@ function updateThemeToggleIcons() {
   document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
     btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    btn.classList.toggle('is-dark', isDark);
     
     // Support FontAwesome or Bootstrap Icons
     const icon = btn.querySelector('i');
@@ -299,4 +324,14 @@ document.addEventListener('keydown', (e) => {
 window.toggleStudentSidebar = toggleStudentSidebar;
 window.toggleSidebar = toggleSidebar;
 window.closeAllSidebars = closeAllSidebars;
+
+// Synchronize with OS color scheme changes when user hasn't set an explicit preference
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('ngg_theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+}
+
 

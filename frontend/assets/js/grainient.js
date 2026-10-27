@@ -649,14 +649,20 @@ void main() {
 
     document.body.classList.add('has-grainient');
 
-    const isDark = document.body.classList.contains('dark-theme') || document.documentElement.getAttribute('data-theme') === 'dark';
+    const isDark = typeof getTheme === 'function' 
+      ? getTheme() === 'dark' 
+      : (document.documentElement.getAttribute('data-theme') === 'dark' || document.body?.classList.contains('dark-theme'));
+
+    const themeColors = isDark
+      ? ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa']
+      : ['#ffffff', '#fef3c7', '#fed7aa', '#ccfbf1', '#f1f5f9'];
 
     window.grainientInstance = initGrainient(bgContainer, {
-      colors: ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa'],
+      colors: themeColors,
       angle: 55,
       flow: 0.8,
       silk: 0.35,
-      grainAmount: 0.08,
+      grainAmount: isDark ? 0.08 : 0.04,
       speed: 1,
       scale: 1,
       softness: 1,
@@ -665,13 +671,18 @@ void main() {
       stir: 1,
       clickSwirl: true,
       intro: true,
-      lightMode: false
+      lightMode: !isDark
     });
 
     window.addEventListener('themechange', (e) => {
       if (window.grainientInstance) {
+        const dark = e.detail?.theme === 'dark';
         window.grainientInstance.update({
-          colors: ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa']
+          colors: dark
+            ? ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa']
+            : ['#ffffff', '#fef3c7', '#fed7aa', '#ccfbf1', '#f1f5f9'],
+          grainAmount: dark ? 0.08 : 0.04,
+          lightMode: !dark
         });
       }
     });

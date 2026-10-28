@@ -1,0 +1,212 @@
+/**
+ * Grainient - React Bits WebGL2 Procedural Silk & Grain Gradient
+ * Ambient background styles optimized for both Dark and Light modes with matching typography.
+ */
+
+#grainient-background {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+#grainient-background canvas,
+.grainient-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Translucent Claymorphic & Glassmorphic adaptions for Grainient */
+body.has-grainient {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body.has-grainient .student-portal-wrapper,
+body.has-grainient .app-container,
+body.has-grainient .app-layout,
+body.has-grainient .main-wrapper,
+body.has-grainient .app-main,
+body.has-grainient .app-content,
+body.has-grainient .page-content,
+body.has-grainient .hero-section-lms {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* ==========================================================================
+   Light Mode Theme & Matching Font Colors
+   ========================================================================== */
+body.has-grainient {
+  color: #1e293b;
+}
+
+body.has-grainient h1,
+body.has-grainient h2,
+body.has-grainient h3,
+body.has-grainient h4,
+body.has-grainient h5,
+body.has-grainient h6,
+body.has-grainient .display-4,
+body.has-grainient .display-5,
+body.has-grainient .display-6,
+body.has-grainient .hero-main-title {
+  color: #0f172a;
+}
+
+body.has-grainient .text-muted,
+body.has-grainient p.text-muted {
+  color: #475569 !important;
+}
+
+body.has-grainient .student-dashboard-card {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 30px 80px -15px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  color: #1e293b;
+}
+
+body.has-grainient .student-clay-sidebar,
+body.has-grainient .app-sidebar,
+body.has-grainient .sidebar {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1.5px solid rgba(226, 232, 240, 0.85) !important;
+  color: #1e293b;
+}
+
+body.has-grainient .topbar,
+body.has-grainient .app-header,
+body.has-grainient .lms-navbar {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
+  color: #0f172a;
+}
+
+body.has-grainient .feature-card,
+body.has-grainient .course-card-premium,
+body.has-grainient .stat-badge-clay,
+body.has-grainient .testim-card,
+body.has-grainient .lms-feature-card,
+body.has-grainient .lms-step-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  box-shadow: 0 15px 40px -10px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* ==========================================================================
+   Dark Mode Theme & Matching Font Colors
+   ========================================================================== */
+[data-theme="dark"] body.has-grainient,
+body.dark-theme.has-grainient,
+html.dark body.has-grainient {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] body.has-grainient h1,
+[data-theme="dark"] body.has-grainient h2,
+[data-theme="dark"] body.has-grainient h3,
+[data-theme="dark"] body.has-grainient h4,
+[data-theme="dark"] body.has-grainient h5,
+[data-theme="dark"] body.has-grainient h6,
+body.dark-theme.has-grainient h1,
+body.dark-theme.has-grainient h2,
+body.dark-theme.has-grainient h3,
+body.dark-theme.has-grainient h4,
+body.dark-theme.has-grainient h5,
+body.dark-theme.has-grainient h6,
+html.dark body.has-grainient h1,
+html.dark body.has-grainient h2,
+html.dark body.has-grainient h3,
+html.dark body.has-grainient h4,
+html.dark body.has-grainient h5,
+html.dark body.has-grainient h6,
+[data-theme="dark"] body.has-grainient .display-4,
+[data-theme="dark"] body.has-grainient .display-5,
+[data-theme="dark"] body.has-grainient .display-6,
+[data-theme="dark"] body.has-grainient .hero-main-title,
+body.dark-theme.has-grainient .hero-main-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] body.has-grainient .text-muted,
+[data-theme="dark"] body.has-grainient p.text-muted,
+body.dark-theme.has-grainient .text-muted,
+body.dark-theme.has-grainient p.text-muted,
+html.dark body.has-grainient .text-muted,
+html.dark body.has-grainient p.text-muted {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] body.has-grainient .student-dashboard-card,
+body.dark-theme.has-grainient .student-dashboard-card,
+html.dark body.has-grainient .student-dashboard-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] body.has-grainient .student-clay-sidebar,
+body.dark-theme.has-grainient .student-clay-sidebar,
+html.dark body.has-grainient .student-clay-sidebar,
+[data-theme="dark"] body.has-grainient .app-sidebar,
+body.dark-theme.has-grainient .app-sidebar,
+html.dark body.has-grainient .app-sidebar,
+[data-theme="dark"] body.has-grainient .sidebar,
+body.dark-theme.has-grainient .sidebar,
+html.dark body.has-grainient .sidebar {
+  background: rgba(19, 29, 49, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] body.has-grainient .topbar,
+[data-theme="dark"] body.has-grainient .app-header,
+[data-theme="dark"] body.has-grainient .lms-navbar,
+body.dark-theme.has-grainient .topbar,
+body.dark-theme.has-grainient .app-header,
+body.dark-theme.has-grainient .lms-navbar,
+html.dark body.has-grainient .topbar,
+html.dark body.has-grainient .app-header,
+html.dark body.has-grainient .lms-navbar {
+  background: rgba(15, 23, 42, 0.78) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff;
+}
+
+[data-theme="dark"] body.has-grainient .feature-card,
+[data-theme="dark"] body.has-grainient .course-card-premium,
+[data-theme="dark"] body.has-grainient .stat-badge-clay,
+[data-theme="dark"] body.has-grainient .testim-card,
+[data-theme="dark"] body.has-grainient .lms-feature-card,
+[data-theme="dark"] body.has-grainient .lms-step-card,
+body.dark-theme.has-grainient .lms-feature-card,
+body.dark-theme.has-grainient .lms-step-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5) !important;
+}

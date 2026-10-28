@@ -640,6 +640,13 @@ void main() {
       return;
     }
 
+    // Clean up any legacy backgrounds
+    const legacyChrome = document.getElementById('liquid-chrome-background');
+    if (legacyChrome) legacyChrome.remove();
+    const legacyFlux = document.getElementById('flux-lines-background');
+    if (legacyFlux) legacyFlux.remove();
+    document.body.classList.remove('has-liquid-chrome');
+
     let bgContainer = document.getElementById('grainient-background');
     if (!bgContainer) {
       bgContainer = document.createElement('div');
@@ -654,20 +661,26 @@ void main() {
 
     document.body.classList.add('has-grainient');
 
-    const isDark = typeof getTheme === 'function' 
-      ? getTheme() === 'dark' 
-      : (document.documentElement.getAttribute('data-theme') === 'dark' || document.body?.classList.contains('dark-theme'));
+    const checkDark = () => {
+      return (
+        (typeof getTheme === 'function' && getTheme() === 'dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.documentElement.classList.contains('dark') ||
+        document.body?.classList.contains('dark-theme')
+      );
+    };
 
-    const themeColors = isDark
-      ? ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa']
-      : ['#ffffff', '#fef3c7', '#fed7aa', '#ccfbf1', '#f1f5f9'];
+    const isDark = checkDark();
+
+    const darkColors = ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa'];
+    const lightColors = ['#ffffff', '#fef3c7', '#fed7aa', '#ccfbf1', '#f1f5f9'];
 
     window.grainientInstance = initGrainient(bgContainer, {
-      colors: themeColors,
+      colors: isDark ? darkColors : lightColors,
       angle: 55,
       flow: 0.8,
       silk: 0.35,
-      grainAmount: isDark ? 0.08 : 0.04,
+      grainAmount: isDark ? 0.08 : 0.035,
       speed: 1,
       scale: 1,
       softness: 1,
@@ -679,18 +692,22 @@ void main() {
       lightMode: !isDark
     });
 
-    window.addEventListener('themechange', (e) => {
+    const updateTheme = () => {
       if (window.grainientInstance) {
-        const dark = e.detail?.theme === 'dark';
+        const dark = checkDark();
         window.grainientInstance.update({
-          colors: dark
-            ? ['#120f17', '#2a0f0a', '#9a3412', '#f97316', '#fed7aa']
-            : ['#ffffff', '#fef3c7', '#fed7aa', '#ccfbf1', '#f1f5f9'],
-          grainAmount: dark ? 0.08 : 0.04,
+          colors: dark ? darkColors : lightColors,
+          grainAmount: dark ? 0.08 : 0.035,
           lightMode: !dark
         });
       }
-    });
+    };
+
+    window.addEventListener('themechange', updateTheme);
+
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
 
   if (document.readyState === 'loading') {

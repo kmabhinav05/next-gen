@@ -1,0 +1,347 @@
+/**
+ * ScrollSplitCard - Next Gen Grading
+ * 3-Stage 3D Panoramic Image Split & Flip Card Scroll Interaction
+ */
+
+.scroll-split-section {
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  padding-top: 2rem;
+}
+
+.scroll-split-header {
+  position: relative;
+  z-index: 10;
+}
+
+.scroll-split-container {
+  position: relative;
+  height: 380vh;
+  width: 100%;
+}
+
+.scroll-split-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+/* Starting indicator text */
+.scroll-split-start-indicator {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scroll-split-start-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lms-slate, #64748b);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="dark"] .scroll-split-start-label,
+html.dark .scroll-split-start-label,
+body.dark-theme .scroll-split-start-label {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-split-start-label .pulse-ring {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
+  animation: scrollSplitPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes scrollSplitPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* 3D Card Deck Container */
+.scroll-split-deck {
+  position: relative;
+  display: flex;
+  height: 420px;
+  width: 100%;
+  max-width: 980px;
+  padding: 0 1.25rem;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Individual Card (3 Columns) */
+.scroll-split-card {
+  position: relative;
+  height: 100%;
+  flex: 1;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.scroll-split-card.card-left {
+  z-index: 1;
+}
+
+.scroll-split-card.card-middle {
+  z-index: 2;
+}
+
+.scroll-split-card.card-right {
+  z-index: 3;
+}
+
+/* Front & Back Faces */
+.scroll-split-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform, border-radius, box-shadow;
+}
+
+/* Front Side: Panoramic Split Image */
+.scroll-split-front {
+  z-index: 2;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -24px 48px rgba(0, 0, 0, 0.35), 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+
+.scroll-split-img-slice {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 300%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.scroll-split-slice-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(15, 23, 42, 0.75);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.scroll-split-slice-badge.teal {
+  background: rgba(14, 45, 39, 0.8);
+  border-color: rgba(58, 166, 140, 0.4);
+}
+
+/* Back Side: Flipped Content Card */
+.scroll-split-back {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.25rem 1.85rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), inset 0 -24px 48px rgba(0, 0, 0, 0.35), 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+  color: #f8fafc;
+}
+
+/* Step 1 Gradient */
+.scroll-split-back.card-step-1 {
+  background: linear-gradient(150deg, #1b263b 0%, #0d131f 100%);
+}
+
+/* Step 2 Gradient */
+.scroll-split-back.card-step-2 {
+  background: linear-gradient(150deg, #103830 0%, #081d19 100%);
+}
+
+/* Step 3 Gradient */
+.scroll-split-back.card-step-3 {
+  background: linear-gradient(150deg, #332115 0%, #1a110a 100%);
+}
+
+/* Grainy noise texture overlay */
+.scroll-split-grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  background-image: url("https://framerusercontent.com/images/6mcf62RlDfRfU61Yg5vb2pefpi4.png?width=256&height=256");
+  background-repeat: repeat;
+  border-radius: inherit;
+}
+
+.scroll-split-card-top {
+  position: relative;
+  z-index: 10;
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.scroll-split-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.scroll-split-step-pill {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+.scroll-split-step-pill.teal {
+  color: #3aa68c;
+  background: rgba(58, 166, 140, 0.12);
+  border-color: rgba(58, 166, 140, 0.35);
+}
+
+.scroll-split-card-title {
+  position: relative;
+  z-index: 10;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-split-card-desc {
+  position: relative;
+  z-index: 10;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(241, 245, 249, 0.82);
+  margin-bottom: 1rem;
+}
+
+.scroll-split-meta {
+  position: relative;
+  z-index: 10;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+/* Ending text pinned in sticky viewport */
+.scroll-split-end-indicator {
+  position: absolute;
+  bottom: 12%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 20;
+  padding: 0 1rem;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+  will-change: transform, opacity;
+}
+
+.scroll-split-end-quote {
+  font-family: 'Plus Jakarta Sans', serif;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+[data-theme="light"] body:not(.dark-theme) .scroll-split-end-quote {
+  color: #111827;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .scroll-split-deck {
+    height: 480px;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 90vw;
+  }
+  .scroll-split-container {
+    height: 250vh;
+  }
+  .scroll-split-card-title {
+    font-size: 1.2rem;
+  }
+  .scroll-split-card-desc {
+    font-size: 0.8rem;
+  }
+  .scroll-split-back {
+    padding: 1.5rem 1.25rem;
+  }
+}

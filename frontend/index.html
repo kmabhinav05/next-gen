@@ -29,6 +29,8 @@
   <script src="/assets/js/liquid-chrome.js"></script>
   <link rel="stylesheet" href="/assets/css/welcome-intro.css">
   <script src="/assets/js/welcome-intro.js"></script>
+  <link rel="stylesheet" href="/assets/css/scroll-split-card.css">
+  <script src="/assets/js/scroll-split-card.js"></script>
   <style>
     /* LMS Mart Pristine Theme Styles */
     :root {
@@ -932,71 +934,122 @@
     </div>
   </section>
 
-  <!-- How It Works (3 Steps) -->
-  <section class="py-5" id="how-it-works">
-    <div class="container py-4">
-      <div class="text-center mb-5" data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1">
-        <div class="tagline-badge justify-content-center">Simplified Workflow 🚀</div>
-        <h2 class="display-6 fw-bold mb-2">How It Works</h2>
-        <p class="text-muted mx-auto" style="max-width: 520px;">
-          From raw internal exam spreadsheets to official parent progress reports in three simple steps.
-        </p>
-      </div>
+  <!-- How It Works (ScrollSplitCard 3D Interactive Interaction) -->
+  <section class="scroll-split-section" id="how-it-works">
+    <div class="scroll-split-header container text-center mb-2" data-fade-content data-effect="mist" data-duration="1.8" data-ease="power2.out" data-stagger="0.1" data-threshold="0.1">
+      <div class="tagline-badge justify-content-center">Simplified Workflow 🚀</div>
+      <h2 class="display-6 fw-bold mb-2">How It Works</h2>
+      <p class="text-muted mx-auto" style="max-width: 540px;">
+        Scroll to discover how Next Gen Grading converts raw faculty spreadsheets into official digital progress reports.
+      </p>
+    </div>
 
-      <div class="row g-4 justify-content-center" data-fade-content data-effect="focus" data-duration="1.5" data-stagger="0.12" data-threshold="0.1">
-        <!-- Step 1 -->
-        <div class="col-md-4">
-          <div class="lms-step-card text-center">
-            <div class="d-flex align-items-center justify-content-between mb-1">
-              <div class="step-number-pill">01</div>
-              <span class="badge bg-warning-subtle text-warning fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
+    <!-- Scroll Split Card Container (380vh scroll driver) -->
+    <div class="scroll-split-container" id="scrollSplitCardContainer">
+      <div class="scroll-split-sticky">
+        
+        <!-- Starting Text Indicator -->
+        <div class="scroll-split-start-indicator" id="scrollSplitStartText">
+          <p class="scroll-split-start-label">
+            <span class="pulse-ring"></span> Scroll down to explore
+          </p>
+        </div>
+
+        <!-- 3D Card Deck (perspective: 1200px) -->
+        <div class="scroll-split-deck" id="scrollSplitDeck">
+          
+          <!-- Card 0: Left Column -->
+          <div class="scroll-split-card card-left" id="scrollSplitCard0">
+            <!-- Front Face: Left 1/3 of the panoramic photograph -->
+            <div class="scroll-split-face scroll-split-front">
+              <div class="scroll-split-img-slice" style="left: 0%; background-image: url('/assets/images/study-collaboration.jpg');"></div>
+              <div class="scroll-split-slice-badge">Step 01</div>
             </div>
-            <div class="step-folder-container" id="step-folder-1"></div>
-            <h5 class="fw-bold mb-2">Upload Assessment Marks</h5>
-            <p class="text-muted small mb-2 flex-grow-1">
-              Faculty download pre-populated Excel templates for their allocated courses and upload internal marks with automated row validation.
-            </p>
-            <div class="small text-muted mt-2 opacity-75">
-              <i class="fa-solid fa-hand-pointer me-1 text-warning"></i> Click folder to inspect templates
+            <!-- Back Face: Content Card 1 -->
+            <div class="scroll-split-face scroll-split-back card-step-1">
+              <div class="scroll-split-grain"></div>
+              <div class="scroll-split-card-top">
+                <div class="scroll-split-icon-box">
+                  <i class="fa-solid fa-file-excel text-warning fs-4"></i>
+                </div>
+                <span class="scroll-split-step-pill">01 / INGESTION</span>
+              </div>
+              <h3 class="scroll-split-card-title">Upload Assessment Marks</h3>
+              <p class="scroll-split-card-desc">
+                Faculty download pre-populated Excel templates with department course codes and upload internal marks with automated row validation.
+              </p>
+              <div class="scroll-split-meta">
+                <i class="fa-solid fa-shield-halved text-warning me-2"></i> Zero database commit errors on parse
+              </div>
             </div>
+          </div>
+
+          <!-- Card 1: Middle Column -->
+          <div class="scroll-split-card card-middle" id="scrollSplitCard1">
+            <!-- Front Face: Middle 1/3 of the panoramic photograph -->
+            <div class="scroll-split-face scroll-split-front">
+              <div class="scroll-split-img-slice" style="left: -100%; background-image: url('/assets/images/study-collaboration.jpg');"></div>
+              <div class="scroll-split-slice-badge teal">Step 02</div>
+            </div>
+            <!-- Back Face: Content Card 2 -->
+            <div class="scroll-split-face scroll-split-back card-step-2">
+              <div class="scroll-split-grain"></div>
+              <div class="scroll-split-card-top">
+                <div class="scroll-split-icon-box">
+                  <i class="fa-solid fa-chart-pie text-teal fs-4"></i>
+                </div>
+                <span class="scroll-split-step-pill teal">02 / ANALYTICS</span>
+              </div>
+              <h3 class="scroll-split-card-title">Compute Attendance &amp; Stats</h3>
+              <p class="scroll-split-card-desc">
+                The engine automatically calculates attendance percentages from stored session registers and identifies shortage cases.
+              </p>
+              <div class="scroll-split-meta">
+                <i class="fa-solid fa-bolt text-teal me-2"></i> Real-time 75% threshold audit
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Right Column -->
+          <div class="scroll-split-card card-right" id="scrollSplitCard2">
+            <!-- Front Face: Right 1/3 of the panoramic photograph -->
+            <div class="scroll-split-face scroll-split-front">
+              <div class="scroll-split-img-slice" style="left: -200%; background-image: url('/assets/images/study-collaboration.jpg');"></div>
+              <div class="scroll-split-slice-badge">Step 03</div>
+            </div>
+            <!-- Back Face: Content Card 3 -->
+            <div class="scroll-split-face scroll-split-back card-step-3">
+              <div class="scroll-split-grain"></div>
+              <div class="scroll-split-card-top">
+                <div class="scroll-split-icon-box">
+                  <i class="fa-solid fa-award text-warning fs-4"></i>
+                </div>
+                <span class="scroll-split-step-pill">03 / PUBLISH</span>
+              </div>
+              <h3 class="scroll-split-card-title">Generate Progress Cards</h3>
+              <p class="scroll-split-card-desc">
+                Official digital progress cards with institutional signatures are generated as downloadable PDFs for students and parents.
+              </p>
+              <div class="scroll-split-meta">
+                <i class="fa-solid fa-file-pdf text-warning me-2"></i> Instant PDF export & portal sync
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Ending Text pinned in sticky viewport -->
+        <div class="scroll-split-end-indicator" id="scrollSplitEndText">
+          <p class="scroll-split-end-quote">
+            "So cool, right? From raw sheets to certified cards in seconds."
+          </p>
+          <div class="d-flex align-items-center justify-content-center gap-3 mt-3">
+            <a href="/login.html" class="btn btn-warning btn-sm rounded-pill px-4 py-2 fw-semibold shadow-sm text-dark">
+              Launch Portal <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
           </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="col-md-4">
-          <div class="lms-step-card text-center">
-            <div class="d-flex align-items-center justify-content-between mb-1">
-              <div class="step-number-pill teal">02</div>
-              <span class="badge bg-success-subtle text-success fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
-            </div>
-            <div class="step-folder-container" id="step-folder-2"></div>
-            <h5 class="fw-bold mb-2">Compute Attendance &amp; Stats</h5>
-            <p class="text-muted small mb-2 flex-grow-1">
-              The engine automatically calculates attendance percentages from stored session registers and identifies shortage cases.
-            </p>
-            <div class="small text-muted mt-2 opacity-75">
-              <i class="fa-solid fa-hand-pointer me-1 text-teal"></i> Click folder to inspect registers
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="col-md-4">
-          <div class="lms-step-card text-center">
-            <div class="d-flex align-items-center justify-content-between mb-1">
-              <div class="step-number-pill">03</div>
-              <span class="badge bg-warning-subtle text-warning fw-semibold px-2 py-1 rounded-pill small">Interactive 3D Folder</span>
-            </div>
-            <div class="step-folder-container" id="step-folder-3"></div>
-            <h5 class="fw-bold mb-2">Generate Progress Cards</h5>
-            <p class="text-muted small mb-2 flex-grow-1">
-              Official digital progress cards with institutional signatures are generated as downloadable PDFs for students and parents.
-            </p>
-            <div class="small text-muted mt-2 opacity-75">
-              <i class="fa-solid fa-hand-pointer me-1 text-warning"></i> Click folder to inspect PDF cards
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -1215,63 +1268,6 @@
     });
   </script>
 
-  <!-- ReactBits Folder Component Initialization for How It Works -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Step 1: Upload Assessment Marks Folder
-      const f1 = document.getElementById('step-folder-1');
-      if (f1 && window.initFolder) {
-        window.initFolder(f1, {
-          label: 'Excel Upload',
-          color: '#f59e0b',
-          mode: 'flap',
-          variant: 'solid',
-          size: 0.88,
-          tabPosition: 'right',
-          items: [
-            { title: 'Class Marksheet.xlsx', description: 'Pre-populated roll numbers and department course codes' },
-            { title: 'Assessment IA-1 & IA-2', description: 'Strict component limits and grade thresholds validation' },
-            { title: 'Schema Verification', description: 'Zero database commit errors on spreadsheet parse' }
-          ]
-        });
-      }
 
-      // Step 2: Compute Attendance & Stats Folder
-      const f2 = document.getElementById('step-folder-2');
-      if (f2 && window.initFolder) {
-        window.initFolder(f2, {
-          label: 'Attendance Stats',
-          color: '#3aa68c',
-          mode: 'flap',
-          variant: 'solid',
-          size: 0.88,
-          tabPosition: 'right',
-          items: [
-            { title: '75% Threshold Engine', description: 'Real-time aggregate percentage calculation across periods' },
-            { title: 'Shortage Condonation', description: 'Automated flagging of low-attendance candidates' },
-            { title: 'Class Average Curve', description: 'Statistical distribution and subject performance trends' }
-          ]
-        });
-      }
-
-      // Step 3: Generate Progress Cards Folder
-      const f3 = document.getElementById('step-folder-3');
-      if (f3 && window.initFolder) {
-        window.initFolder(f3, {
-          label: 'Progress Cards',
-          color: '#ea580c',
-          mode: 'flap',
-          variant: 'solid',
-          size: 0.88,
-          tabPosition: 'right',
-          items: [
-            { title: 'Official Term Report.pdf', description: 'Print-ready layout with HOD institutional seal' },
-            { title: 'Parent Portal Sync', description: 'Immediate publication for parent-teacher conferences' },
-            { title: 'Cumulative History', description: 'Multi-semester GPA tracking & faculty feedback' }
-          ]
-        });
-      }
-    });
-  </script>
 </body>
 </html>

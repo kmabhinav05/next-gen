@@ -870,6 +870,7 @@
               <button type="button" class="demo-chip-btn" onclick="fillDemo('student')">Student</button>
               <button type="button" class="demo-chip-btn" onclick="fillDemo('staff')">Faculty</button>
               <button type="button" class="demo-chip-btn" onclick="fillDemo('admin')">Admin</button>
+              <button type="button" class="demo-chip-btn" onclick="fillDemo('parent')">Parent</button>
             </div>
 
             <!-- Bottom Row: Switch to Recovery / Terms -->
@@ -1094,13 +1095,17 @@
         pInput.value = 'Student@123';
         showToast('Filled Student demo credentials (REG2023CSE001)', 'info');
       } else if (role === 'staff') {
-        uInput.value = 'FAC001';
+        uInput.value = 'EMP-CSE-101';
         pInput.value = 'Staff@123';
-        showToast('Filled Faculty demo credentials (FAC001)', 'info');
+        showToast('Filled Faculty demo credentials (EMP-CSE-101)', 'info');
       } else if (role === 'admin') {
         uInput.value = 'admin';
         pInput.value = 'Admin@123';
         showToast('Filled Administrator credentials (admin)', 'info');
+      } else if (role === 'parent') {
+        uInput.value = 'parent1';
+        pInput.value = 'Parent@123';
+        showToast('Filled Parent demo credentials (parent1)', 'info');
       }
     }
 
@@ -1161,19 +1166,21 @@
 
         showToast('Login successful! Redirecting to portal...', 'success');
 
+        const roleRoutes = { admin: '/admin/index.html', staff: '/staff/index.html', student: '/student/index.html', parent: '/parent/index.html' };
+        const dest = resData.data.user?.redirectUrl || resData.data?.redirectUrl || roleRoutes[resData.data.user?.role] || '/';
         if (typeof window.show3DLoader === 'function') {
           window.show3DLoader({
-            title: `Welcome, ${resData.data.user.username}!`,
-            subtitle: `Preparing ${resData.data.user.role.toUpperCase()} dashboard & initializing academic workspace...`,
+            title: `Welcome, ${resData.data.user.username}! `,
+            subtitle: `Preparing ${(resData.data.user.role || "").toUpperCase()} dashboard & initializing academic workspace...`,
             badge: 'Session Established',
             duration: 1200,
             onComplete: () => {
-              window.location.href = resData.data.user.redirectUrl || '/';
+              window.location.href = dest;
             }
           });
         } else {
           setTimeout(() => {
-            window.location.href = resData.data.user.redirectUrl || '/';
+            window.location.href = dest;
           }, 500);
         }
 

@@ -22,7 +22,10 @@ const login = async (req, res, next) => {
        LEFT JOIN students s ON s.user_id = u.id
        LEFT JOIN staff st ON st.user_id = u.id
        LEFT JOIN parents p ON p.user_id = u.id
-       WHERE LOWER(u.username) = LOWER($1) OR LOWER(u.email) = LOWER($1)`,
+       WHERE LOWER(u.username) = LOWER($1) 
+          OR LOWER(u.email) = LOWER($1)
+          OR LOWER(s.register_number) = LOWER($1)
+          OR LOWER(st.employee_id) = LOWER($1)`,
       [username]
     );
 

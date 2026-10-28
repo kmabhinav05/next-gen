@@ -26,7 +26,6 @@
   <link rel="stylesheet" href="/assets/css/grainient.css">
   <script src="/assets/js/grainient.js"></script>
   <link rel="stylesheet" href="/assets/css/welcome-intro.css">
-  <script src="/assets/js/welcome-intro.js"></script>
   <link rel="stylesheet" href="/assets/css/scroll-split-card.css">
   <script src="/assets/js/scroll-split-card.js"></script>
   <style>
@@ -688,7 +687,25 @@
     }
   </style>
 </head>
-<body>
+<body class="welcome-intro-active">
+
+  <!-- Fullscreen Centered Indic Speed-Up Welcome Intro Screen -->
+  <div id="welcome-intro-overlay" role="dialog" aria-modal="true" aria-label="Welcome">
+    <div class="welcome-intro-skip-hint" id="welcomeIntroSkip">Skip ✕</div>
+    <div class="welcome-intro-stage">
+      <div class="welcome-intro-ambient-glow"></div>
+      <div class="welcome-intro-word-wrap">
+        <span id="welcome-intro-word" class="welcome-intro-word anim-even">Welcome</span>
+      </div>
+    </div>
+    <div class="welcome-intro-track">
+      <div class="welcome-intro-bar" id="welcomeIntroBar" style="width: 16%;"></div>
+    </div>
+    <div class="welcome-intro-brand">
+      Next Gen <span>Grading</span>
+    </div>
+  </div>
+  <script src="/assets/js/welcome-intro.js"></script>
 
   <!-- Top Navigation -->
   <header class="lms-navbar" id="topNavbar">

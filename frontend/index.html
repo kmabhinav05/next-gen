@@ -16,12 +16,10 @@
   <script src="/assets/js/kokonut-switch.js"></script>
   <link rel="stylesheet" href="/assets/css/specular-button.css">
   <script src="/assets/js/specular-button.js"></script>
-  <link rel="stylesheet" href="/assets/css/staggered-menu.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <link rel="stylesheet" href="/assets/css/fade-content.css">
   <script src="/assets/js/fade-content.js"></script>
-  <script src="/assets/js/staggered-menu.js"></script>
   <script src="/assets/js/text-parallax.js"></script>
   <link rel="stylesheet" href="/assets/css/folder.css">
   <script src="/assets/js/folder.js"></script>
@@ -116,6 +114,171 @@
 
     .brand-logo-text span {
       color: var(--lms-orange);
+    }
+
+    /* Pristine Frosted Glass Menu Bar (.nav-options-wrapper) */
+    .nav-options-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px) saturate(190%);
+      -webkit-backdrop-filter: blur(20px) saturate(190%);
+      padding: 5px;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 
+        0 8px 32px 0 rgba(15, 23, 42, 0.06),
+        0 2px 8px 0 rgba(15, 23, 42, 0.02);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-options-wrapper:hover {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: #ffffff;
+      box-shadow: 
+        0 12px 36px 0 rgba(15, 23, 42, 0.09),
+        0 4px 12px 0 rgba(15, 23, 42, 0.04);
+    }
+
+    [data-theme="dark"] .nav-options-wrapper, body.dark-theme .nav-options-wrapper {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 
+        0 10px 35px 0 rgba(0, 0, 0, 0.45),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    [data-theme="dark"] .nav-options-wrapper:hover, body.dark-theme .nav-options-wrapper:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Radiant Glass Luminous Active Pill */
+    .nav-sliding-pill {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      height: calc(100% - 10px);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.94) 100%);
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 6px 20px -2px rgba(245, 158, 11, 0.55),
+        0 2px 8px 0 rgba(245, 158, 11, 0.3),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
+      z-index: 1;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      opacity: 0;
+    }
+
+    .nav-link-item {
+      position: relative;
+      z-index: 2;
+      color: #1e293b;
+      font-weight: 600;
+      font-size: 0.93rem;
+      padding: 0.48rem 1.2rem;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      cursor: pointer;
+    }
+
+    [data-theme="dark"] .nav-link-item, body.dark-theme .nav-link-item {
+      color: #cbd5e1;
+    }
+
+    .nav-link-item:hover:not(.active) {
+      color: var(--lms-orange, #f59e0b);
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    [data-theme="dark"] .nav-link-item:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fbbf24;
+    }
+
+    .nav-link-item.active {
+      color: #ffffff !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Mobile Quick Nav with Frosted Glass Chips */
+    .mobile-quick-nav {
+      position: sticky;
+      top: 66px;
+      z-index: 1040;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      padding: 0.5rem 1rem;
+      overflow-x: auto;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .mobile-quick-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-theme="dark"] .mobile-quick-nav, body.dark-theme .mobile-quick-nav {
+      background: rgba(9, 13, 22, 0.7);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .mobile-nav-chip {
+      padding: 0.38rem 0.95rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--lms-slate);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 1.5px rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .mobile-nav-chip:hover {
+      color: var(--lms-orange);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .mobile-nav-chip.active {
+      color: #ffffff;
+      background: var(--lms-orange);
+      border-color: var(--lms-orange);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+
+    [data-theme="dark"] .mobile-nav-chip, body.dark-theme .mobile-nav-chip {
+      color: #94a3b8;
+      background: rgba(19, 29, 49, 0.65);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="dark"] .mobile-nav-chip:hover, body.dark-theme .mobile-nav-chip:hover {
+      color: #fbbf24;
+      background: rgba(19, 29, 49, 0.9);
+    }
+
+    [data-theme="dark"] .mobile-nav-chip.active, body.dark-theme .mobile-nav-chip.active {
+      color: #ffffff;
+      background: var(--lms-orange);
+      border-color: var(--lms-orange);
     }
 
     /* Glassy Theme Toggle Button (Legacy icon buttons only) */
@@ -527,7 +690,7 @@
 </head>
 <body>
 
-  <!-- Top Navigation (Matching LMS Mart Reference) -->
+  <!-- Top Navigation -->
   <header class="lms-navbar" id="topNavbar">
     <div class="container d-flex align-items-center justify-content-between">
       
@@ -536,26 +699,23 @@
         Next Gen <span>Grading</span>
       </a>
 
-      <!-- Right Actions: 1. Menu -> 2. Dark/Light -> 3. Login -->
-      <div class="d-flex align-items-center gap-3">
-        <!-- 1. ReactBits StaggeredMenu Toggle Button -->
-        <button type="button" class="sm-toggle" id="staggeredMenuToggleBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staggered-menu-panel">
-          <span class="sm-toggle-textWrap" aria-hidden="true">
-            <span class="sm-toggle-textInner">
-              <span class="sm-toggle-line">Menu</span>
-            </span>
-          </span>
-          <span class="sm-icon" aria-hidden="true">
-            <span class="sm-icon-line"></span>
-            <span class="sm-icon-line sm-icon-line-v"></span>
-          </span>
-        </button>
+      <!-- Navigation Links with Sliding Pill Indicator -->
+      <nav class="nav-options-wrapper d-none d-lg-flex align-items-center position-relative" id="mainNavWrapper">
+        <div class="nav-sliding-pill" id="navSlidingPill"></div>
+        <a href="#home" class="nav-link-item active" data-section="home">Home</a>
+        <a href="#about" class="nav-link-item" data-section="about">About</a>
+        <a href="#features" class="nav-link-item" data-section="features">Features</a>
+        <a href="#how-it-works" class="nav-link-item" data-section="how-it-works">How It Works</a>
+        <a href="#contact" class="nav-link-item" data-section="contact">Contact</a>
+      </nav>
 
-        <!-- 2. KokonutUI SwitchButton (Dark/Light Mode) -->
+      <!-- Right Actions: Dark/Light Mode + Login (Menu option completely removed) -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- KokonutUI SwitchButton (Dark/Light Mode) -->
         <button type="button" class="kokonut-switch-btn" id="themeSwitchButton" aria-label="Toggle light and dark mode" title="Toggle theme">
         </button>
 
-        <!-- 3. Specular Button Login -->
+        <!-- Specular Button Login -->
         <a href="/login.html" class="btn-login-teal specular-button specular-button--lg" data-specular-radius="18" data-specular-tint="#3aa68c" data-specular-tint-opacity="0.18">
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
           <span>Login</span>
@@ -565,49 +725,13 @@
     </div>
   </header>
 
-  <!-- ReactBits StaggeredMenu Component Drawer -->
-  <div id="staggered-menu" class="staggered-menu-wrapper fixed-wrapper" data-position="right">
-    <div class="staggered-menu-backdrop" aria-hidden="true"></div>
-
-    <!-- Staggered Underlay Pre-layers with Warm LMS Brand Accents -->
-    <div class="sm-prelayers" aria-hidden="true">
-      <div class="sm-prelayer" style="background: #fef3c7;"></div>
-      <div class="sm-prelayer" style="background: #f59e0b;"></div>
-      <div class="sm-prelayer" style="background: #3aa68c;"></div>
-    </div>
-
-    <!-- Aside Drawer Panel -->
-    <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
-      <div class="sm-panel-inner">
-        <ul class="sm-panel-list" role="list" data-numbering="true">
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#home" data-index="1">
-              <span class="sm-panel-itemLabel">Home</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#about" data-index="2">
-              <span class="sm-panel-itemLabel">About</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#features" data-index="3">
-              <span class="sm-panel-itemLabel">Features</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#how-it-works" data-index="4">
-              <span class="sm-panel-itemLabel">How It Works</span>
-            </a>
-          </li>
-          <li class="sm-panel-itemWrap">
-            <a class="sm-panel-item" href="#contact" data-index="5">
-              <span class="sm-panel-itemLabel">Contact</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
+  <!-- Mobile Quick-Nav Bar with Smooth Scrolling Chips -->
+  <div class="mobile-quick-nav d-flex d-lg-none" id="mobileQuickNav">
+    <a href="#home" class="mobile-nav-chip active" data-section="home"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="#about" class="mobile-nav-chip" data-section="about"><i class="fa-solid fa-circle-info"></i> About</a>
+    <a href="#features" class="mobile-nav-chip" data-section="features"><i class="fa-solid fa-bolt"></i> Features</a>
+    <a href="#how-it-works" class="mobile-nav-chip" data-section="how-it-works"><i class="fa-solid fa-list-check"></i> How It Works</a>
+    <a href="#contact" class="mobile-nav-chip" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
   </div>
 
   <!-- Hero Section (Faithful LMS Mart Layout) -->
@@ -1248,9 +1372,90 @@
       });
     }
 
-    // Navbar Shadow & Scroll Handler
+    // Smooth Scrolling & Sliding Nav Pill Observer
     function initSmoothScrollAndNavSwitching() {
+      const navContainer = document.getElementById('mainNavWrapper');
+      const slidingPill = document.getElementById('navSlidingPill');
+      const navLinks = document.querySelectorAll('.nav-link-item[data-section]');
+      const mobileChips = document.querySelectorAll('.mobile-nav-chip[data-section]');
       const navbar = document.getElementById('topNavbar');
+
+      function movePillTo(element) {
+        if (!slidingPill || !navContainer || !element) return;
+        const containerRect = navContainer.getBoundingClientRect();
+        const elemRect = element.getBoundingClientRect();
+        const offsetLeft = elemRect.left - containerRect.left;
+        const width = elemRect.width;
+
+        slidingPill.style.transform = `translateX(${offsetLeft}px)`;
+        slidingPill.style.width = `${width}px`;
+        slidingPill.style.opacity = '1';
+      }
+
+      function setActiveOption(sectionId) {
+        let activeElem = null;
+        navLinks.forEach(link => {
+          const isMatch = link.getAttribute('data-section') === sectionId;
+          link.classList.toggle('active', isMatch);
+          if (isMatch) activeElem = link;
+        });
+
+        mobileChips.forEach(chip => {
+          const isMatch = chip.getAttribute('data-section') === sectionId;
+          chip.classList.toggle('active', isMatch);
+          if (isMatch) {
+            chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+        });
+
+        if (activeElem) {
+          movePillTo(activeElem);
+        }
+      }
+
+      // Smooth scroll handler for nav clicks with accurate offset
+      function handleNavClick(e) {
+        const targetHref = this.getAttribute('href');
+        if (!targetHref || !targetHref.startsWith('#')) return;
+        
+        const targetId = targetHref.substring(1);
+        const targetElem = document.getElementById(targetId);
+        if (!targetElem) return;
+
+        e.preventDefault();
+        setActiveOption(targetId);
+
+        const navHeight = (navbar ? navbar.offsetHeight : 70) + 15;
+        const targetPosition = targetElem.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: 'smooth'
+        });
+      }
+
+      navLinks.forEach(link => link.addEventListener('click', handleNavClick));
+      mobileChips.forEach(chip => chip.addEventListener('click', handleNavClick));
+
+      // IntersectionObserver for ScrollSpy dynamic switching while scrolling
+      const sectionIds = ['home', 'about', 'features', 'how-it-works', 'contact'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveOption(entry.target.id);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(sec => observer.observe(sec));
 
       // Window scroll event for navbar shadow
       window.addEventListener('scroll', () => {
@@ -1258,6 +1463,18 @@
           navbar.classList.toggle('scrolled', window.scrollY > 20);
         }
       }, { passive: true });
+
+      // Reposition pill on window resize
+      window.addEventListener('resize', () => {
+        const active = document.querySelector('.nav-link-item.active');
+        if (active) movePillTo(active);
+      });
+
+      // Initial pill placement
+      setTimeout(() => {
+        const active = document.querySelector('.nav-link-item.active') || navLinks[0];
+        if (active) movePillTo(active);
+      }, 100);
     }
 
     // Initialize

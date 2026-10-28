@@ -1,6 +1,7 @@
 /**
  * Grainient - React Bits WebGL2 Procedural Silk & Grain Gradient
  * Ambient background styles optimized for both Dark and Light modes with matching typography.
+ * Completely transparent sections ensuring seamless WebGL gradient from top to bottom.
  */
 
 #grainient-background {
@@ -8,7 +9,7 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -999;
+  z-index: -1;
   pointer-events: none;
   overflow: hidden;
   background-color: transparent;
@@ -25,11 +26,25 @@
 }
 
 /* Translucent Claymorphic & Glassmorphic adaptions for Grainient */
+html.has-grainient,
 body.has-grainient {
   background: transparent !important;
   background-color: transparent !important;
 }
 
+/* All sections on landing page and dashboard must be transparent */
+body.has-grainient main,
+body.has-grainient section,
+body.has-grainient section#home,
+body.has-grainient section#about,
+body.has-grainient section#features,
+body.has-grainient section#how-it-works,
+body.has-grainient section#contact,
+body.has-grainient .hero-section-lms,
+body.has-grainient .text-parallax-wrapper,
+body.has-grainient .text-parallax-container,
+body.has-grainient .text-parallax-content-block,
+body.has-grainient .scroll-split-section,
 body.has-grainient .student-portal-wrapper,
 body.has-grainient .app-container,
 body.has-grainient .app-layout,
@@ -37,9 +52,21 @@ body.has-grainient .main-wrapper,
 body.has-grainient .app-main,
 body.has-grainient .app-content,
 body.has-grainient .page-content,
-body.has-grainient .hero-section-lms {
-  background: transparent !important;
+body.has-grainient footer,
+body.has-grainient .lms-footer,
+body.has-grainient .bg-white,
+body.has-grainient .bg-light {
   background-color: transparent !important;
+}
+
+/* Ensure containers and cards remain translucent glass */
+body.has-grainient .bg-white.rounded-3,
+body.has-grainient .bg-light.rounded-3,
+body.has-grainient .bg-light.rounded-4 {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
 }
 
 /* ==========================================================================
@@ -58,12 +85,14 @@ body.has-grainient h6,
 body.has-grainient .display-4,
 body.has-grainient .display-5,
 body.has-grainient .display-6,
-body.has-grainient .hero-main-title {
-  color: #0f172a;
+body.has-grainient .hero-main-title,
+body.has-grainient .text-parallax-lead-title {
+  color: #0f172a !important;
 }
 
 body.has-grainient .text-muted,
-body.has-grainient p.text-muted {
+body.has-grainient p.text-muted,
+body.has-grainient .text-parallax-body-text {
   color: #475569 !important;
 }
 
@@ -89,10 +118,10 @@ body.has-grainient .sidebar {
 body.has-grainient .topbar,
 body.has-grainient .app-header,
 body.has-grainient .lms-navbar {
-  background: rgba(255, 255, 255, 0.84) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.75) !important;
   color: #0f172a;
 }
 
@@ -102,7 +131,7 @@ body.has-grainient .stat-badge-clay,
 body.has-grainient .testim-card,
 body.has-grainient .lms-feature-card,
 body.has-grainient .lms-step-card {
-  background: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   border: 1px solid rgba(226, 232, 240, 0.85) !important;
@@ -112,10 +141,49 @@ body.has-grainient .lms-step-card {
 /* ==========================================================================
    Dark Mode Theme & Matching Font Colors
    ========================================================================== */
+[data-theme="dark"] html.has-grainient,
 [data-theme="dark"] body.has-grainient,
 body.dark-theme.has-grainient,
 html.dark body.has-grainient {
   color: #f1f5f9;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] body.has-grainient section,
+[data-theme="dark"] body.has-grainient section#home,
+[data-theme="dark"] body.has-grainient section#about,
+[data-theme="dark"] body.has-grainient section#features,
+[data-theme="dark"] body.has-grainient section#how-it-works,
+[data-theme="dark"] body.has-grainient section#contact,
+[data-theme="dark"] body.has-grainient .hero-section-lms,
+[data-theme="dark"] body.has-grainient .text-parallax-wrapper,
+[data-theme="dark"] body.has-grainient .text-parallax-container,
+[data-theme="dark"] body.has-grainient .text-parallax-content-block,
+[data-theme="dark"] body.has-grainient .scroll-split-section,
+body.dark-theme.has-grainient section,
+body.dark-theme.has-grainient section#features,
+body.dark-theme.has-grainient section#how-it-works,
+body.dark-theme.has-grainient section#contact,
+body.dark-theme.has-grainient .text-parallax-wrapper,
+body.dark-theme.has-grainient .scroll-split-section,
+body.dark-theme.has-grainient .hero-section-lms,
+[data-theme="dark"] body.has-grainient footer,
+body.dark-theme.has-grainient footer {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] body.has-grainient .bg-white.rounded-3,
+[data-theme="dark"] body.has-grainient .bg-light.rounded-3,
+[data-theme="dark"] body.has-grainient .bg-light.rounded-4,
+body.dark-theme.has-grainient .bg-white.rounded-3,
+body.dark-theme.has-grainient .bg-light.rounded-3,
+body.dark-theme.has-grainient .bg-light.rounded-4 {
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 [data-theme="dark"] body.has-grainient h1,
@@ -140,7 +208,9 @@ html.dark body.has-grainient h6,
 [data-theme="dark"] body.has-grainient .display-5,
 [data-theme="dark"] body.has-grainient .display-6,
 [data-theme="dark"] body.has-grainient .hero-main-title,
-body.dark-theme.has-grainient .hero-main-title {
+body.dark-theme.has-grainient .hero-main-title,
+[data-theme="dark"] body.has-grainient .text-parallax-lead-title,
+body.dark-theme.has-grainient .text-parallax-lead-title {
   color: #ffffff !important;
 }
 
@@ -149,7 +219,9 @@ body.dark-theme.has-grainient .hero-main-title {
 body.dark-theme.has-grainient .text-muted,
 body.dark-theme.has-grainient p.text-muted,
 html.dark body.has-grainient .text-muted,
-html.dark body.has-grainient p.text-muted {
+html.dark body.has-grainient p.text-muted,
+[data-theme="dark"] body.has-grainient .text-parallax-body-text,
+body.dark-theme.has-grainient .text-parallax-body-text {
   color: #94a3b8 !important;
 }
 

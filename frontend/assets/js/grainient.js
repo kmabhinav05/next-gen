@@ -595,6 +595,7 @@ void main() {
     window.addEventListener('pointerdown', onPointerDown, { passive: true });
     document.documentElement.addEventListener('pointerleave', onPointerLeave);
     document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('scroll', wake, { passive: true });
 
     resize();
     wake();
@@ -613,6 +614,7 @@ void main() {
         window.removeEventListener('pointerdown', onPointerDown);
         document.documentElement.removeEventListener('pointerleave', onPointerLeave);
         document.removeEventListener('visibilitychange', onVisibility);
+        window.removeEventListener('scroll', wake);
         gl.deleteTexture(target);
         gl.deleteFramebuffer(buffer);
         gl.deleteVertexArray(vao);

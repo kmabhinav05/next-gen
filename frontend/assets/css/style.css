@@ -2870,7 +2870,8 @@ body.dark-theme .theme-toggle-btn:hover i {
 [data-theme="dark"] section#features,
 [data-theme="dark"] section#how-it-works,
 [data-theme="dark"] section#contact {
-  background-color: #0b1120 !important;
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
 [data-theme="dark"] .hero-main-title {

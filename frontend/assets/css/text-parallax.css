@@ -99,10 +99,10 @@
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: #ffffff !important;
   max-width: 950px;
   margin: 0 auto;
-  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.75);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 12px rgba(0, 0, 0, 0.8) !important;
 }
 
 @media (min-width: 768px) {
@@ -195,9 +195,8 @@ body.dark-theme .text-parallax-tag {
 .text-parallax-action-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
-  background: #0f172a;
-  color: #ffffff;
   padding: 0.95rem 2.25rem;
   border-radius: 9999px;
   font-size: 1.05rem;
@@ -206,31 +205,101 @@ body.dark-theme .text-parallax-tag {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
   border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .text-parallax-action-btn i {
   transition: transform 0.25s ease;
 }
 
-.text-parallax-action-btn:hover {
-  background: var(--lms-orange, #f59e0b);
-  color: #ffffff;
+/* Light Mode: High-contrast, crystal clear text on pristine pill */
+html:not(.dark) .text-parallax-action-btn,
+body:not([data-theme="dark"]) .text-parallax-action-btn,
+body:not(.dark-theme) .text-parallax-action-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  --sb-text-color: #0f172a !important;
+  --sb-tint: #0f172a;
+  --sb-tint-opacity: 0.05;
+  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+html:not(.dark) .text-parallax-action-btn .specular-button__label,
+html:not(.dark) .text-parallax-action-btn span,
+html:not(.dark) .text-parallax-action-btn i,
+body:not([data-theme="dark"]) .text-parallax-action-btn .specular-button__label,
+body:not([data-theme="dark"]) .text-parallax-action-btn span,
+body:not([data-theme="dark"]) .text-parallax-action-btn i,
+body:not(.dark-theme) .text-parallax-action-btn .specular-button__label,
+body:not(.dark-theme) .text-parallax-action-btn span,
+body:not(.dark-theme) .text-parallax-action-btn i {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .text-parallax-action-btn:hover,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover,
+body:not(.dark-theme) .text-parallax-action-btn:hover {
+  background: var(--lms-orange, #f59e0b) !important;
+  border-color: var(--lms-orange, #f59e0b) !important;
+  color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35) !important;
+}
+
+html:not(.dark) .text-parallax-action-btn:hover .specular-button__label,
+html:not(.dark) .text-parallax-action-btn:hover span,
+html:not(.dark) .text-parallax-action-btn:hover i,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover .specular-button__label,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover span,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover i,
+body:not(.dark-theme) .text-parallax-action-btn:hover .specular-button__label,
+body:not(.dark-theme) .text-parallax-action-btn:hover span,
+body:not(.dark-theme) .text-parallax-action-btn:hover i {
+  color: #ffffff !important;
 }
 
 .text-parallax-action-btn:hover i {
   transform: translate(3px, -3px);
 }
 
-[data-theme="dark"] .text-parallax-action-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
+/* Dark Mode: Untouched sleek white on translucent dark border */
+[data-theme="dark"] .text-parallax-action-btn,
+body.dark-theme .text-parallax-action-btn,
+html.dark .text-parallax-action-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+  --sb-text-color: #ffffff !important;
 }
 
-[data-theme="dark"] .text-parallax-action-btn:hover {
-  background: var(--lms-orange, #f59e0b);
-  border-color: var(--lms-orange, #f59e0b);
-  color: #0f172a;
+[data-theme="dark"] .text-parallax-action-btn .specular-button__label,
+[data-theme="dark"] .text-parallax-action-btn span,
+[data-theme="dark"] .text-parallax-action-btn i,
+body.dark-theme .text-parallax-action-btn .specular-button__label,
+body.dark-theme .text-parallax-action-btn span,
+body.dark-theme .text-parallax-action-btn i,
+html.dark .text-parallax-action-btn .specular-button__label,
+html.dark .text-parallax-action-btn span,
+html.dark .text-parallax-action-btn i {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-parallax-action-btn:hover,
+body.dark-theme .text-parallax-action-btn:hover,
+html.dark .text-parallax-action-btn:hover {
+  background: var(--lms-orange, #f59e0b) !important;
+  border-color: var(--lms-orange, #f59e0b) !important;
+  color: #0f172a !important;
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .text-parallax-action-btn:hover .specular-button__label,
+[data-theme="dark"] .text-parallax-action-btn:hover span,
+[data-theme="dark"] .text-parallax-action-btn:hover i,
+body.dark-theme .text-parallax-action-btn:hover .specular-button__label,
+body.dark-theme .text-parallax-action-btn:hover span,
+body.dark-theme .text-parallax-action-btn:hover i {
+  color: #0f172a !important;
 }

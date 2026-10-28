@@ -78,7 +78,7 @@ body.has-grainient {
 
 body.has-grainient h1,
 body.has-grainient h2,
-body.has-grainient h3,
+body.has-grainient h3:not(.text-parallax-heading),
 body.has-grainient h4,
 body.has-grainient h5,
 body.has-grainient h6,
@@ -88,6 +88,71 @@ body.has-grainient .display-6,
 body.has-grainient .hero-main-title,
 body.has-grainient .text-parallax-lead-title {
   color: #0f172a !important;
+}
+
+/* Sticky Parallax Headings on top of dark photograph scrims MUST ALWAYS be crisp white in all themes */
+.text-parallax-heading,
+.text-parallax-overlay-copy h3,
+body.has-grainient .text-parallax-heading,
+body.has-grainient h3.text-parallax-heading,
+body.has-grainient .text-parallax-overlay-copy h3 {
+  color: #ffffff !important;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 12px rgba(0, 0, 0, 0.8) !important;
+}
+
+.text-parallax-subheading,
+.text-parallax-overlay-copy p,
+body.has-grainient .text-parallax-subheading,
+body.has-grainient .text-parallax-overlay-copy p {
+  color: #f59e0b !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Light mode CTA button: pristine high-contrast dark text on glass pill */
+html:not(.dark) .text-parallax-action-btn,
+body:not([data-theme="dark"]) .text-parallax-action-btn,
+body:not(.dark-theme) .text-parallax-action-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  --sb-text-color: #0f172a !important;
+  --sb-tint: #0f172a;
+  --sb-tint-opacity: 0.05;
+  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+html:not(.dark) .text-parallax-action-btn .specular-button__label,
+html:not(.dark) .text-parallax-action-btn span,
+html:not(.dark) .text-parallax-action-btn i,
+body:not([data-theme="dark"]) .text-parallax-action-btn .specular-button__label,
+body:not([data-theme="dark"]) .text-parallax-action-btn span,
+body:not([data-theme="dark"]) .text-parallax-action-btn i,
+body:not(.dark-theme) .text-parallax-action-btn .specular-button__label,
+body:not(.dark-theme) .text-parallax-action-btn span,
+body:not(.dark-theme) .text-parallax-action-btn i {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .text-parallax-action-btn:hover,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover,
+body:not(.dark-theme) .text-parallax-action-btn:hover {
+  background: var(--lms-orange, #f59e0b) !important;
+  border-color: var(--lms-orange, #f59e0b) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35) !important;
+}
+
+html:not(.dark) .text-parallax-action-btn:hover .specular-button__label,
+html:not(.dark) .text-parallax-action-btn:hover span,
+html:not(.dark) .text-parallax-action-btn:hover i,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover .specular-button__label,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover span,
+body:not([data-theme="dark"]) .text-parallax-action-btn:hover i,
+body:not(.dark-theme) .text-parallax-action-btn:hover .specular-button__label,
+body:not(.dark-theme) .text-parallax-action-btn:hover span,
+body:not(.dark-theme) .text-parallax-action-btn:hover i {
+  color: #ffffff !important;
 }
 
 body.has-grainient .text-muted,

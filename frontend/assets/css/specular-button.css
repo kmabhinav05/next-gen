@@ -38,7 +38,9 @@
 }
 
 /* Light mode adjustments for high contrast */
-html:not(.dark) .specular-button:not([class*="dark"]):not(.text-parallax-action-btn) {
+html:not(.dark) .specular-button:not([class*="dark"]),
+body:not([data-theme="dark"]) .specular-button:not([class*="dark"]),
+body:not(.dark-theme) .specular-button:not([class*="dark"]) {
   --sb-tint: #0f172a;
   --sb-tint-opacity: 0.06;
   --sb-text-color: #0f172a;

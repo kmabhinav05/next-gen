@@ -1,7 +1,8 @@
 /**
  * Welcome Intro Screen - Next Gen Grading
  * High-performance, zero-lag Indic multi-lingual welcoming speed-up screen
- * Words: Welcome, സ്വാഗതം, स्वागत है, வரவேற்பு, ସ୍ଵାଗତ, స్వాగతం
+ * Words: Welcome, സ്വാഗതം, स्वागत है, வரவேற்பு, ସ୍ଵାଗତ, స్వాగతం, Welcome
+ * Rapidly accelerating cadence without lag, ending cleanly on "Welcome".
  */
 
 (function () {
@@ -19,24 +20,26 @@
 
   if (!isLandingPage) return;
 
-  // Words requested by user in exact order
+  // Words requested by user in exact order, ending on Welcome
   const WORDS = [
     "Welcome",
     "സ്വാഗതം",
     "स्वागत है",
     "வரவேற்பு",
     "ସ୍ଵାଗତ",
-    "స్వాగతం"
+    "స్వాగతం",
+    "Welcome"
   ];
 
-  // Accelerating delays in milliseconds (starts clear, speeds up rapidly, zero lagging)
+  // Highly responsive, fast-accelerating delays in milliseconds (speedy & zero lag)
   const DELAYS = [
-    260, // Welcome
-    210, // സ്വാഗതം (Malayalam)
-    165, // स्वागत है (Hindi)
-    130, // வரவேற்பு (Tamil)
-    105, // ସ୍ଵାଗତ (Odia)
-    240  // స్వాగతం (Telugu - final crescendo)
+    190, // Welcome
+    145, // സ്വാഗതം (Malayalam)
+    115, // स्वागत है (Hindi)
+    90,  // வரவேற்பு (Tamil)
+    75,  // ସ୍ଵାଗତ (Odia)
+    65,  // స్వాగతం (Telugu)
+    300  // Welcome (final resting greeting before smooth exit)
   ];
 
   function initIntroOverlay() {
@@ -57,9 +60,6 @@
             <span id="welcome-intro-word" class="welcome-intro-word anim-even">${WORDS[0]}</span>
           </div>
         </div>
-        <div class="welcome-intro-track">
-          <div class="welcome-intro-bar" id="welcomeIntroBar"></div>
-        </div>
         <div class="welcome-intro-brand">
           Next Gen <span>Grading</span>
         </div>
@@ -75,7 +75,6 @@
     document.body.classList.add('welcome-intro-active');
 
     const wordEl = document.getElementById('welcome-intro-word');
-    const barEl = document.getElementById('welcomeIntroBar');
     let currentIndex = 0;
     let timerId = null;
     let isFinished = false;
@@ -90,14 +89,14 @@
       // Unblock page scrolling smoothly as curtain slides up
       setTimeout(() => {
         document.body.classList.remove('welcome-intro-active');
-      }, 120);
+      }, 100);
 
       // Cleanly remove overlay after animation completes
       setTimeout(() => {
         if (overlay && overlay.parentNode) {
           overlay.remove();
         }
-      }, 650);
+      }, 550);
     }
 
     // Dismiss on click/tap or skip button
@@ -116,7 +115,6 @@
       currentIndex++;
 
       if (currentIndex >= WORDS.length) {
-        if (barEl) barEl.style.width = '100%';
         finish();
         return;
       }
@@ -127,17 +125,7 @@
         wordEl.className = 'welcome-intro-word ' + (currentIndex % 2 === 0 ? 'anim-even' : 'anim-odd');
       }
 
-      if (barEl) {
-        const pct = Math.round(((currentIndex + 1) / WORDS.length) * 100);
-        barEl.style.width = pct + '%';
-      }
-
-      timerId = setTimeout(nextWord, DELAYS[currentIndex] || 100);
-    }
-
-    // Update initial progress bar
-    if (barEl) {
-      barEl.style.width = Math.round((1 / WORDS.length) * 100) + '%';
+      timerId = setTimeout(nextWord, DELAYS[currentIndex] || 70);
     }
 
     // Begin accelerating sequence immediately

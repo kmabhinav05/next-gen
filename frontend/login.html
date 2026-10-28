@@ -61,7 +61,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: clamp(0.5rem, 1.8vh, 1.25rem);
       margin: 0;
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow-x: hidden;
@@ -72,7 +72,7 @@
     /* Outer Wrapper */
     .crextio-auth-wrapper {
       width: 100%;
-      max-width: 1040px;
+      max-width: 980px;
       margin: auto;
       position: relative;
       animation: cardPopIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -89,13 +89,13 @@
       }
     }
 
-    /* Master Card with warm sunny gradient and soft 38px corners */
+    /* Master Card with warm sunny gradient and soft corners - optimized for 100% zoom */
     .crextio-card-master {
       background: var(--crextio-card-bg);
-      border-radius: 38px;
+      border-radius: 34px;
       box-shadow: var(--crextio-card-shadow);
       border: 1px solid rgba(255, 255, 255, 0.85);
-      padding: 2.25rem 2.5rem;
+      padding: clamp(1.2rem, 2.2vh, 1.85rem) clamp(1.4rem, 2.4vw, 2.25rem);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
@@ -123,13 +123,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2rem;
+      margin-bottom: clamp(0.75rem, 1.6vh, 1.35rem);
     }
 
     /* Next Gen Grading Brand Typography Logo */
     .brand-text-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.6rem;
+      font-size: 1.45rem;
       font-weight: 800;
       text-decoration: none;
       display: inline-flex;
@@ -157,8 +157,8 @@
     }
 
     .crextio-close-circle-btn {
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(15, 23, 42, 0.08);
@@ -166,7 +166,7 @@
       align-items: center;
       justify-content: center;
       color: #1e293b;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
       text-decoration: none;
       cursor: pointer;
@@ -191,41 +191,41 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 2.25rem;
+      padding-right: 1.75rem;
     }
 
     @media (max-width: 991px) {
       .crextio-form-col {
         padding-right: 0;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
       }
     }
 
     .crextio-heading {
-      font-size: 2.15rem;
+      font-size: clamp(1.65rem, 2.1vw, 1.95rem);
       font-weight: 700;
       color: var(--crextio-text-dark);
       letter-spacing: -0.025em;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.25rem;
     }
 
     .crextio-sub {
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       color: var(--crextio-text-muted);
-      margin-bottom: 1.65rem;
+      margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
     }
 
     /* Pill-shaped Form Inputs */
     .crextio-field-group {
-      margin-bottom: 1.15rem;
+      margin-bottom: clamp(0.55rem, 1.1vh, 0.85rem);
       position: relative;
     }
 
     .crextio-label {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 500;
       color: var(--crextio-text-muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.25rem;
       margin-left: 0.85rem;
       display: block;
     }
@@ -241,8 +241,8 @@
       background: var(--crextio-input-bg);
       border: 1px solid var(--crextio-input-border);
       border-radius: 999px;
-      padding: 0.88rem 1.45rem;
-      font-size: 0.92rem;
+      padding: 0.72rem 1.35rem;
+      font-size: 0.88rem;
       color: var(--crextio-text-dark);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -291,8 +291,8 @@
       color: #1e293b;
       border: none;
       border-radius: 999px;
-      padding: 0.88rem 1.75rem;
-      font-size: 1rem;
+      padding: 0.72rem 1.65rem;
+      font-size: 0.95rem;
       font-weight: 700;
       width: 100%;
       box-shadow: 0 8px 24px -4px rgba(254, 208, 83, 0.65);
@@ -302,8 +302,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.55rem;
-      min-height: 52px;
-      margin-top: 1.35rem;
+      min-height: 46px;
+      margin-top: clamp(0.75rem, 1.4vh, 1.15rem);
       letter-spacing: -0.01em;
     }
 
@@ -346,16 +346,16 @@
     .crextio-social-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-      margin-top: 1.15rem;
+      gap: 0.75rem;
+      margin-top: clamp(0.55rem, 1.1vh, 0.85rem);
     }
 
     .crextio-social-pill {
       background: var(--crextio-input-bg);
       border: 1px solid var(--crextio-input-border);
       border-radius: 999px;
-      padding: 0.75rem 1rem;
-      font-size: 0.88rem;
+      padding: 0.62rem 0.95rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--crextio-text-dark);
       display: flex;
@@ -386,14 +386,14 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.45rem;
-      margin-top: 1.15rem;
+      gap: 0.4rem;
+      margin-top: clamp(0.55rem, 1.1vh, 0.85rem);
     }
 
     .demo-chip-btn {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.35rem 0.75rem;
+      padding: 0.28rem 0.68rem;
       border-radius: 999px;
       border: 1px solid rgba(15, 23, 42, 0.1);
       background: rgba(255, 255, 255, 0.6);
@@ -426,8 +426,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 1.85rem;
-      font-size: 0.84rem;
+      margin-top: clamp(0.75rem, 1.4vh, 1.25rem);
+      font-size: 0.8rem;
       color: var(--crextio-text-muted);
       flex-wrap: wrap;
       gap: 0.5rem;
@@ -447,11 +447,11 @@
 
     /* Right Column: Visual Collaboration Artwork + Floating Glass Widgets */
     .crextio-visual-col {
-      border-radius: 30px;
+      border-radius: 26px;
       overflow: hidden;
       position: relative;
       height: 100%;
-      min-height: 560px;
+      min-height: 480px;
       box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.15);
       background: #0f172a;
     }
@@ -770,6 +770,42 @@
 
     .shake-error {
       animation: shakeCard 0.4s ease-in-out;
+    }
+      /* Height-specific responsive tuning so 100% zoom fits perfectly on laptops */
+    @media (max-height: 820px) {
+      body { padding: 0.5rem; }
+      .crextio-auth-wrapper { max-width: 920px; }
+      .crextio-card-master { padding: 1.15rem 1.65rem; border-radius: 28px; }
+      .crextio-top-bar { margin-bottom: 0.65rem; }
+      .brand-text-logo { font-size: 1.35rem; }
+      .crextio-close-circle-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+      .crextio-heading { font-size: 1.55rem; }
+      .crextio-sub { font-size: 0.8rem; margin-bottom: 0.75rem; }
+      .crextio-field-group { margin-bottom: 0.5rem; }
+      .crextio-input { padding: 0.6rem 1.15rem; font-size: 0.85rem; }
+      .crextio-btn-submit { min-height: 42px; padding: 0.6rem 1.25rem; margin-top: 0.65rem; font-size: 0.9rem; }
+      .crextio-social-row { margin-top: 0.55rem; }
+      .crextio-social-pill { padding: 0.5rem 0.75rem; font-size: 0.78rem; }
+      .demo-chips-row { margin-top: 0.55rem; }
+      .crextio-bottom-links { margin-top: 0.65rem; }
+      .crextio-visual-col { min-height: 430px; }
+      .widget-calendar-glass { bottom: 50px; padding: 8px 12px; }
+      .widget-daily-meeting { bottom: 15px; left: 15px; padding: 8px 12px; }
+    }
+    @media (max-height: 690px) {
+      body { padding: 0.25rem; }
+      .crextio-auth-wrapper { max-width: 860px; }
+      .crextio-card-master { padding: 0.85rem 1.35rem; border-radius: 24px; }
+      .crextio-top-bar { margin-bottom: 0.45rem; }
+      .crextio-heading { font-size: 1.4rem; }
+      .crextio-sub { font-size: 0.76rem; margin-bottom: 0.5rem; }
+      .crextio-field-group { margin-bottom: 0.4rem; }
+      .crextio-input { padding: 0.5rem 1rem; font-size: 0.82rem; }
+      .crextio-btn-submit { min-height: 38px; margin-top: 0.5rem; font-size: 0.86rem; }
+      .crextio-social-row { margin-top: 0.45rem; }
+      .demo-chips-row { margin-top: 0.45rem; }
+      .crextio-bottom-links { margin-top: 0.5rem; }
+      .crextio-visual-col { min-height: 380px; }
     }
   </style>
 </head>
